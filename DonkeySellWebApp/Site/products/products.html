@@ -1,0 +1,36 @@
+﻿<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-2 pull-right vcenter">
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>Order by</label>
+                <md-select ng-model="sortBy" ng-change="resetGetProducts()">
+                    <md-option ng-repeat="sortOption in sortOptions" value="{{sortOption}}">
+                        {{sortOption}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+        <div class="col-sm-3 pull-left">
+            <md-input-container class="md-icon-float md-icon-right md-block">
+                <md-tooltip>Min munber is 4</md-tooltip>
+                <label>Items per page</label>
+                <input ng-model="itemsPerPage" type="number" ng-change="resetGetProducts()" step="1" ng-min="4" ng-max="20">
+            </md-input-container>
+        </div>
+    </div>
+    <div class="row">
+        <div products-directive></div>
+    </div>
+    <hr/>
+    <div class="col-sm-11 col-sm-offset-1" ng-show="products.length < itemsPerPage">
+        <span>No more results found&nbsp;<i class="fa fa-smile-o"></i></span>
+    </div>
+    <footer class="row">
+        <div class="col-sm-6 centered pull-right">
+            <a class="btn btn-success btn-lg col-sm-2 col-sm-offset-5" ng-click="showNextProducts()" ng-disabled="products.length < itemsPerPage">>></a>
+        </div>
+        <div class="col-sm-6 centered pull-left">
+            <a class="btn btn-success btn-lg col-sm-2 col-sm-offset-5" ng-click="showPreviousProducts()"  ng-disabled="skip==0"><<</a>
+        </div>
+    </footer>
+</div>

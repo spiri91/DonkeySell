@@ -1,0 +1,123 @@
+﻿<div class="container-fluid">
+    <div ng-cloak>
+        <md-content>
+            <md-tabs md-dynamic-height md-border-bottom>
+                <md-tab label="Product">
+                    <md-content class="md-padding">
+                        <md-toolbar>
+                            <div class="md-toolbar-tools">
+                                <h1>
+                                    <span>{{product.title}}</span>
+                                </h1>
+                                <span flex></span>
+                                <md-button class="md-fab md-mini" aria-label="Contact" ng-click="showGridBottomSheet()">
+                                    <md-tooltip>Contact user</md-tooltip>
+                                    <i class="fa fa-user"></i>
+                                </md-button>
+                                <md-button class="md-fab md-mini" aria-label="Favorite" ng-click="addProductToFavorites()">
+                                    <md-tooltip>Add to favorites</md-tooltip>
+                                    <i class="fa fa-heart"></i>
+                                </md-button>
+                            </div>
+                        </md-toolbar>
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <md-card-header>
+                                    <md-card-avatar>
+                                        <i class="fa fa-users fa-2x"></i>
+                                    </md-card-avatar>
+                                    <md-card-header-text>
+                                        <a class="md-title" ng-href="#/user/{{product.userName}}">&nbsp;{{product.userName}}</a><br />
+                                        <span class="md-subhead">category: {{product.category.name}}</span>
+                                        <br />
+                                        <span class="md-subhead">city: {{product.city.name}}</span>
+                                    </md-card-header-text>
+                                </md-card-header><br />
+                                <div class="row">
+                                    <div class="col-sm-3 col-sm-offset-1">
+                                        <span ng-show="product.tradesAccepted"><i class="fa fa-circle"></i>&nbsp;Trades accespted</span>
+                                    </div>
+                                    <div class="col-sm-3 col-sm-offset-1">
+                                        <span ng-show="product.free"><i class="fa fa-circle"></i>&nbsp;For free</span>
+                                    </div>
+                                    <div class="col-sm-3 col-sm-offset-1">
+                                        <span ng-show="product.rental"><i class="fa fa-circle"></i>&nbsp;For rent</span>
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="row">
+                                    <div class="col-sm-4 centered" ng-repeat="image in product.images">
+                                        <img ng-src="{{image.value}}" class="img img-responsive img-thumbnail fixed-size-image" ng-click="setSelected($index)" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 pull-right">
+                                <img ng-src="{{selectedImage}}" class="img img-responsive img-thumbnail max-width-height" alt="No images! :(">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <md-card>
+                                    <md-card-content layout="row" layout-align="start center">
+                                        <span class="md-title">price:&nbsp;{{product.price}}</span>
+                                    </md-card-content>
+                                    <md-card-content>
+                                        <p>{{product.description}}</p>
+                                        <p>
+                                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+                                            standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
+                                            a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
+                                            remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
+                                            Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                        </p>
+                                    </md-card-content>
+                                </md-card>
+                            </div>
+                        </div>
+                    </md-content>
+                </md-tab>
+                <md-tab label="Messages">
+                    <md-content class="md-padding">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div>
+                                    <span ng-show="messages.length==0">No messages present for this product, be the first one! :)</span>
+                                </div>
+                                <md-content>
+                                    <md-list>
+                                        <md-list-item class="md-3-line" ng-repeat="message in messages">
+                                            <div class="md-list-item-text">
+                                                <h3>{{message.userName}}</h3>
+                                                <h4>{{message.value}}</h4>
+                                                <p>{{message.dateCreated}}</p>
+                                            </div>
+                                            <md-button class="md-fab" md-tooltip="Remove comment" ng-show="$parent.user.userName==message.userName" ng-click="deleteMessage(message.id)"><span class="fa fa-minus"></span></md-button>
+                                            <md-divider ng-if="!$last"></md-divider>
+                                        </md-list-item>
+                                    </md-list>
+                                </md-content>
+                                <br />
+                                <br />
+                                <div class="row">
+                                    <div class="col-sm-9 col-sm-offset-1">
+                                        <md-input-container class="md-block">
+                                            <label>New message</label>
+                                            <input md-maxlength="90" md-no-asterisk name="description" ng-model="newMessage">
+                                            <div>
+                                                <div ng-message="md-maxlength">The description must be less than 90 characters long.</div>
+                                            </div>
+                                        </md-input-container>
+                                    </div>
+                                    <div class="col-sm-1 centered">
+                                        <md-button ng-click="saveMessage()" ng-disabled="!newMessage" class="md-fab"><span class="fa fa-send fa-2x"></span></md-button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </md-content>
+                </md-tab>
+            </md-tabs>
+        </md-content>
+    </div>
+</div>

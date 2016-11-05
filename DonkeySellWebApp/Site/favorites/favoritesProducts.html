@@ -1,0 +1,26 @@
+﻿<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12 centered">
+            <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#favorites"><i class="fa fa-star"></i>&nbsp;Favorites&nbsp;<span class="badge centered">{{favorites.length}}</span></button>
+        </div>
+        <div class="col-sm-12">
+            <div class="collapse" id="favorites">
+                <md-list flex>
+                    <md-list-item class="md-3-line" ng-repeat="product in favorites">
+                        <div class="md-list-item-text" layout="column" ng-click="goToProduct(product.id)">
+                            <h3>{{ product.title }}</h3>
+                            <h4>{{ product.price }}</h4>
+                            <p>{{ product.userName }}</p>
+                        </div>
+                        <a ng-click="removeProductFromFavorites(product)">
+                            <md-tooltip>
+                                Remove product
+                            </md-tooltip><i class="fa fa-minus"></i>
+                        </a>
+                        <md-divider></md-divider>
+                    </md-list-item>
+                </md-list>
+            </div>
+        </div>
+    </div>
+</div>

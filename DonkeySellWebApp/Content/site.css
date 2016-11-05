@@ -1,0 +1,431 @@
+﻿.tranparent {
+    border-width: 0px;
+    -webkit-box-shadow: 0px 0px;
+    box-shadow: 0px 0px;
+    background-color: rgba(0,0,0,0.0);
+    background-image: -webkit-gradient(linear, 50.00% 0.00%, 50.00% 100.00%, color-stop( 0%, rgba(0,0,0,0.00)),color-stop( 100%, rgba(0,0,0,0.00)));
+    background-image: -webkit-linear-gradient(270deg,rgba(0,0,0,0.00) 0%,rgba(0,0,0,0.00) 100%);
+    background-image: linear-gradient(180deg,rgba(0,0,0,0.00) 0%,rgba(0,0,0,0.00) 100%);
+}
+
+.loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+a {
+    cursor: pointer;
+}
+
+.btn-show-all {
+    margin-top: 0;
+    width: 50%;
+    border-radius: 10%;
+    font-size: medium;
+}
+
+.product {
+    border: 1px solid black;
+    border-radius: 7px;
+    margin: 5px;
+    background-color: white;
+    color: black;
+    padding: 1%;
+}
+
+.hide-scroll {
+    overflow: hidden;
+    margin-left: 1em;
+}
+
+.viewport {
+    overflow: scroll;
+    overflow-x: hidden;
+    margin-left: 1em;
+}
+
+    .viewport :hover {
+        color: white;
+        transition-duration: 1s;
+        background: linear-gradient( rgba(0, 0, 0, 1), rgba(0, 0, 0, 1) );
+    }
+
+.new-message {
+    bottom: 0;
+    left: 0;
+    margin-top: 5%;
+}
+
+.single-product {
+    height: 80%;
+}
+
+.message {
+    border: 1px solid black;
+    padding: 1%;
+    background-color: #2f4f4f;
+}
+
+.messages-container {
+    background-color: grey;
+    color: white;
+    overflow: auto;
+    overflow-x: hidden;
+    border-radius: 2%;
+}
+
+.messages {
+    height: 28em;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+.messages-page {
+    overflow-x: hidden;
+}
+
+.list-products:hover {
+    background: linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) );
+}
+
+.vcenter {
+    margin-top: 0.0em;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.nav {
+    background-color: #00BCD4;
+    margin-bottom: 0px;
+}
+
+.navbar-brand {
+    color: white !important;
+}
+
+    .navbar-brand :hover {
+        color: grey;
+        transition-duration: 0.5s;
+    }
+
+    .navbar-brand :not(:hover) {
+        transition-duration: 0.5s;
+    }
+
+.sides {
+    height: 88vh;
+}
+
+.left {
+    border-right: 1px solid black;
+}
+
+.right {
+    border-left: 1px solid black;
+}
+
+.left-side {
+    height: 50%;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+.overflow-text {
+    text-overflow: ellipsis;
+}
+
+.menudemoBasicUsage .md-menu-demo {
+    padding: 24px;
+}
+
+.menudemoBasicUsage .menu-demo-container {
+    min-height: 200px;
+}
+
+.cursor-hand {
+    cursor: pointer;
+}
+
+.hide-x-overflow {
+    overflow-x: hidden;
+}
+
+.hide-y-overflow {
+    overflow-y: hidden;
+}
+
+.active {
+    background: yellow;
+}
+
+.goal {
+    background: #f6f6f6;
+    margin-left: 40px;
+    padding: 10px;
+    margin-bottom: 40px;
+}
+
+    .goal * {
+        display: block;
+    }
+
+md-divider {
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+md-list-item:hover {
+    background-color: grey;
+    transition-duration: 0.5s;
+}
+
+h1 {
+    font-size: 2em;
+}
+
+h2 {
+    font-size: 1.6em;
+}
+
+h3 {
+    font-size: 1.4em;
+}
+
+h1, h2, h3 {
+    vertical-align: middle;
+}
+
+    h1 > .badge, h2 > .badge, h3 > .badge {
+        vertical-align: middle;
+        margin-top: -0.5em;
+    }
+
+.big-input {
+    font-size: 25px;
+}
+
+.carddemoBasicUsage .card-media {
+    background-color: #999999;
+}
+
+md-card {
+    border-radius: 10px !important;
+}
+
+hr {
+    height: 1px;
+    color: darkred;
+    background-color: darkred;
+    border: none;
+}
+
+.toolbardemoBasicUsage md-toolbar md-icon.md-default-theme {
+    color: white;
+}
+
+.tabsdemoDynamicHeight md-content {
+    background-color: transparent !important;
+}
+
+    .tabsdemoDynamicHeight md-content md-tabs {
+        background: #f6f6f6;
+        border: 1px solid #e1e1e1;
+    }
+
+        .tabsdemoDynamicHeight md-content md-tabs md-tabs-wrapper {
+            background: white;
+        }
+
+    .tabsdemoDynamicHeight md-content h1:first-child {
+        margin-top: 0;
+    }
+
+
+
+.bottomSheetdemoBasicUsage .md-inline-list-icon-label {
+    display: inline-block;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-top: -10px;
+    height: 24px;
+    vertical-align: middle;
+}
+
+.bottomSheetdemoBasicUsage .md-grid-item-content {
+    height: 90px;
+    padding-top: 10px;
+}
+
+    .bottomSheetdemoBasicUsage .md-grid-item-content md-icon {
+        height: 48px;
+        width: 48px;
+    }
+
+.bottomSheetdemoBasicUsage .md-grid-text {
+    padding-bottom: 5px;
+}
+
+.bottomSheetdemoBasicUsage md-list-item, .bottomSheetdemoBasicUsage md-list-item .md-list-item-inner {
+    min-height: 48px;
+}
+
+.bottomSheetdemoBasicUsage h2 {
+    line-height: 36px;
+    padding-top: 10px;
+}
+
+.bottomSheetdemoBasicUsage .md-subheader .md-subheader-inner {
+    padding: 0;
+}
+
+.bottomSheetdemoBasicUsage md-toast .md-toast-content {
+    background-color: #B14141;
+}
+
+.bottomSheetdemoBasicUsage md-toast > * {
+    font-weight: bolder;
+}
+
+.image-fit {
+    height: 10% !important;
+    width: auto;
+}
+
+.margin-top {
+    margin-top: 20px;
+}
+
+.font-color-blue {
+    color: blue;
+}
+
+.datepickerdemoBasicUsage {
+}
+
+    .datepickerdemoBasicUsage md-content {
+        padding-bottom: 200px;
+    }
+
+    .datepickerdemoBasicUsage .validation-messages {
+        font-size: 12px;
+        color: #dd2c00;
+        margin-left: 15px;
+    }
+
+.image-small {
+    margin-top: 0.5em;
+    max-height: 130px;
+    max-width: 130px;
+}
+
+.large-image {
+    max-height: 400px;
+    max-width: 400px;
+}
+
+.fixed-size-image {
+    margin: 0.5em;
+    height: 90px;
+    width: 90px;
+}
+
+.medium-image {
+    max-height: 250px;
+    max-width: 250px;
+}
+
+.black {
+    background-color: #a0522d !important
+}
+
+.green {
+    background: #03C9A9 !important;
+}
+
+.fabSpeedDialdemoBasicUsage .text-capitalize {
+  text-transform: capitalize; }
+
+.fabSpeedDialdemoBasicUsage .md-fab:hover, .fabSpeedDialdemoBasicUsage .md-fab.md-focused {
+  background-color: #000 !important; }
+
+.fabSpeedDialdemoBasicUsage p.note {
+  font-size: 1.2rem; }
+
+.fabSpeedDialdemoBasicUsage .lock-size {
+  min-width: 300px;
+  min-height: 300px;
+  width: 300px;
+  height: 300px;
+  margin-left: auto;
+  margin-right: auto; }
+
+.line-height-small {
+    line-height: 40px !important;
+}
+
+.fixed-bottom {
+    position: fixed;
+    bottom: 15px;
+    right: 10px; 
+}
+
+.large-btn {
+    min-width: 70px !important;
+    min-height: 70px !important;
+}
+
+.md-raised:hover {
+    background-color: grey !important;
+    color: white;
+    transition-duration: 1.5s;
+}
+
+toggle-switch {
+    border: 0px !important;
+}
+
+#newProductForm {
+    font-size: 1.3em !important;
+}
+
+.title {
+    font-family: 'Prociono', serif;
+    margin-top: 1em;
+    margin-bottom: 1.2em;
+    font-size: 3em;
+}
+
+.max-width-height {
+    height: 400px;
+    max-width: 400px;
+    transition-duration: 1s;
+}
+
+.fixed-top {
+    position: fixed;
+    bottom: 40%;
+    right: 45%; 
+}
+
+.loading-container {
+    background-color: grey;
+    height: 200px;
+    width: 200px;
+    border-radius: 50px;
+    padding-top: 50px;
+    padding-left: 50px;
+}

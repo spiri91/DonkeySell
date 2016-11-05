@@ -1,0 +1,22 @@
+﻿<div class="col-sm-4 centered" ng-repeat="product in products">
+    <md-card md-theme="dark-blue" md-theme-watch>
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline">{{product.title}}</span>
+                <span class="md-subhead">price: {{product.price}}</span>
+                <span class="md-subhead"> by: {{product.userName}} </span>
+                <span class="md-subhead">in: {{product.category.name}}</span>
+                <span class="md-subhead">city: {{product.city.name}}</span>
+            </md-card-title-text>
+            <md-card-title-media>
+                <div class="md-media-md card-media">
+                    <img class="img img-responsive" ng-src="{{product.images[0].value}}" />
+                </div>
+            </md-card-title-media>
+        </md-card-title>
+        <md-card-actions layout="row" layout-align="end center">
+            <md-button ng-click="goToProduct(product.id)" class="md-fab md-mini pull-left"><i class="fa fa-search "></i><md-tooltip>See product</md-tooltip></md-button>
+            <md-button ng-click="addToFavorites(product)" class="md-fab md-mini pull-right"><i class="fa fa-heart "></i><md-tooltip>Add product to favorites</md-tooltip></md-button>
+        </md-card-actions>
+    </md-card>
+</div>

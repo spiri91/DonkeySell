@@ -1,0 +1,46 @@
+﻿<div class="container-fluid">
+    <br />
+    <div class="row">
+        <div class="col-sm-3">
+            <h2>
+                <strong>{{user.userName}}</strong>
+            </h2>
+            <hr/>
+            <h5>{{user.address}}</h5>
+            <hr/>
+            <span>&nbsp;{{products.length}}&nbsp;products</span>
+        </div>
+        <div class="col-sm-4 col-sm-offset-1">
+            <img ng-src="{{user.avatar}}" class="img img-circle medium-image"/>
+        </div>
+        <div class="col-sm-1 col-sm-offset-1 centered" ng-show="$parent.username === user.userName">
+            <a class="btn btn-green" ng-href="#/edit/{{user.userName}}">Edit user&nbsp;<i class="fa fa-edit"></i></a>
+        </div>
+        <div class="col-sm-1 col-sm-offset-1 centered" ng-show="$parent.username === user.userName">
+            <a class="btn btn-danger" ng-click="deleteUser()">Delete user&nbsp;<i class="fa fa-close"></i></a><br/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4" ng-repeat="product in products">
+            <md-card md-theme="{{'dark-blue'}}" md-theme-watch>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">{{product.title}}</span>
+                        <span class="md-subhead">{{product.price}}</span>
+                    </md-card-title-text>
+                    <md-card-title-media>
+                        <div class="md-media-sm card-media">
+                            <img ng-src="{{product.images[0].value}}" alt="no image :("/>
+                        </div>
+                    </md-card-title-media>
+                </md-card-title>
+                <md-card-actions layout="row" layout-align="end center">
+                    <md-button class="md-icon-button black" ng-show="username === user.userName" ng-href="#/updateCreateProduct/{{product.id}}"><i class="fa fa-edit"></i><md-tooltip>Edit product</md-tooltip></md-button>
+                    <md-button class="md-icon-button black" ng-show="username === user.userName" ng-click="deleteProduct(product.id)"><i class="fa fa-remove"></i><md-tooltip>Delete product</md-tooltip></md-button>
+                    <md-button class="md-icon-button black" ng-click="goToProduct(product.id)"><i class="fa fa-search"></i><md-tooltip>See product</md-tooltip></md-button>
+                    <md-button class="md-icon-button black" ng-click="addToFavorites(product)"><i class="fa fa-heart"></i><md-tooltip>Add product to favorites</md-tooltip></md-button>
+                </md-card-actions>
+            </md-card>
+        </div>
+    </div>
+</div>

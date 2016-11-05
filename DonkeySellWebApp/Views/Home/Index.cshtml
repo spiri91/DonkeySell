@@ -1,0 +1,160 @@
+﻿@{
+    Layout = "";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>DonkeySell</title>
+
+    <!--links-->
+    <link href="https://fonts.googleapis.com/css?family=Prociono" rel="stylesheet"> 
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/angular-toastr.css" rel="stylesheet" />
+    <link href="~/Content/ui-bootstrap-csp.css" rel="stylesheet" />
+    <link href="~/Content/ui-grid.css" rel="stylesheet" />
+    <link rel="icon" href="~/Content/assets/favico.ico">
+    <link href="~/Content/assets/ionicons.min.css" rel="stylesheet">
+    <link href="~/Content/assets/style.css" rel="stylesheet">
+    <link href="~/Content/site.css" rel="stylesheet" />
+    <link href="~/Content/angular-material.css" rel="stylesheet" />
+    <link href="~/Content/angular-material.layouts.css" rel="stylesheet" />
+    <link href="~/Content/angular-material.layout-attributes.css" rel="stylesheet" />
+    <link href="~/Content/angular-material.layouts.ie_fixes.css" rel="stylesheet" />
+    <link href="~/Content/angular-toggle-switch-bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/angular-toggle-switch.css" rel="stylesheet" />       
+
+    <!--scripts-->
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Site/shared/models/product.js"></script>
+    <script src="~/Site/shared/models/user.js"></script>
+    <script src="~/Site/shared/models/message.js"></script>
+    <script src="~/Site/shared/models/category.js"></script>
+    <script src="~/Site/shared/models/image.js"></script>
+    <script src="~/Site/shared/models/city.js"></script>
+    <script src="~/Site/shared/models/queryBuilderPart.js"></script>
+    <script src="~/Site/shared/models/usersFavoriteProducts.js"></script>
+    <script src="~/Scripts/angular.js"></script>
+    <script src="~/Scripts/angular-route.js"></script>
+    <script src="~/Scripts/angular-ui/ui-bootstrap-tpls.js"></script>
+    <script src="~/Scripts/angular-aria/angular-aria.js"></script>
+    <script src="~/Scripts/ng-flow-standalone.js"></script>
+    <script src="~/Scripts/flow/flow.js"></script>
+    <script src="~/Scripts/ng-flow/ng-flow.js"></script>
+    <script src="~/Scripts/angular-animate/angular-animate.js"></script>
+    <script src="~/Scripts/angular-toggle-switch.js"></script>
+    <script src="~/Scripts/angular-material/angular-material.js"></script>
+    <script src="~/Scripts/respond.js"></script>
+    <script src="~/Scripts/angular-toastr.tpls.js"></script>
+    <script src="~/Scripts/angular-material/angular-material.js"></script>
+    <script src="~/Scripts/angular-cookies.js"></script>
+    <script src="~/Scripts/odataresources.js"></script>
+    <script src="~/Site/donkeySellModule.js"></script>
+    <script src="~/Site/mainController.js"></script>
+    <script src="~/Site/shared/services/storageService.js"></script>
+    <script src="~/Site/home/homeController.js"></script>
+    <script src="~/Site/login/loginController.js"></script>
+    <script src="~/Site/product/productController.js"></script>
+    <script src="~/Site/products/productsController.js"></script>
+    <script src="~/Site/product/ContactPage/ContactPageController.js"></script>
+    <script src="~/Site/user/userController.js"></script>
+    <script src="~/Site/advanceSearch/advanceSearchController.js"></script>
+    <script src="~/Site/updateCreateProduct/updateCreateProductController.js"></script>
+    <script src="~/Site/editRegister/editRegisterController.js"></script>
+    <script src="~/Site/shared/services/productsService.js"></script>
+    <script src="~/Site/shared/services/messagesService.js"></script>
+    <script src="~/Site/shared/services/usersService.js"></script>
+    <script src="~/Site/shared/services/cookiesService.js"></script>
+    <script src="~/Site/shared/services/favoritesService.js"></script>
+    <script src="~/Site/shared/services/othersService.js"></script>
+    <script src="~/Site/shared/services/queryBuilderService.js"></script>
+    <script src="~/Site/shared/directives/productsDirective/productsDirective.js"></script>
+    <script src="~/Site/shared/directives/loadingDirective/loadingDirective.js"></script>
+</head>
+
+<body ng-app="app">
+    <div ng-controller="mainController">
+        <nav class="navbar navbar-default nav line-height-small">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" ng-href="#/home"><i id="homeIcon" class="fa fa-home"><span id="homeSpan">&nbsp;Home</span></i></a>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li><a class="navbar-brand" ng-href=""><i class="fa fa-info"><span>&nbsp;About</span></i></a></li>
+                        <li><a class="navbar-brand" ng-click=""><i class="fa fa-phone"><span>&nbsp;Contact</span></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container-fluid hide-x-overflow" ng-cloak>
+            <div class="row">
+                <div class="col-sm-2 sides">
+                    <br/>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div ng-include src="'Site/favorites/favoritesProducts.html'"> </div>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div ng-include src="'Site/unreadMessages/unreadMessages.html'"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div ng-view></div>
+                </div>
+                <div class="col-sm-2 sides">
+                    <div class="row">
+                        <div ng-include src=""></div>
+                        <h3 class="h3 centered"> Friends </h3>
+                        <div class="centered">
+                            <i class="fa fa-gears"></i>&nbsp;<span>Work in progress..</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <md-fab-speed-dial md-open="isOpen" md-direction="up" class="md-scale fixed-bottom">
+                <md-fab-trigger>
+                    <md-button class="md-fab md-warn large-btn">
+                        <i ng-class="!user.userName ? 'fa fa-user fa-2x' : 'fa fa-bolt fa-2x'"></i>
+                    </md-button>
+                </md-fab-trigger>
+                <md-fab-actions>
+                    <md-button class="md-raised" ng-click="login()" ng-show="!user.userName">
+                        Login
+                    </md-button>
+                    <md-button class="md-raised" ng-href="#/register" ng-show="!user.userName">
+                        Register
+                    </md-button>
+                    <md-button class="md-raised" ng-click="logout()" ng-show="user.userName">
+                        Log out
+                    </md-button>
+                    <md-button class="md-raised" ng-click="showUser()" ng-show="user.userName">
+                        Edit profile
+                    </md-button>
+                    <md-button class="md-raised" ng-click="postNewProduct()" ng-show="user.userName">
+                        Add product
+                    </md-button>
+                </md-fab-actions>
+            </md-fab-speed-dial>
+            <div class="fixed-top centered loading-container centered" loading><md-progress-circular md-diameter="96"></md-progress-circular></div>
+        </div>
+    </div>
+</body>
+</html>
