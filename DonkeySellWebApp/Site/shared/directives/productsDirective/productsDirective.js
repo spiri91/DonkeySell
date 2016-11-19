@@ -10,7 +10,8 @@ function productsDirective($location, toastr, favoritesService) {
                 $location.url('/product/' + id);
             };
 
-            scope.addToFavorites = function (product) {
+            scope.addToFavorites = function (product, $event) {
+                $event.stopPropagation();
                 if (!scope.$parent.$parent.token) {
                     toastr.error('Please login first!');
                     return;
@@ -25,6 +26,8 @@ function productsDirective($location, toastr, favoritesService) {
                     .then(function () {
                         scope.$parent.$parent.favorites.push(product);
                         toastr.success('Product added to Favorites!');
+                    }, function(error) {
+                        console.log(error);
                     });
             };
         }

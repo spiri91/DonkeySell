@@ -2,7 +2,7 @@
 
 function messagesService(apiRootAddress, $http) {
     this.composeAddress = function(id) {
-        return apiRootAddress+"Products/" + id + "/messages"; 
+        return apiRootAddress+"Products/" + id + "/Messages"; 
     }
 
     this.getMessagesForProduct = function(id) {

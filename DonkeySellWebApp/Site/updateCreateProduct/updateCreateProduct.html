@@ -1,23 +1,23 @@
 ﻿<div class="container-fluid">
-    <br />
     <div class="row">
-        <div class="col-sm-11 col-sm-offset-1">
-            <h3 class="h3 pull-left">Add new product</h3>
+        <div class="col-sm-10 col-sm-offset-1">
+            <h3 class="subtitle">Add new product</h3>
         </div>
         <br />
-        <div class="col-sm-6 col-sm-offset-1">
+        <div class="col-xs-12 col-sm-6 col-sm-offset-1">
             <form name="newProductForm" id="newProductForm">
                 <div class="row">
                     <div class="col-sm-8">
                         <md-input-container class="md-block" flex-gt-sm>
                             <label>Title</label>
-                            <input type="text" ng-model="product.title" class="form-control" required />
+                            <input type="text" ng-model="product.title" ng-minlength="5" ng-maxlength="30" required />
                         </md-input-container>
                     </div>
                     <div class="col-sm-4">
                         <md-input-container class="md-block" flex-gt-sm>
+                            <md-tooltip> In lei :)</md-tooltip>
                             <label>Price</label>
-                            <input type="number" ng-model="product.price" ng-min="0" class="form-control" step="10" required />
+                            <input type="number" ng-model="product.price" ng-min="0" step="10" required/>
                         </md-input-container>
                     </div>
                 </div>
@@ -25,8 +25,8 @@
                     <div class="col-sm-6">
                         <md-input-container class="md-block" flex-gt-sm>
                             <label>Category</label>
-                            <md-select ng-model="product.categoryId">
-                                <md-option ng-repeat="category in categories" value="{{category.id}}" required>
+                            <md-select ng-model="product.categoryId" required>
+                                <md-option ng-repeat="category in categories" value="{{category.id}}">
                                     {{category.name}}
                                 </md-option>
                             </md-select>
@@ -35,8 +35,8 @@
                     <div class="col-sm-6">
                         <md-input-container class="md-block" flex-gt-sm>
                             <label>City</label>
-                            <md-select ng-model="product.cityId">
-                                <md-option ng-repeat="city in cities" value="{{city.id}}" required>
+                            <md-select ng-model="product.cityId" required>
+                                <md-option ng-repeat="city in cities" value="{{city.id}}">
                                     {{city.name}}
                                 </md-option>
                             </md-select>
@@ -44,40 +44,39 @@
                     </div>
                 </div>
                 <br />
-                <div class="row">
-                    <div class="col-sm-4">
-                        <span ng-class="product.tradesAccepted ? 'font-color-blue':''">Trades accepted?&nbsp;</span><div toggle-switch ng-model="product.tradesAccepted" on-label="yes" off-label="no"></div>
+                <div class="row centered">
+                    <div class="col-xs-4 col-sm-4">
+                        <span>Trades?&nbsp;</span><br/><div toggle-switch ng-model="product.tradesAccepted" on-label="yes" off-label="no"></div>
                     </div>
-                    <div class="col-sm-4 ">
-                        <span ng-class="product.rental ? 'font-color-blue':''">For rent?&nbsp;</span><div toggle-switch ng-model="product.rental" on-label="yes" off-label="no"></div>
+                    <div class="col-xs-4 col-sm-4 ">
+                        <span>Rent?&nbsp;</span><br/><div toggle-switch ng-model="product.rental" on-label="yes" off-label="no"></div>
                     </div>
-                    <div class="col-sm-4 ">
-                        <span ng-class="product.free ? 'font-color-blue':''">For free?&nbsp;</span><div toggle-switch ng-model="product.free" on-label="yes" off-label="no"></div>
+                    <div class="col-xs-4 col-sm-4 ">
+                        <span>Free?&nbsp;</span><br/><div toggle-switch ng-model="product.free" on-label="yes" off-label="no"></div>
                     </div>
                 </div>
                 <br />
                 <br />
                 <div class="row">
                     <div class="col-sm-12">
-                        <textarea class="form-control" ng-model="product.description" placeholder="Description" required></textarea>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-9 centered margin-top">
-                        <a class="btn btn-success btn-lg" ng-disabled="newProductForm.$invalid" ng-click="saveProduct()">Save product&nbsp;&nbsp;<i class="fa fa-save"></i></a>
+                        <md-input-container class="md-block">
+                            <label>Description</label>
+                            <textarea ng-model="product.description" ng-minlength="20" ng-maxlength="150" md-maxlength="150" rows="3" md-select-on-focus required></textarea>
+                        </md-input-container>
                     </div>
                 </div>
             </form>
         </div>
-        <div class="col-sm-4 col-sm-offset-1">
+        <div class="col-xs-12 col-sm-4 col-sm-offset-1">
             <div flow-init flow-drop flow-files-added="processFiles($files)" class="alert alert-info" flow-files-submitted="$flow.cancel()">
                 <md-tooltip>Maximum number of images is 3</md-tooltip>
                 <input type="file" flow-btn id="pictures" accept="image/*" style="display: none">
-                <input type="button" class="btn btn-green" value="Select images" onclick="document.getElementById('pictures').click();" />
+                <input type="button" class="btn btn-green" value="Select images" onclick="document.getElementById('pictures').click();"/>
                 <span>&nbsp;&nbsp;Or drag them here&nbsp;&nbsp;<i class="fa fa-hand-grab-o"></i></span>
             </div>
             <br/>
             <div class="alert alert-info" ng-show="!selectedImage">
+                <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
                 <p>The first image you add will be the main one!</p>
             </div>
             <div class="row">
@@ -90,6 +89,20 @@
                         <a><i class="fa fa-minus" ng-click="removeImage(image)"></i><md-tooltip>Remove image</md-tooltip></a>
                     </div>
                 </div>
+            </div>
+            <div class="row" ng-show="errors.length > 0">
+                <div class="col-sm-10 col-sm-offset-1 centered alert alert-danger" ng-repeat="error in errors">
+                    <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>Error!</strong>&nbsp;{{error}}.
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-9 centered margin-top">
+                <md-button class="md-fab" ng-disabled="newProductForm.$invalid" ng-click="saveProduct()">
+                    <md-tooltip>Save product</md-tooltip>
+                    <i class="fa fa-save fa-2x"></i>
+                </md-button>
             </div>
         </div>
     </div>

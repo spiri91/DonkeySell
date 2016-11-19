@@ -1,6 +1,6 @@
-﻿app.controller('updateCreateProductController', ['$scope', 'productsService', '$location', 'toastr', 'usersService', '$routeParams', 'othersService', '$mdDialog', updateCreateProductController]);
+﻿app.controller('updateCreateProductController', ['$scope', 'productsService', '$location', 'toastr', 'usersService', '$routeParams', '$mdDialog', updateCreateProductController]);
 
-function updateCreateProductController($scope, productsService, $location, toastr, usersService, $routeParams, otherService, $mdDialog) {
+function updateCreateProductController($scope, productsService, $location, toastr, usersService, $routeParams, $mdDialog) {
     $scope.description = '';
     $scope.city = '';
     $scope.product = {};
@@ -8,6 +8,7 @@ function updateCreateProductController($scope, productsService, $location, toast
     $scope.categories = [];
     $scope.selectedImage = "";
     $scope.user = $scope.$parent.user;
+    $scope.errors = [];
 
     $scope.userName = $scope.$parent.username;
     $scope.productId = $routeParams.productId;
@@ -20,6 +21,9 @@ function updateCreateProductController($scope, productsService, $location, toast
                 .then(function () {
                     toastr.success('Product successfully edited!');
                     $location.url('/home');
+                }, function(error) {
+                    toastr.error('An error occured!');
+                    $scope.doSomethingWithError(error);
                 });
         } else
             toastr.error('Please logIn first!');
@@ -33,9 +37,14 @@ function updateCreateProductController($scope, productsService, $location, toast
             $scope.product.userId = $scope.user.userId;
             $scope.product.images = [];
         } else {
-            productsService.getProduct($scope.productId).then(function (product) {
-                $scope.product = product.data;
-                $scope.selectedImage = $scope.product.images[0].value;
+            productsService.getProduct($scope.productId).then(function(product) {
+                if (product.data) {
+                    $scope.product = product.data;
+                    $scope.selectedImage = $scope.product.images[0].value;
+                }
+            }, function(error) {
+                toastr.error("An error occured");
+                $scope.doSomethingWithError(error);
             });
         }
 
@@ -43,20 +52,15 @@ function updateCreateProductController($scope, productsService, $location, toast
     }
 
     $scope.getCategoriesAndCities = function () {
-        otherService.getCategories()
-            .then(function (categories) {
-                $scope.categories = categories.data;
-            });
-
-        otherService.getCities()
-            .then(function (cities) {
-                $scope.cities = cities.data;
-            });
+        $scope.categories = $scope.$parent.categories;
+        $scope.cities = $scope.$parent.cities;
     };
   
-    $scope.addImageToProduct = function(image) {
+    $scope.addImageToProduct = function (image) {
         let newImage = new Image(null, image);
-        $scope.product.images.push(newImage);
+        $scope.$apply(function() {
+            $scope.product.images.push(newImage);
+        });
 
         if (!$scope.selectedImage)
             $scope.selectedImage = image;
@@ -86,8 +90,18 @@ function updateCreateProductController($scope, productsService, $location, toast
             return;
         }
 
+        for (let i = 0; i < files.length; i++) {
+            let shouldExit = false;
+            if (files[i].size > 2 * 1024 * 1024) {
+                $scope.errors.push(files[i].name + " is to big! :(");
+                shouldExit = true;
+            }
+            if (shouldExit === true)
+                return;
+        }
+
         angular.forEach(files,
-            function(flowFile, i) {
+            function(flowFile) {
                 var fileReader = new FileReader();
                 fileReader.onload = function(event) {
                     var uri = event.target.result;
@@ -99,6 +113,10 @@ function updateCreateProductController($scope, productsService, $location, toast
 
     $scope.setMainImage = function (image) {
         $scope.selectedImage = image.value;
+    }
+
+    $scope.doSomethingWithError = function(error) {
+        console.log(error);
     }
 
     $scope.init();

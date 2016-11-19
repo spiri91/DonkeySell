@@ -7,6 +7,7 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using DonkeySellApi.Models;
+using Microsoft.AspNet.Identity;
 
 namespace DonkeySellApi.Providers
 {
@@ -33,6 +34,12 @@ namespace DonkeySellApi.Providers
             if (user == null)
             {
                 context.SetError("invalid_grant", "The user name or password is incorrect.");
+                return;
+            }
+
+            if (!user.EmailConfirmed)
+            {
+                context.SetError("invalid_grant", "Email registration wasn't confirmed.");
                 return;
             }
 

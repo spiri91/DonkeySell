@@ -1,6 +1,6 @@
-﻿app.controller('productsController', ['$scope', 'productsService', '$routeParams', '$location', 'queryBuilderService', productsController]);
+﻿app.controller('productsController', ['$scope', 'productsService', '$routeParams', '$location', 'queryBuilderService', 'toastr', productsController]);
 
-function productsController($scope, productsService, $routeParams, $location, queryBuilderService) {
+function productsController($scope, productsService, $routeParams, $location, queryBuilderService, toastr) {
     $scope.productName = $routeParams.productName;
     $scope.cityId = $routeParams.city;
     $scope.skip = 0;
@@ -13,29 +13,36 @@ function productsController($scope, productsService, $routeParams, $location, qu
 
     $scope.init = function () {
         let queryParts = new Array();
-        if ($scope.productName !== "allProducts" || $scope.cityId !== "allCities") {
-            if ($scope.productName !== '*') {
-                let queryPartTitle = new QueryBuilderPart('title', $scope.productName, $scope.productName, true);
-                queryParts.push(queryPartTitle);
-            }
+        if ($scope.productName !== "allProducts") {
+            let queryPartTitle = new QueryBuilderPart('title', $scope.productName, $scope.productName, true);
+            queryParts.push(queryPartTitle);
+        }
 
+        if ($scope.cityId !== "allCities") {
             let queryPartCity = new QueryBuilderPart('cityId', $scope.cityId, $scope.cityId, null);
             queryParts.push(queryPartCity);
-            $scope.query = queryBuilderService.buildQuery(queryParts);
         }
+
+        if(queryParts.length > 0)
+        $scope.query = queryBuilderService.buildQuery(queryParts);
 
         $scope.getProducts();
     };
 
     $scope.getProducts = function () {
         $scope.itemsPerPage = $scope.itemsPerPage ? $scope.itemsPerPage : 4;
+        
         productsService.queryProducts($scope.query, $scope.itemsPerPage, $scope.skip, $scope.sortBy)
                 .then(function (products) {
-                    $scope.products = products.data;
+                    if (products.data)
+                        $scope.products = products.data;
+                }, function (error) {
+                    toastr.error('An error occured!');
+                    $scope.doSomethingWithError(error);
                 });
     }
 
-    $scope.resetGetProducts = function() {
+    $scope.resetGetProducts = function () {
         $scope.skip = 0;
         $scope.getProducts();
     }
@@ -44,7 +51,7 @@ function productsController($scope, productsService, $routeParams, $location, qu
         $location.url('/product/' + id);
     }
 
-    $scope.showNextProducts = function() {
+    $scope.showNextProducts = function () {
         $scope.skip += $scope.itemsPerPage;
         $scope.getProducts();
     };
@@ -54,6 +61,10 @@ function productsController($scope, productsService, $routeParams, $location, qu
             $scope.skip -= $scope.itemsPerPage;
             $scope.getProducts();
         }
+    }
+
+    $scope.doSomethingWithError = function (error) {
+        console.log(error);
     }
 
     $scope.init();

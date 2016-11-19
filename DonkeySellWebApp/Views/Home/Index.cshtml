@@ -13,13 +13,13 @@
     <title>DonkeySell</title>
 
     <!--links-->
-    <link href="https://fonts.googleapis.com/css?family=Prociono" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/font-awesome.css" rel="stylesheet" />
     <link href="~/Content/angular-toastr.css" rel="stylesheet" />
     <link href="~/Content/ui-bootstrap-csp.css" rel="stylesheet" />
     <link href="~/Content/ui-grid.css" rel="stylesheet" />
-    <link rel="icon" href="~/Content/assets/favico.ico">
+    <link rel="icon" href="~/Content/assets/donkey.ico">
     <link href="~/Content/assets/ionicons.min.css" rel="stylesheet">
     <link href="~/Content/assets/style.css" rel="stylesheet">
     <link href="~/Content/site.css" rel="stylesheet" />
@@ -28,11 +28,14 @@
     <link href="~/Content/angular-material.layout-attributes.css" rel="stylesheet" />
     <link href="~/Content/angular-material.layouts.ie_fixes.css" rel="stylesheet" />
     <link href="~/Content/angular-toggle-switch-bootstrap.css" rel="stylesheet" />
-    <link href="~/Content/angular-toggle-switch.css" rel="stylesheet" />       
+    <link href="~/Content/angular-toggle-switch.css" rel="stylesheet" />
 
     <!--scripts-->
-    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery-3.0.0.min.js"></script>
     <script src="~/Scripts/bootstrap.js"></script>
+    <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.signalR-2.2.1.js"></script>
+    <script src="http://localhost:57792/signalr/js"></script>
     <script src="~/Site/shared/models/product.js"></script>
     <script src="~/Site/shared/models/user.js"></script>
     <script src="~/Site/shared/models/message.js"></script>
@@ -40,7 +43,9 @@
     <script src="~/Site/shared/models/image.js"></script>
     <script src="~/Site/shared/models/city.js"></script>
     <script src="~/Site/shared/models/queryBuilderPart.js"></script>
+    <script src="~/Site/shared/models/resetPassword.js"></script>
     <script src="~/Site/shared/models/usersFavoriteProducts.js"></script>
+    <script src="~/Site/shared/models/friend.js"></script>
     <script src="~/Scripts/angular.js"></script>
     <script src="~/Scripts/angular-route.js"></script>
     <script src="~/Scripts/angular-ui/ui-bootstrap-tpls.js"></script>
@@ -53,6 +58,7 @@
     <script src="~/Scripts/angular-material/angular-material.js"></script>
     <script src="~/Scripts/respond.js"></script>
     <script src="~/Scripts/angular-toastr.tpls.js"></script>
+    <script src="~/Site/shared/models/improvement.js"></script>
     <script src="~/Scripts/angular-material/angular-material.js"></script>
     <script src="~/Scripts/angular-cookies.js"></script>
     <script src="~/Scripts/odataresources.js"></script>
@@ -60,28 +66,34 @@
     <script src="~/Site/mainController.js"></script>
     <script src="~/Site/shared/services/storageService.js"></script>
     <script src="~/Site/home/homeController.js"></script>
+    <script src="~/Site/shared/services/improvmentsService.js"></script>
     <script src="~/Site/login/loginController.js"></script>
+    <script src="~/Site/improvements/improvementsController.js"></script>
     <script src="~/Site/product/productController.js"></script>
     <script src="~/Site/products/productsController.js"></script>
     <script src="~/Site/product/ContactPage/ContactPageController.js"></script>
+    <script src="~/Site/chat/chatController.js"></script>
+    <script src="~/Site/changePassword/changePasswordController.js"></script>
     <script src="~/Site/user/userController.js"></script>
     <script src="~/Site/advanceSearch/advanceSearchController.js"></script>
+    <script src="~/Site/shared/services/friendsService.js"></script>
     <script src="~/Site/updateCreateProduct/updateCreateProductController.js"></script>
     <script src="~/Site/editRegister/editRegisterController.js"></script>
     <script src="~/Site/shared/services/productsService.js"></script>
     <script src="~/Site/shared/services/messagesService.js"></script>
     <script src="~/Site/shared/services/usersService.js"></script>
-    <script src="~/Site/shared/services/cookiesService.js"></script>
     <script src="~/Site/shared/services/favoritesService.js"></script>
     <script src="~/Site/shared/services/othersService.js"></script>
     <script src="~/Site/shared/services/queryBuilderService.js"></script>
     <script src="~/Site/shared/directives/productsDirective/productsDirective.js"></script>
     <script src="~/Site/shared/directives/loadingDirective/loadingDirective.js"></script>
+    <script src="~/Site/shared/directives/enterPress/enterPressDirective.js"></script>
 </head>
 
 <body ng-app="app">
     <div ng-controller="mainController">
-        <nav class="navbar navbar-default nav line-height-small">
+        <md-progress-linear md-mode="query" class="md-warn loading-bar" loading></md-progress-linear>
+        <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -93,67 +105,88 @@
                     <a class="navbar-brand" ng-href="#/home"><i id="homeIcon" class="fa fa-home"><span id="homeSpan">&nbsp;Home</span></i></a>
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
+                    <ul class="navbar-nav">
                         <li><a class="navbar-brand" ng-href=""><i class="fa fa-info"><span>&nbsp;About</span></i></a></li>
                         <li><a class="navbar-brand" ng-click=""><i class="fa fa-phone"><span>&nbsp;Contact</span></i></a></li>
                     </ul>
                 </div>
             </div>
         </nav>
-        <div class="container-fluid hide-x-overflow" ng-cloak>
+        <div class="container-fluid" ng-cloak>
             <div class="row">
-                <div class="col-sm-2 sides">
-                    <br/>
+                <div class="col-sm-2" ng-if="user.userName">
+                    <br />
                     <div class="row">
                         <div class="col-sm-12">
                             <div ng-include src="'Site/favorites/favoritesProducts.html'"> </div>
                         </div>
                     </div>
-                    <hr/>
+                    <hr />
                     <div class="row">
                         <div class="col-sm-12">
                             <div ng-include src="'Site/unreadMessages/unreadMessages.html'"></div>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-8">
+                <div ng-class="user.userName ? 'col-sm-8' : 'col-sm-8 col-sm-offset-2'">
                     <div ng-view></div>
                 </div>
-                <div class="col-sm-2 sides">
+                <div class="col-sm-2" ng-if="user.userName">
                     <div class="row">
-                        <div ng-include src=""></div>
-                        <h3 class="h3 centered"> Friends </h3>
-                        <div class="centered">
-                            <i class="fa fa-gears"></i>&nbsp;<span>Work in progress..</span>
-                        </div>
+                        <div ng-include src="'Site/chat/chat.html'"></div>
                     </div>
                 </div>
             </div>
             <md-fab-speed-dial md-open="isOpen" md-direction="up" class="md-scale fixed-bottom">
                 <md-fab-trigger>
-                    <md-button class="md-fab md-warn large-btn">
+                    <md-button class="md-fab md-warn large-btn shadowed">
                         <i ng-class="!user.userName ? 'fa fa-user fa-2x' : 'fa fa-bolt fa-2x'"></i>
                     </md-button>
                 </md-fab-trigger>
                 <md-fab-actions>
-                    <md-button class="md-raised" ng-click="login()" ng-show="!user.userName">
-                        Login
+                    <md-button class="md-raised fixed-actionbtn-width" ng-click="login()" ng-show="!user.userName">
+                        <i class="fa fa-key"></i>&nbsp;&nbsp;<span>Login</span>
                     </md-button>
-                    <md-button class="md-raised" ng-href="#/register" ng-show="!user.userName">
-                        Register
+                    <md-button class="md-raised fixed-actionbtn-width" ng-href="#/register" ng-show="!user.userName">
+                        <i class="fa fa-user"></i>&nbsp;&nbsp;<span>Register</span>
                     </md-button>
-                    <md-button class="md-raised" ng-click="logout()" ng-show="user.userName">
-                        Log out
+                    <md-button class="md-raised fixed-actionbtn-width" ng-click="logout()" ng-show="user.userName">
+                        <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;<span>Log out</span>
                     </md-button>
-                    <md-button class="md-raised" ng-click="showUser()" ng-show="user.userName">
-                        Edit profile
+                    <md-button class="md-raised fixed-actionbtn-width" ng-click="showUser()" ng-show="user.userName">
+                        <i class="fa fa-user"></i>&nbsp;&nbsp;<span>Edit profile</span>
                     </md-button>
-                    <md-button class="md-raised" ng-click="postNewProduct()" ng-show="user.userName">
-                        Add product
+                    <md-button class="md-raised fixed-actionbtn-width" ng-click="postNewProduct()" ng-show="user.userName">
+                        <i class="fa fa-plus"></i>&nbsp;&nbsp;<span>Add product</span>
                     </md-button>
                 </md-fab-actions>
             </md-fab-speed-dial>
-            <div class="fixed-top centered loading-container centered" loading><md-progress-circular md-diameter="96"></md-progress-circular></div>
+            <div class="fixed-top centered loading-container centered" loading>
+                <md-progress-linear md-mode="query"></md-progress-linear>
+            </div>
+
+            <div class="improvment-box" ng-controller="improvementsController" ng-show="!close">
+                <md-button class="md-fab md-mini" ng-show="minimize" ng-click="minimizeWindow()"><md-tooltip>Make a suggestion about this site :)</md-tooltip><i class="fa fa-question"></i></md-button>
+                <div class="row fixed-line-height" ng-show="!minimize">
+                    <div class="col-xs-12 col-sm-12 header">
+                        <h4 class="h4 pull-left">Write a suggestion</h4>
+                        <div class="pull-right">
+                            <a ng-click="minimizeWindow()"><md-tooltip>Minimize</md-tooltip><i class="fa fa-expand"></i>&nbsp;&nbsp;</a>
+                            <span>&nbsp;&nbsp;</span>
+                            <a ng-click="closeWindow()"><md-tooltip>Close</md-tooltip><i class="fa fa-close"></i>&nbsp;</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12">
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-model="suggestion" placeholder="New suggestion"/>
+                                <a class="input-group-addon send-improvement-button" ng-disabled="suggestion.length==0" ng-click="sendSuggestion()"><md-tooltip>Send</md-tooltip><i class="fa fa-send-o" ng-click=""></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </body>

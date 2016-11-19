@@ -22,5 +22,7 @@ namespace DonkeySellApi.Models.DatabaseModels
         public string Avatar { get; set; }
 
         public virtual ICollection<Message> Messages { get; set; }
+
+        public string ConfirmationGuid { get; set; }
     }
 }

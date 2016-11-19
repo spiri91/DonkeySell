@@ -31,7 +31,7 @@ namespace DonkeySellApi.Extra
             for (var i = 0; i < 10; i++)
             {
                 var random = Guid.NewGuid().ToString().Substring(0, 5);
-                string username = "spiri" + random;
+                string username = "spiri" + i;
                 string email = "testing" + random + "@test.com";
                 string password = "Superme!" + random;
 
@@ -75,9 +75,10 @@ namespace DonkeySellApi.Extra
 
         private void CreateCities()
         {
-            string cities = "Alba,Arad,Arges,Bacau,Bihor,Bistrița-Nasaud,Botosani,Brasov,Braila,Bucuresti,Buzau,Calarasi,Cluj,Constanta,Covasna"+
-                               "Dambovita,Dolj,Galati,Giurgiu,Gorj,Harghita,Hunedoara,Ialomita,Iasi,Ilfov,Maramures,Mehedinti,Mures,Neamt,Olt,Prahova"+
+            string cities = "Alba,Arad,Arges,Bacau,Bihor,Bistrița-Nasaud,Botosani,Brasov,Braila,Bucuresti,Buzau,Calarasi,Cluj,Constanta,Covasna,"+
+                               "Dambovita,Dolj,Galati,Giurgiu,Gorj,Harghita,Hunedoara,Ialomita,Iasi,Ilfov,Maramures,Mehedinti,Mures,Neamt,Olt,Prahova,"+
                                "Satu Mare,Salaj,Sibiu,Suceava,Teleorman,Timis,Tulcea,Vaslui,Valcea,Vrancea";
+
             foreach (var category in cities.Split(','))
             {
                 context.Cities.Add(new City() { Name = category });
@@ -106,7 +107,7 @@ namespace DonkeySellApi.Extra
             }
 
             Guid guid = Guid.NewGuid();
-            DonkeySellUser user = new DonkeySellUser() { UserName = username, Email = email, UserId = guid.ToString() };
+            DonkeySellUser user = new DonkeySellUser() { UserName = username, Email = email, UserId = guid.ToString(), ConfirmationGuid = Guid.NewGuid().ToString()};
 
             userManager.Create(user, password);
 

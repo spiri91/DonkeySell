@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
@@ -16,50 +17,69 @@ namespace DonkeySellApi.Controllers
         private ICrudOnUsers crudOnUsers;
         private IAuthorization authorization;
         private ICrudOnMessages crudOnMessages;
+        private IMyPasswordGenerator myPasswordGenerator;
+        private IMailSender mailSender;
+        private IThrowExceptionToUser throwExceptionToUser;
 
-        public UsersController(ILogger logger, ICrudOnUsers crudOnUsers, IAuthorization authorization, ICrudOnMessages crudOnMessages)
+        public UsersController(ILogger logger, ICrudOnUsers crudOnUsers, IAuthorization authorization, ICrudOnMessages crudOnMessages, IMyPasswordGenerator myPasswordGenerator, IMailSender mailSender, IThrowExceptionToUser throwExceptionToUser)
         {
             this.crudOnUsers = crudOnUsers;
             this.logger = logger;
             this.crudOnMessages = crudOnMessages;
             this.authorization = authorization;
+            this.mailSender = mailSender;
+            this.myPasswordGenerator = myPasswordGenerator;
+            this.throwExceptionToUser = throwExceptionToUser;
         }
 
         [Route("")]
         public async Task<IHttpActionResult> Post([FromBody]ViewUser viewUser)
         {
-            var newViewUSer = await crudOnUsers.CreateOrUpdateUser(viewUser);
-
-            if (newViewUSer != null)
-                return Ok(newViewUSer);
-
-            return BadRequest();
+            try
+            {
+                var newUSer = await crudOnUsers.CreateOrUpdateUser(viewUser);
+                var newViewUser = Mapper.Map<ViewUser>(newUSer);
+                return Ok(newViewUser);
+            }
+            catch (Exception ex)
+            {
+                return throwExceptionToUser.Throw(ex);
+            }
         }
 
         [Authorize]
         [Route("{username}")]
         public async Task<IHttpActionResult> Delete(string username)
         {
-            if (await authorization.UserIsHimself(User.Identity.GetUserName(), username))
+            if (!await authorization.UserIsHimself(User.Identity.GetUserName(), username))
+                return Unauthorized();
+
+            try
             {
                 var id = await crudOnUsers.DeleteUser(username);
 
                 return Ok(id);
             }
-
-            return Unauthorized();
+            catch (Exception ex)
+            {
+                return throwExceptionToUser.Throw(ex);
+            }
         }
 
         [Route("{username}")]
         public async Task<IHttpActionResult> Get(string username)
         {
-            var viewUSer = await crudOnUsers.GetUser(username);
-            if (viewUSer != null)
+            try
+            {
+                var user = await crudOnUsers.GetUser(username);
+                var viewUser = Mapper.Map<ViewUser>(user);
 
-                return Ok(viewUSer);
-
-            return BadRequest();
-
+                return Ok(viewUser);
+            }
+            catch (Exception ex)
+            {
+                return throwExceptionToUser.Throw(ex);
+            }
         }
 
         [Authorize]
@@ -67,16 +87,20 @@ namespace DonkeySellApi.Controllers
         [HttpGet]
         public async Task<IHttpActionResult> GetUnreadMessages(string username)
         {
-            if (await authorization.UserIsHimself(User.Identity.GetUserName(), username))
+            if (!await authorization.UserIsHimself(User.Identity.GetUserName(), username))
+                return Unauthorized();
+
+            try
             {
                 var messages = await crudOnMessages.GetUnreadMessages(username);
-
                 var returnedViewMessages = Mapper.Map<IEnumerable<ViewMessage>>(messages);
 
                 return Ok(returnedViewMessages);
             }
-
-            return Unauthorized();
+            catch (Exception ex)
+            {
+                return throwExceptionToUser.Throw(ex);
+            }
         }
 
         [Authorize]
@@ -84,16 +108,55 @@ namespace DonkeySellApi.Controllers
         [HttpPost]
         public async Task<IHttpActionResult> MarkMessageAsRead(string username, int id)
         {
-            if (await authorization.UserOwnsThisProduct(User.Identity.GetUserName(), username, id))
+            try
             {
+                if (!await authorization.UserOwnsThisProduct(User.Identity.GetUserName(), username, id))
+                    return Unauthorized();
+
                 var message = crudOnMessages.MessageWasRead(id);
                 var viewMessage = Mapper.Map<ViewMessage>(message);
 
                 return Ok(viewMessage);
             }
-
-            return Unauthorized();
+            catch (Exception ex)
+            {
+                return throwExceptionToUser.Throw(ex);
+            }
         }
 
+        [HttpPost]
+        [Route("{username}/changePassword")]
+        public async Task<IHttpActionResult> ChangePassword(string username, [FromBody]ResetPassword resetPassword)
+        {
+            try
+            {
+                await crudOnUsers.ChangePassword(username, resetPassword.OldPassword, resetPassword.NewPassword);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return throwExceptionToUser.Throw(ex);
+            }
+        }
+
+        [HttpPost]
+        [Route("{username}/resetPassword")]
+        public async Task<IHttpActionResult> ResetPassword(string username)
+        {
+            var newPassword = myPasswordGenerator.GeneratePassword();
+            try
+            {
+                var email = await crudOnUsers.GetEmailOfUser(username);
+                await crudOnUsers.ResetPassword(username, newPassword);
+                await mailSender.SendNewPasswordMail(newPassword, email);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return throwExceptionToUser.Throw(ex);
+            }
+        }
     }
 }

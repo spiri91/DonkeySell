@@ -29,6 +29,10 @@ namespace DonkeySellApi.Models
 
         public DbSet<Image> Images { get; set; }
 
+        public DbSet<Friend> Friends { get; set; }
+
+        public DbSet<Improvement> Improvements { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             Database.SetInitializer<DonkeySellContext>(null);

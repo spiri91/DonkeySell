@@ -1,0 +1,27 @@
+namespace DonkeySellApi.Migrations
+{
+    using System;
+    using System.Data.Entity.Migrations;
+    
+    public partial class addedFriends : DbMigration
+    {
+        public override void Up()
+        {
+            CreateTable(
+                "dbo.Friend",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Username = c.String(),
+                        FriendUser = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+        }
+        
+        public override void Down()
+        {
+            DropTable("dbo.Friend");
+        }
+    }
+}

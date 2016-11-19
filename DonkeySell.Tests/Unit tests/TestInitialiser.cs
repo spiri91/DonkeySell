@@ -31,9 +31,9 @@ namespace DonkeySell.Tests.Unit_tests
             var user = new ViewUser()
             {
                 Address = "Bujoreni nr 14",
-                Email = "DonkeyUser@donkey.com",
+                Email = "spataru.ionut91@yahoo.com",
                 UserName = "LittleDonkey",
-                Password = "Super91!"
+                Password = "Super9108"
             };
 
             return user;
@@ -44,8 +44,8 @@ namespace DonkeySell.Tests.Unit_tests
             var viewProduct = new ViewProduct()
             {
                 CityId = 2,
-                Description = "nothing interesting here",
-                UserName = "LittleDonkey",
+                Description = "nothing interesting here just a description for this",
+                UserName = "spiri1",
                 CategoryId = 4,
                 Title = "One plus 2",
                 Price = 1500,
@@ -64,7 +64,7 @@ namespace DonkeySell.Tests.Unit_tests
                 DateCreated = DateTime.Now,
                 ProductId = 2,
                 Value = "another comment here",
-                UserName = "LittleDonkey"
+                UserName = "spiri1"
             };
 
             var message = Mapper.Map<Message>(viewMessage);

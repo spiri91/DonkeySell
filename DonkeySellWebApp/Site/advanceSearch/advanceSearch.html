@@ -9,7 +9,7 @@
             <div class="col-sm-6 centered">
                 <md-input-container class="md-block" flex-gt-sm>
                     <label>Search for</label>
-                    <input md-maxlength="30" name="name" ng-model="title" />
+                    <input md-maxlength="30" name="name" ng-model="title"/>
                     <div class="hint" ng-if="showHints">What your're searching for.. </div>
                 </md-input-container>
             </div>
@@ -23,13 +23,13 @@
             <div class="col-sm-3">
                 <md-input-container class="md-block">
                     <label>Minimum price</label>
-                    <input type="number" step="10" ng-model="minPrice" min="0" />
+                    <input type="number" step="10" ng-model="minPrice" min="0"/>
                 </md-input-container>
             </div>
             <div class="col-sm-3">
                 <md-input-container class="md-block">
                     <label>Maximum price</label>
-                    <input type="number" step="10" ng-model="maxPrice" min="0" />
+                    <input type="number" step="10" ng-model="maxPrice" min="0"/>
                 </md-input-container>
             </div>
             <div class="col-sm-3">
@@ -84,7 +84,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-2 pull-right vcenter">
+        <div class="col-xs-5 col-sm-2 pull-right vcenter">
             <md-input-container class="md-block" flex-gt-sm>
                 <label>Order by</label>
                 <md-select ng-model="sortBy" ng-change="resetSkipAndGetProducts()">
@@ -94,7 +94,7 @@
                 </md-select>
             </md-input-container>
         </div>
-        <div class="col-sm-3 pull-left">
+        <div class="col-xs-5 col-sm-3 pull-left">
             <md-input-container class="md-icon-float md-icon-right md-block">
                 <label>Items per page</label>
                 <input ng-model="itemsPerPage" type="number" ng-change="resetSkipAndGetProducts()" step="1" ng-min="3" ng-max="20">
@@ -104,8 +104,11 @@
     <div class="row">
         <div products-directive></div>
     </div>
-    <p ng-show="endOfList==true"><i>It's the end of the list</i>&nbsp;<i class="fa fa-smile-o"></i></p>
-    <hr />
+    <hr/>
+    <div class="col-sm-12" ng-if="endOfList==true">
+        <span ng-show="endOfList==true">No more results found&nbsp;<i class="fa fa-smile-o"></i></span>
+        <br/>
+    </div>
     <footer class="row">
         <div class="col-sm-6 centered pull-right">
             <a class="btn btn-success btn-lg col-sm-2 col-sm-offset-5" ng-click="showNextProducts()" ng-disabled="products.length < itemsPerPage">>></a>

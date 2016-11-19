@@ -23,8 +23,7 @@
       info: info,
       remove: remove,
       success: success,
-      warning: warning,
-      refreshTimer: refreshTimer
+      warning: warning
     };
 
     return toast;
@@ -65,12 +64,6 @@
     function warning(message, title, optionsOverride) {
       var type = _getOptions().iconClasses.warning;
       return _buildNotification(type, message, title, optionsOverride);
-    }
-
-    function refreshTimer(toast, newTime) {
-      if (toast && toast.isOpened && toasts.indexOf(toast) >= 0) {
-          toast.scope.refreshTimer(newTime);
-      }
     }
 
     function remove(toastId, wasClicked) {
@@ -340,6 +333,7 @@
 
   function progressBar(toastrConfig) {
     return {
+      replace: true,
       require: '^toast',
       templateUrl: function() {
         return toastrConfig.templates.progressbar;
@@ -468,13 +462,6 @@
           $event.stopPropagation();
         }
         toastr.remove(scope.toastId, wasClicked);
-      };
-      
-      scope.refreshTimer = function(newTime) {
-        if (timeout) {
-          $interval.cancel(timeout);
-          timeout = createTimeout(newTime || scope.options.timeOut);
-        }
       };
 
       element.on('mouseleave', function() {

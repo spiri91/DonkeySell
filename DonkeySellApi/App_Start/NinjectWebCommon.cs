@@ -1,3 +1,4 @@
+using DonkeySellApi.ChatHelpers;
 using DonkeySellApi.Extra;
 using DonkeySellApi.Workers;
 
@@ -72,6 +73,12 @@ namespace DonkeySellApi.App_Start
             kernel.Bind<IMyQueryBuilder>().To<MyQueryBuilder>();
             kernel.Bind<IGetCitiesAndCategories>().To<GetCitiesAndCategories>();
             kernel.Bind<ICrudOnFavorites>().To<CrudOnFavorites>();
+            kernel.Bind<IMyPasswordGenerator>().To<MyPasswordGenerator>();
+            kernel.Bind<IMailSender>().To<MailSender>();
+            kernel.Bind<ICrudOnFriends>().To<CrudOnFriends>();
+            kernel.Bind<IThrowExceptionToUser>().To<ThrowExceptionToUser>();
+            kernel.Bind<IChatHelpers>().To<ChatHelpers.ChatHelpers>();
+            kernel.Bind<ICrudOnImprovements>().To<CrudOnImprovements>();
         }        
     }
 }

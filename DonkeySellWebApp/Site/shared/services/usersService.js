@@ -1,4 +1,4 @@
-﻿app.service('usersService', ['apiRootAddress', '$http' ,'storageService', usersService]);
+﻿app.service('usersService', ['apiRootAddress', '$http', 'storageService', usersService]);
 
 function usersService(apiRootAddress, $http, storageService) {
     this.tokenApiAddress = apiRootAddress.substring(0, apiRootAddress.length - 4) + "Token";
@@ -44,14 +44,24 @@ function usersService(apiRootAddress, $http, storageService) {
         .then(this.successHandler, this.errorHandler);
     }
 
-    this.getUnreadMessages = function(username, token) {
+    this.getUnreadMessages = function (username, token) {
         return $http({ method: 'GET', url: this.usersApiAdress + "/" + username + "/unread", headers: { 'Authorization': 'Bearer ' + token } })
         .then(this.successHandler, this.errorHandler);
     }
 
-    this.markMessageRead = function(username, token, messageId) {
-        return $http({ method: 'POST', url: this.usersApiAdress + "/" + username + "/MarkRead/"+messageId, headers: { 'Authorization': 'Bearer ' + token } })
+    this.markMessageRead = function (username, token, messageId) {
+        return $http({ method: 'POST', url: this.usersApiAdress + "/" + username + "/MarkRead/" + messageId, headers: { 'Authorization': 'Bearer ' + token } })
         .then(this.successHandler, this.errorHandler);
+    }
+
+    this.changePassword = function (username, resetPassword) {
+        return $http.post(this.usersApiAdress + "/" + username + "/changePassword", resetPassword)
+            .then(this.successHandler, this.errorHandler);
+    }
+
+    this.resetPassword = function (username) {
+        return $http.post(this.usersApiAdress + "/" + username + "/resetPassword")
+            .then(this.successHandler, this.errorHandler);
     }
 
     this.successHandler = function (data) {

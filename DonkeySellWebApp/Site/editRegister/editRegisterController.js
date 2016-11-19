@@ -5,30 +5,36 @@ app.controller('editRegisterController',
 
 function editRegisterController($scope, usersService, toastr, $location, othersService, $routeParams) {
     $scope.user = {};
-    $scope.inProgress = false;
     $scope.errors = [];
     $scope.confirmPassword = "";
     $scope.isEdit = false;
 
     $scope.register = function() {
         usersService.createEditUser($scope.user)
-            .then(function(user) {
-                if (user.data.userName === $scope.user.userName) {
-                    toastr.success('Register successful!');
-                    $location.path('/home');
+            .then(function (user) {
+                if(user.data){
+                    if (user.data.userName === $scope.user.userName) {
+                        toastr.success('Register successful!');
+                        $location.path('/home');
+                    }
                 }
+            }, function(error) {
+                toastr.error('Plase try again!');
+                $scope.doSomethingWithError(error);
             });
     };
 
     $scope.checkUsername = function() {
         othersService.usernameIsTaken($scope.user.userName)
             .then(function(taken) {
-                let usernameIsNotTaken = taken.data;
-                if (usernameIsNotTaken === false)
+                let usernameIsTaken = taken.data;
+                if (usernameIsTaken === true)
                     $scope.addError(new ErrorTypeAndValue("usernameError", "This username is allready taken!"));
                 else {
                     $scope.removeErrorIfExists("usernameError");
                 }
+            }, function(error) {
+                console.log(error);
             });
     }
 
@@ -43,12 +49,14 @@ function editRegisterController($scope, usersService, toastr, $location, othersS
         if (!$scope.isEdit)
             othersService.emailInUse($scope.user.email)
                 .then(function(inUse) {
-                    let emailInUse = inUse.data;
-                    if (emailInUse === false)
+                    let emailIsTaken = inUse.data;
+                    if (emailIsTaken === true)
                         $scope.addError(new ErrorTypeAndValue("emailError", "This email is allready in use!"));
                     else {
                         $scope.removeErrorIfExists("emailError");
                     }
+                }, function(error) {
+                    $scope.doSomethingWithError(error);
                 });
     };
 
@@ -100,8 +108,12 @@ function editRegisterController($scope, usersService, toastr, $location, othersS
         if ($routeParams.username) {
             $scope.isEdit = true;
             usersService.getUser($routeParams.username)
-                .then(function(user) {
-                    $scope.user = user.data;
+                .then(function (user) {
+                    if(user.data)
+                        $scope.user = user.data;
+                }, function(error) {
+                    toastr.error('Plase try again!');
+                    $scope.doSomethingWithError(error);
                 });
         } else {
             $scope.user = new User();
@@ -114,10 +126,16 @@ function editRegisterController($scope, usersService, toastr, $location, othersS
             let reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onload = () => {
-                $scope.user.avatar = reader.result;
+                $scope.$apply(function() {
+                    $scope.user.avatar = reader.result;
+                });
             }
         }
     }
+
+    $scope.doSomethingWithError = function(error) {
+        console.log(error);
+    };
 
     $scope.init();
 

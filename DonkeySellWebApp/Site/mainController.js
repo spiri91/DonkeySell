@@ -1,24 +1,26 @@
 ﻿'use strict';
 
-app.controller('mainController', ['$scope', '$uibModal', 'cookiesService', 'usersService', '$location', 'toastr', 'favoritesService', 'othersService', 'storageService', mainController]);
+app.controller('mainController',
+[
+    '$scope', '$uibModal', 'usersService', '$location', 'toastr', 'favoritesService', 'othersService',
+    'storageService', mainController
+]);
 
-function mainController($scope, $uibModal, cookiesService, usersService, $location, toastr, favoritesService, othersService, storageService) {
+function mainController($scope, $uibModal, usersService, $location, toastr, favoritesService, othersService, storageService) {
     $scope.user = {};
     $scope.username = "";
     $scope.favorites = [];
     $scope.unreadMessages = [];
     $scope.token = '';
 
-    $scope.isOpen = false;
     $scope.cities = [];
     $scope.categories = [];
 
     $scope.login = function () {
-        var modalInstance = $uibModal.open({
+        let modalInstance = $uibModal.open({
             templateUrl: 'Site/login/login.html',
             controller: 'loginController',
-            size: 'sm'
-    });
+        });
 
         modalInstance.result.then(function () {
             $scope.init();
@@ -35,24 +37,38 @@ function mainController($scope, $uibModal, cookiesService, usersService, $locati
         }
     }
 
+    $scope.showErrorMessage = function (message) {
+        toastr.error(message);
+    }
+
     $scope.getUser = function () {
         return usersService.getUser($scope.username)
            .then(function (result) {
-               $scope.user = result.data;
-           });
+               if (result.data)
+                   $scope.user = result.data;
+           }, function (error) {
+               $scope.showErrorMessage("Please logIn again!");
+                $scope.doSomethingWithError(error);
+            });
     }
 
     $scope.getFavorites = function () {
         favoritesService.getFavoritesProducts($scope.username, $scope.token)
             .then(function (products) {
-                $scope.favorites = products.data;
+                if (products.data)
+                    $scope.favorites = products.data;
+            }, function (error) {
+               $scope.doSomethingWithError(error);
             });
     };
 
     $scope.getUnreadMessages = function () {
         usersService.getUnreadMessages($scope.username, $scope.token)
             .then(function (messages) {
-                $scope.unreadMessages = messages.data;
+                if(messages.data)
+                    $scope.unreadMessages = messages.data;
+            }, function(error) {
+               $scope.doSomethingWithError(error);
             });
     };
 
@@ -84,15 +100,21 @@ function mainController($scope, $uibModal, cookiesService, usersService, $locati
     $scope.getCities = function () {
         othersService.getCities()
           .then(function (result) {
-              $scope.cities = result.data;
-          });
+              if(result.data)
+                $scope.cities = result.data;
+          }, function(error) {
+               $scope.doSomethingWithError(error);
+            });
     }
 
     $scope.getCategories = function () {
         othersService.getCategories()
          .then(function (result) {
-             $scope.categories = result.data;
-         });
+             if(result.data)
+                $scope.categories = result.data;
+         }, function(error) {
+               $scope.doSomethingWithError(error);
+            });
     };
 
     $scope.removeProductFromFavorites = function (product) {
@@ -101,6 +123,8 @@ function mainController($scope, $uibModal, cookiesService, usersService, $locati
                 toastr.success("Product removed!");
                 let index = $scope.favorites.indexOf(product);
                 $scope.favorites.splice(index, 1);
+            }, function(error) {
+               $scope.doSomethingWithError(error);
             });
     };
 
@@ -109,6 +133,8 @@ function mainController($scope, $uibModal, cookiesService, usersService, $locati
             .then(function () {
                 let index = $scope.unreadMessages.indexOf(message);
                 $scope.unreadMessages.splice(index, 1);
+            }, function() {
+                $scope.doSomethingWithError(error);
             });
 
         $location.url('/product/' + message.productId);
@@ -118,13 +144,16 @@ function mainController($scope, $uibModal, cookiesService, usersService, $locati
         $location.url('/product/' + id);
     }
 
-    $scope.logout = function() {
+    $scope.doSomethingWithError = function(error) {
+        console.log(error);
+    }
+
+    $scope.logout = function () {
         usersService.signOut();
         $scope.user = {};
-        $scope.username = "";
-        $scope.favorites = [];
-        $scope.unreadMessages = [];
-        $scope.token = '';
+        $scope.username = $scope.token = '';
+        $scope.favorites = $scope.unreadMessages = [];
+        $scope.$broadcast('logout');
         toastr.success('You logged out!');
     };
 

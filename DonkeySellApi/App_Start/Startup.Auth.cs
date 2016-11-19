@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Threading.Tasks;
+using DonkeySellApi.ChatHelpers;
+using DonkeySellApi.Hubs;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
@@ -6,6 +9,11 @@ using Microsoft.Owin.Security.OAuth;
 using Owin;
 using DonkeySellApi.Providers;
 using DonkeySellApi.Models;
+using DonkeySellApi.Workers;
+using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Hubs;
+using Ninject;
+using Ninject.Web.WebApi;
 
 namespace DonkeySellApi
 {
@@ -42,6 +50,23 @@ namespace DonkeySellApi
             // Enable the application to use bearer tokens to authenticate users
             app.UseOAuthBearerTokens(OAuthOptions);
 
+            GlobalHost.DependencyResolver.Register(typeof(ChatHub),
+            () => new ChatHub(new ChatHelpers.ChatHelpers(new CrudOnFriends())));
+
+            app.Map("/signalr", map =>
+            {
+                map.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions()
+                {
+                    Provider = new QueryStringOAuthBearerProvider()
+                });
+
+                var hubConfiguration = new HubConfiguration
+                {
+                    EnableJSONP = true
+                };
+                map.RunSignalR(hubConfiguration);
+            });
+
             // Uncomment the following lines to enable logging in with third party login providers
             //app.UseMicrosoftAccountAuthentication(
             //    clientId: "",
@@ -60,6 +85,21 @@ namespace DonkeySellApi
             //    ClientId = "",
             //    ClientSecret = ""
             //});
+        }
+
+        private class QueryStringOAuthBearerProvider : OAuthBearerAuthenticationProvider
+        {
+            public override Task RequestToken(OAuthRequestTokenContext context)
+            {
+                var value = context.Request.Query.Get("access_token");
+
+                if (!string.IsNullOrEmpty(value))
+                {
+                    context.Token = value;
+                }
+
+                return Task.FromResult<object>(null);
+            }
         }
     }
 }

@@ -25,8 +25,14 @@ function othersService(apiRootAddress, $http) {
         email = email.replace('.', '$');
         let urlAddress = this.urlApiAddress + "/emailNotInUse/" + email;
 
-        return $http.get(urlAddress, email).then(this.successHandler, this.errorHandler);
+        return $http.get(urlAddress).then(this.successHandler, this.errorHandler);
     };
+
+    this.usersLike = function(username) {
+        let urlAddress = this.urlApiAddress + "/findUser/" + username;
+
+        return $http.get(urlAddress).then(this.successHandler, this.errorHandler);
+    }
 
     this.successHandler = function (data) {
         return data;

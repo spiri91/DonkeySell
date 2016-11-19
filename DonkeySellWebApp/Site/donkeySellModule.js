@@ -59,4 +59,4 @@ app.config(function ($routeProvider, $mdThemingProvider, toastrConfig, $mdAriaPr
     $mdAriaProvider.disableWarnings();
 });
 
-app.constant('apiRootAddress', "https://localhost:44352/api/");
+app.constant('apiRootAddress', "http://localhost:57792/api/");

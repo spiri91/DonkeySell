@@ -6,7 +6,6 @@ function productController($scope, messagesService, productsService, usersServic
     $scope.productOwner = {};
     $scope.messages = [];
     $scope.newMessage = "";
-    $scope.token = "";
     $scope.selectedImage = "";
 
     var originatorEv;
@@ -14,14 +13,15 @@ function productController($scope, messagesService, productsService, usersServic
     $scope.init = function () {
         $scope.getProductAndProductOwner();
         $scope.getMessages();
-
-
     }
 
     $scope.getProductOwner = function () {
         usersService.getUser($scope.product.userName)
             .then(function (user) {
-                $scope.productOwner = user.data;
+                if(user.data)
+                    $scope.productOwner = user.data;
+            }, function(error) {
+                $scope.doSomethingWithError(error)
             });
     }
 
@@ -45,21 +45,23 @@ function productController($scope, messagesService, productsService, usersServic
     $scope.getProductAndProductOwner = function () {
         productsService.getProduct(this.id)
             .then(function (product) {
-                $scope.product = product.data;
-                $scope.selectedImage = $scope.product.images[0] ? $scope.product.images[0].value : "";
-            })
+                if (product.data) {
+                    $scope.product = product.data;
+                    $scope.selectedImage = $scope.product.images[0] ? $scope.product.images[0].value : "";
+                }
+            }, function(error) { $scope.doSomethingWithError(error); })
             .then(function () {
-                usersService.getUser($scope.product.userName)
-                    .then(function (user) {
-                        $scope.productOwner = user.data;
-                    });
+                $scope.getProductOwner();
             });
     }
 
     $scope.getMessages = function () {
         messagesService.getMessagesForProduct(this.id)
             .then(function (messages) {
-                $scope.messages = messages.data;
+                if(messages.data)
+                    $scope.messages = messages.data;
+            }, function(error) {
+                $scope.doSomethingWithError(error);
             });
     }
 
@@ -83,6 +85,8 @@ function productController($scope, messagesService, productsService, usersServic
             .then(function () {
                 $scope.$parent.favorites.push($scope.product);
                 toastr.success('Product added to Favorites!');
+            }, function(error) {
+                $scope.doSomethingWithError(error);
             });
     };
 
@@ -91,38 +95,32 @@ function productController($scope, messagesService, productsService, usersServic
             let message = new Message(null, $scope.$parent.user.userName, $scope.newMessage, Date.now(), $scope.id, false);
             messagesService.postMessageForProduct(message, $scope.$parent.token)
                 .then(function (newMessage) {
-                    $scope.messages.push(newMessage.data);
+                    if(newMessage.data)
+                        $scope.messages.push(newMessage.data);
                     $scope.newMessage = '';
-                });
+                }, function(error) { $scope.doSomethingWithError(error); });
         } else {
             toastr.error("Please login first!");
         }
     }
 
     $scope.deleteMessage = function (id) {
-        if ($scope.getToken()) {
-            messagesService.deleteMessage($scope.id, id, $scope.token)
+        if ($scope.$parent.token) {
+            messagesService.deleteMessage($scope.id, id, $scope.$parent.token)
                 .then(function (id) {
                     let message = $.grep($scope.messages, function (m) { return m.id === id.data });
                     let index = $scope.messages.indexOf(message);
                     $scope.messages.splice(index, 1);
-                });
+                }, function(error){$scope.doSomethingWithError(error)});
         }
     }
-
-    $scope.getToken = function () {
-        $scope.token = usersService.getToken();
-        if (!$scope.token) {
-            toastr.error('Please login first!');
-            return false;
-        }
-
-        return true;
-    };
-
     $scope.setSelected = function(index) {
         $scope.selectedImage = $scope.product.images[index].value;
     };
+
+    $scope.doSomethingWithError = function(error) {
+        console.log(error);
+    }
 
     $scope.init();
 }

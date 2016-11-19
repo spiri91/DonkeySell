@@ -10,11 +10,6 @@ function productsService(apiRootAddress, $http, $odataresource) {
         return products;
     }
 
-    this.getTopProducts = function() {
-        let urlAddressWithQuery = this.productsApiAdress + "?$top=6&$orderby=DatePublished desc";
-        return $http.get(urlAddressWithQuery).then(this.successHandler, this.errorHandler);
-    };
-
     this.queryProducts = function (query, take, skip, orderBy) {
         return $http({ method: 'GET', url: this.productsApiAdress + "/query/" + query + "/" + take + "/" + skip + "/"+orderBy })
             .then(this.successHandler, this.errorHandler);
@@ -51,8 +46,6 @@ function productsService(apiRootAddress, $http, $odataresource) {
     this.errorHandler = function (error) {
         console.log(error.message);
     }
-
-
 
     return this;
 }

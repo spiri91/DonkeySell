@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
@@ -17,52 +18,70 @@ namespace DonkeySellApi.Controllers
         private ILogger logger;
         private ICrudOnMessages crudOnMessages;
         private IAuthorization authorization;
-            
-        public MessagesController(ILogger logger, ICrudOnMessages crudOnMessages, IAuthorization authorization)
+        private IThrowExceptionToUser throwExceptionToUser;
+
+        public MessagesController(ILogger logger, ICrudOnMessages crudOnMessages, IAuthorization authorization, IThrowExceptionToUser throwExceptionToUser)
         {
             this.logger = logger;
             this.crudOnMessages = crudOnMessages;
             this.authorization = authorization;
+            this.throwExceptionToUser = throwExceptionToUser;
         }
 
         [Route("")]
-        public async Task<IEnumerable<ViewMessage>> Get(int productId)
+        public async Task<IHttpActionResult> Get(int productId)
         {
-            var messages = await crudOnMessages.GetMessages(productId);
-            var viewMessages = Mapper.Map<IEnumerable<ViewMessage>>(messages);
+            try
+            {
+                var messages = await crudOnMessages.GetMessages(productId);
+                var viewMessages = Mapper.Map<IEnumerable<ViewMessage>>(messages);
 
-            return viewMessages;
-
+                return Ok(viewMessages);
+            }
+            catch (Exception ex)
+            {
+                return throwExceptionToUser.Throw(ex);
+            }
         }
 
         [Authorize]
         [Route("")]
         public async Task<IHttpActionResult> Post([FromBody]ViewMessage viewMessage)
         {
-            if (await  authorization.UserHasRightsOnMessage(User.Identity.GetUserName(), viewMessage.Id))
+            try
             {
+                if (!await authorization.UserHasRightsOnMessage(User.Identity.GetUserName(), viewMessage.Id))
+                    return Unauthorized();
+
                 var message = Mapper.Map<Message>(viewMessage);
                 var returnedMessage = await crudOnMessages.AddOrUpdate(message);
                 var returnedViewMessage = Mapper.Map<ViewMessage>(returnedMessage);
 
                 return Ok(returnedViewMessage);
             }
-
-            return Unauthorized();
+            catch (Exception ex)
+            {
+                return throwExceptionToUser.Throw(ex);
+            }
         }
 
         [Authorize]
         [Route("{id:int}")]
         public async Task<IHttpActionResult> Delete(int id)
         {
-            if (await authorization.UserHasRightsOnMessage(User.Identity.GetUserName(), id))
+            try
             {
+                if (!await authorization.UserHasRightsOnMessage(User.Identity.GetUserName(), id))
+                    return Unauthorized();
+
                 int idOfMessage = await crudOnMessages.DeleteMessage(id);
 
                 return Ok(idOfMessage);
             }
-
-            return Unauthorized();
+            catch (Exception ex)
+            {
+                return throwExceptionToUser.Throw(ex);
+            }
         }
     }
 }

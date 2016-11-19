@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -20,14 +21,16 @@ namespace DonkeySellApi.Controllers
         private IAuthorization authorization;
         private IMyQueryBuilder myQueryBuilder;
         private ICrudOnFavorites crudOnFavorites;
+        private IThrowExceptionToUser throwExceptionToUser;
 
-        public ProductsController(ILogger logger, ICrudOnProducts crudOnProducts, IAuthorization authorization, IMyQueryBuilder myQueryBuilder, ICrudOnFavorites crudOnFavorites)
+        public ProductsController(ILogger logger, ICrudOnProducts crudOnProducts, IAuthorization authorization, IMyQueryBuilder myQueryBuilder, ICrudOnFavorites crudOnFavorites, IThrowExceptionToUser throwExceptionToUser)
         {
             this.logger = logger;
             this.crudOnProducts = crudOnProducts;
             this.authorization = authorization;
             this.myQueryBuilder = myQueryBuilder;
             this.crudOnFavorites = crudOnFavorites;
+            this.throwExceptionToUser = throwExceptionToUser;
         }
 
         [Route("")]
@@ -42,71 +45,97 @@ namespace DonkeySellApi.Controllers
 
         [Route("query/{givenQuery}/{take:int}/{skip:int}/{orderedBy}")]
         [HttpGet]
-        public async Task<IEnumerable<ViewProduct>> GetByQuery(string givenQuery, int take, int skip, string orderedBy)
+        public async Task<IHttpActionResult> GetByQuery(string givenQuery, int take, int skip, string orderedBy)
         {
             string query = null;
-            if (givenQuery != "all")
-                query = await myQueryBuilder.BuildQuery(givenQuery);
-            
-            var products = await crudOnProducts.GetProductsByQuery(query, take, skip, orderedBy);
-            var viewProducts = Mapper.Map<IEnumerable<ViewProduct>>(products);
+            try
+            {
+                if (givenQuery != "all")
+                    query = await myQueryBuilder.BuildQuery(givenQuery);
 
-            return viewProducts;
+                var products = await crudOnProducts.GetProductsByQuery(query, take, skip, orderedBy);
+                var viewProducts = Mapper.Map<IEnumerable<ViewProduct>>(products);
+
+                return Ok(viewProducts);
+            }
+            catch (Exception ex)
+            {
+                return throwExceptionToUser.Throw(ex);
+            }
         }
 
         [Route("{id:int}")]
         [EnableQuery]
         public async Task<IHttpActionResult> Get(int id)
         {
-            var product = await crudOnProducts.GetProduct(id);
-            if (product != null)
+            try
             {
+                var product = await crudOnProducts.GetProduct(id);
                 var viewProduct = Mapper.Map<ViewProduct>(product);
 
                 return Ok(viewProduct);
             }
-
-            return BadRequest();
+            catch (Exception ex)
+            {
+                return throwExceptionToUser.Throw(ex);
+            }
         }
 
         [Route("{username}")]
-        public async Task<IEnumerable<ViewProduct>> Get(string username)
+        public async Task<IHttpActionResult> Get(string username)
         {
-            var products = await crudOnProducts.GetProductsOfUser(username);
-            var viewProducts = Mapper.Map<IEnumerable<ViewProduct>>(products);
+            try
+            {
+                var products = await crudOnProducts.GetProductsOfUser(username);
+                var viewProducts = Mapper.Map<IEnumerable<ViewProduct>>(products);
 
-            return viewProducts;
+                return Ok(viewProducts);
+            }
+            catch (Exception ex)
+            {
+                return throwExceptionToUser.Throw(ex);
+            }
         }
 
         [Authorize]
         [Route("")]
         public async Task<IHttpActionResult> Post([FromBody]ViewProduct viewProduct)
         {
-            if (await authorization.UserCanUpdateProduct(User.Identity.GetUserName(), viewProduct.Id, viewProduct.UserName))
+            try
             {
+                if (!await authorization.UserCanUpdateProduct(User.Identity.GetUserName(), viewProduct.Id, viewProduct.UserName))
+                    return Unauthorized();
+
                 var product = Mapper.Map<Product>(viewProduct);
                 var returnedProduct = await crudOnProducts.AddOrUpdate(product);
                 var returnedViewProduct = Mapper.Map<ViewProduct>(returnedProduct);
 
                 return Ok(returnedViewProduct);
             }
-
-            return Unauthorized();
+            catch (Exception ex)
+            {
+                return throwExceptionToUser.Throw(ex);
+            }
         }
 
         [Authorize]
         [Route("{id:int}")]
         public async Task<IHttpActionResult> Delete(int id)
         {
-            if (await authorization.UserCanDeleteProduct(User.Identity.GetUserName(), id))
+            try
             {
+                if (!await authorization.UserCanDeleteProduct(User.Identity.GetUserName(), id))
+                    return Unauthorized();
+
                 await crudOnFavorites.DeleteProductFromAllUsers(id);
                 int idOfProduct = await crudOnProducts.DeleteProduct(id);
 
                 return Ok(idOfProduct);
             }
-
-            return Unauthorized();
+            catch (Exception ex)
+            {
+                return throwExceptionToUser.Throw(ex);
+            }
         }
     }
 }

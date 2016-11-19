@@ -4,6 +4,7 @@ function loginController($scope, $uibModalInstance, usersService, toastr, storag
     $scope.username = "";
     $scope.password = "";
     $scope.rememberCredentials = false;
+    $scope.mailSent = false;
     var passwordCacheName = "password";
     var usernameCacheName = "username";
 
@@ -15,6 +16,7 @@ function loginController($scope, $uibModalInstance, usersService, toastr, storag
             .then(function () {
                 toastr.success("Login Successful!");
                 $scope.rememberCredentialsOption();
+                storageService.set(usernameCacheName, $scope.username);
                 $uibModalInstance.close($scope.username);
             },
                 function () {
@@ -39,7 +41,6 @@ function loginController($scope, $uibModalInstance, usersService, toastr, storag
     };
 
     $scope.setCredentialsInMemory = function () {
-        storageService.set(usernameCacheName, $scope.username);
         storageService.set(passwordCacheName, $scope.password);
     };
 
@@ -48,6 +49,17 @@ function loginController($scope, $uibModalInstance, usersService, toastr, storag
             $scope.setCredentialsInMemory();
         else
             $scope.removeCredentialsFromMemory();
+    };
+
+    $scope.resetPassword = function () {
+        if($scope.username)
+        usersService.resetPassword($scope.username)
+            .then(function () {
+                $scope.mailSent = true;
+            }, function (error) {
+                console.log(error);
+                toastr.error('Reset password failed! :(');
+            });
     };
 
     $scope.init();

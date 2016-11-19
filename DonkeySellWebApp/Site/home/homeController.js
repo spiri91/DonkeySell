@@ -2,7 +2,7 @@
 
 function homeController($scope, usersService, $location, productsService) {
     $scope.productName = "";
-    $scope.selectedCityId = 10;
+    $scope.selectedCityId = 0;
     $scope.products = [];
 
     $scope.simulateQuery = false;
@@ -11,7 +11,9 @@ function homeController($scope, usersService, $location, productsService) {
 
     $scope.searchSpecific = function () {
         if ($scope.productName === "")
-            $scope.productName = '*';
+            $scope.productName = 'allProducts';
+        if ($scope.selectedCityId === 0)
+            $scope.selectedCityId = 'allCities';
         this.getProducts($scope.productName, $scope.selectedCityId);
     };
 
@@ -24,9 +26,12 @@ function homeController($scope, usersService, $location, productsService) {
     }
 
     $scope.init = function () {
-        productsService.getTopProducts()
-            .then(function(products) {
-                $scope.products = products.data;
+        productsService.queryProducts("all", 6, 0, "DatePublished")
+            .then(function (products) {
+                if(products.data)
+                    $scope.products = products.data;
+            }, function() {
+                console.log(error);
             });
     };
 

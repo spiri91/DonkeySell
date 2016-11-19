@@ -19,7 +19,7 @@ function advanceSearchController($scope, productsService, $location, othersServi
     $scope.skip = 0;
     $scope.query = "";
     $scope.sortBy = "DatePublished";
-    $scope.sortOptions = ["Price","DatePublished","UserName"];
+    $scope.sortOptions = ["Price", "DatePublished", "UserName"];
 
 
     $scope.buidQuery = function () {
@@ -60,26 +60,18 @@ function advanceSearchController($scope, productsService, $location, othersServi
             queryParts.push(queryPartDescription);
         }
 
-        
-        
         $scope.query = queryBuilderService.buildQuery(queryParts);
     }
 
     $scope.getCities = function () {
-        othersService.getCities()
-            .then(function(cities) {
-                $scope.cities = cities.data;
-            });
+        $scope.cities = $scope.$parent.cities;
     }
 
     $scope.getCategories = function () {
-        othersService.getCategories()
-            .then(function(categories) {
-                $scope.categories = categories.data;
-            });
+        $scope.categories = $scope.$parent.categories;
     }
 
-    $scope.firstSearch = function() {
+    $scope.firstSearch = function () {
         $scope.skip = 0;
         $scope.getProducts();
     }
@@ -88,49 +80,58 @@ function advanceSearchController($scope, productsService, $location, othersServi
         $scope.buidQuery();
         $scope.itemsPerPage = $scope.itemsPerPage ? $scope.itemsPerPage : 4;
         productsService.queryProducts($scope.query, $scope.itemsPerPage, $scope.skip, $scope.sortBy)
-            .then(function(products) {
-                $scope.products = products.data;
-                $scope.checkForEndOfTheList();
+            .then(function (products) {
+                if (products.data) {
+                    $scope.products = products.data;
+                    $scope.checkForEndOfTheList();
+                }
+            }, function (error) {
+                $scope.endOfList = true;
+                $scope.doSomethingWithError(error);
             });
     };
 
-    $scope.resetSkipAndGetProducts = function() {
+    $scope.resetSkipAndGetProducts = function () {
         $scope.skip = 0;
         $scope.getProducts();
     }
 
-    $scope.checkForEndOfTheList = function() {
+    $scope.checkForEndOfTheList = function () {
         if ($scope.products.length < $scope.itemsPerPage)
             $scope.endOfList = true;
         else
             $scope.endOfList = false;
     }
 
-    $scope.showNextProducts = function() {
+    $scope.showNextProducts = function () {
         $scope.skip += $scope.itemsPerPage;
         $scope.getProducts();
     }
 
-    $scope.showPreviousProducts = function() {
+    $scope.showPreviousProducts = function () {
         if ($scope.skip !== 0) {
             $scope.skip -= $scope.itemsPerPage;
             $scope.getProducts();
         }
     }
 
-    $scope.init = function() {
+    $scope.init = function () {
         $scope.getCategories();
         $scope.getCities();
         $scope.setDates();
     };
 
-    $scope.setDates = function() {
+    $scope.setDates = function () {
         $scope.minDate.setDate($scope.minDate.getDate() - 31);
         $scope.maxDate.setDate($scope.maxDate.getDate() + 1);
     };
 
     $scope.getProduct = function (id) {
         $location.url('/product/' + id);
+    }
+
+    $scope.doSomethingWithError = function (error) {
+        console.log(error);
     }
 
     $scope.init();

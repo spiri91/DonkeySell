@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
@@ -59,6 +60,15 @@ namespace DonkeySellApi.Controllers
             var emailAddressNotInUse = await crudOnUsers.CheckIfEmailIsInUse(email);
 
             return emailAddressNotInUse;
+        }
+
+        [HttpGet]
+        [Route("findUser/{username}")]
+        public async Task<IEnumerable<string>> GetUsersLike(string username)
+        {
+            var users = await crudOnUsers.GetUsersLike(username);
+
+            return users;
         }
     }
 }

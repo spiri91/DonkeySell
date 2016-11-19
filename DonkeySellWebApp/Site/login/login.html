@@ -18,21 +18,34 @@
                             <label>Password</label>
                             <input type="password" ng-model="password" required>
                         </md-input-container>
-                        <br/>
                         <md-checkbox md-no-ink class="md-primary" ng-model="rememberCredentials" ng-change="rememberCredentialsOption()">
                             Remember me
                         </md-checkbox>
                         <br/>
-                        <a class='btn btn-conf btn-green' ng-click="login()" ng-disabled="gettingToken || loginForm.$invalid">Login</a>
-                        <a class="btn btn-conf btn-default" ng-click="cancel()">Cancel</a>
                     </form>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <md-button class="md-raised md-primary fixed-width" ng-click="login()" ng-disabled="gettingToken || loginForm.$invalid">Login</md-button>
+                    </div>
+                    <div class="col-sm-6">
+                        <md-button class="md-raised fixed-width" ng-click="cancel()">Cancel</md-button>
+                    </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-10 col-sm-offset-1">
+                <div class="col-sm-5 col-sm-offset-1">
                     <p>Don't have an acount yet?&nbsp;</p><a ng-href="#/register">Register here</a>
                 </div>
+                <div class="col-sm-5">
+                    <p>Forgot your password?&nbsp;</p><a ng-click="resetPassword()" ng-disabled="!username">Reset it here</a>
+                </div>
             </div>
+            <div ng-show="mailSent" class="alert alert-success">
+                <p>Check your mail for the new password.&nbsp;<i class="fa fa-smile-o"></i>
+                </p>
+            </div>
+            <br/>
         </div>
     </div>
 </div>

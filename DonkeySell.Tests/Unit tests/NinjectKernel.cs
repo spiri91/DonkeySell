@@ -17,6 +17,9 @@ namespace DonkeySell.Tests.Unit_tests
             kernel.Bind<IMyQueryBuilder>().To<MyQueryBuilder>();
             kernel.Bind<IGetCitiesAndCategories>().To<GetCitiesAndCategories>();
             kernel.Bind<ICrudOnFavorites>().To<CrudOnFavorites>();
+            kernel.Bind<IMailSender>().To<MailSender>();
+            kernel.Bind<IMyPasswordGenerator>().To<MyPasswordGenerator>();
+            kernel.Bind<ICrudOnFriends>().To<CrudOnFriends>();
         }
     }
 }

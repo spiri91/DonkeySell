@@ -39,12 +39,11 @@ a {
 }
 
 .product {
-    border: 1px solid black;
-    border-radius: 7px;
-    margin: 5px;
-    background-color: white;
-    color: black;
-    padding: 1%;
+    color: white;
+    border-radius: 15px;
+    margin: 0.2em;
+    background-color: #3F51B5;
+    padding: 0.5em;
 }
 
 .hide-scroll {
@@ -113,21 +112,9 @@ a {
     margin-bottom: 0px;
 }
 
-.navbar-brand {
-    color: white !important;
-}
-
-    .navbar-brand :hover {
-        color: grey;
-        transition-duration: 0.5s;
-    }
-
-    .navbar-brand :not(:hover) {
-        transition-duration: 0.5s;
-    }
-
 .sides {
-    height: 88vh;
+    height: auto;
+    overflow-x: auto;
 }
 
 .left {
@@ -190,6 +177,7 @@ md-divider {
 
 md-list-item:hover {
     background-color: grey;
+    border-radius: 10px;
     transition-duration: 0.5s;
 }
 
@@ -215,7 +203,7 @@ h1, h2, h3 {
     }
 
 .big-input {
-    font-size: 25px;
+    font-size: 2em !important;
 }
 
 .carddemoBasicUsage .card-media {
@@ -313,18 +301,17 @@ hr {
     color: blue;
 }
 
-.datepickerdemoBasicUsage {
+
+
+.datepickerdemoBasicUsage md-content {
+    padding-bottom: 200px;
 }
 
-    .datepickerdemoBasicUsage md-content {
-        padding-bottom: 200px;
-    }
-
-    .datepickerdemoBasicUsage .validation-messages {
-        font-size: 12px;
-        color: #dd2c00;
-        margin-left: 15px;
-    }
+.datepickerdemoBasicUsage .validation-messages {
+    font-size: 12px;
+    color: #dd2c00;
+    margin-left: 15px;
+}
 
 .image-small {
     margin-top: 0.5em;
@@ -349,7 +336,7 @@ hr {
 }
 
 .black {
-    background-color: #a0522d !important
+    background-color: #a0522d !important;
 }
 
 .green {
@@ -357,21 +344,25 @@ hr {
 }
 
 .fabSpeedDialdemoBasicUsage .text-capitalize {
-  text-transform: capitalize; }
+    text-transform: capitalize;
+}
 
 .fabSpeedDialdemoBasicUsage .md-fab:hover, .fabSpeedDialdemoBasicUsage .md-fab.md-focused {
-  background-color: #000 !important; }
+    background-color: #000 !important;
+}
 
 .fabSpeedDialdemoBasicUsage p.note {
-  font-size: 1.2rem; }
+    font-size: 1.2rem;
+}
 
 .fabSpeedDialdemoBasicUsage .lock-size {
-  min-width: 300px;
-  min-height: 300px;
-  width: 300px;
-  height: 300px;
-  margin-left: auto;
-  margin-right: auto; }
+    min-width: 300px;
+    min-height: 300px;
+    width: 300px;
+    height: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 .line-height-small {
     line-height: 40px !important;
@@ -380,7 +371,7 @@ hr {
 .fixed-bottom {
     position: fixed;
     bottom: 15px;
-    right: 10px; 
+    right: 10px;
 }
 
 .large-btn {
@@ -403,29 +394,151 @@ toggle-switch {
 }
 
 .title {
-    font-family: 'Prociono', serif;
+    font-family: 'Permanent Marker', cursive;
+    margin-top: 2em;
+    margin-bottom: 1.2em;
+    font-size: 4em;
+    text-shadow: 2px 2px #888888;
+}
+
+.subtitle {
+    font-family: 'Permanent Marker', cursive;
     margin-top: 1em;
     margin-bottom: 1.2em;
-    font-size: 3em;
+    font-size: 2em;
 }
 
 .max-width-height {
-    height: 400px;
+    max-height: 400px;
     max-width: 400px;
     transition-duration: 1s;
 }
 
 .fixed-top {
     position: fixed;
-    bottom: 40%;
-    right: 45%; 
+    top: 1%;
 }
 
 .loading-container {
+    position: fixed;
+    bottom: 2em;
+}
+
+.shadowed {
+    box-shadow: 2px 2px 2px #888888 !important;
+}
+
+.fixed-right-bottom {
+    position: fixed;
+    bottom: 200px;
+    left: 10px;
+}
+
+.side-panel {
+    max-height: 400px;
+    overflow-y: auto !important;
+}
+
+.small-button-width {
+    max-width: 10% !important;
+}
+
+.fixed-line-height {
+    line-height: 40px;
+}
+
+.hover-efect:hover {
     background-color: grey;
-    height: 200px;
-    width: 200px;
-    border-radius: 50px;
-    padding-top: 50px;
-    padding-left: 50px;
+}
+
+.bottom-converstions {
+    z-index: 21;
+    max-width: 85%;
+    position: fixed;
+    bottom: 2%;
+    left: 1%;
+    max-height: 250px;
+    max-height: 300px;
+    min-height: 150px;
+}
+
+    .bottom-converstions .panel-heading {
+        padding: 5px !important;
+    }
+
+.private-chat-window {
+    overflow-y: auto;
+    min-width: 200px;
+}
+
+.inline-conversation {
+    overflow-y: auto;
+    min-height: 100px;
+    max-height: 200px;
+    background-color: white;
+    border-radius: 2px;
+}
+
+.no-padding-right {
+    padding-right: 0px;
+}
+
+.loading-bar {
+    position: fixed;
+    z-index: 1000;
+}
+
+.flex-allign {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fixed-width {
+    width: 12em;
+}
+
+.fixed-large-width {
+    width: 14em;
+}
+
+.small-padding {
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+}
+
+.fixed-height {
+    height: 15em;
+}
+
+.fixed-actionbtn-width {
+    width: 12em;
+ }
+
+.improvment-box {
+    position: fixed;
+    bottom: 2em;
+    left: 3em;
+    min-width: 230px;
+    max-height: 100px;
+    max-width: 500px;
+}
+
+.improvment-box a {
+    color: white;
+}
+
+.improvment-box a:hover {
+    color: black;
+}
+
+.improvment-box .header {
+    background-color: #00BCD4;
+    color: white;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+.send-improvement-button {
+    color: #008b8b !important
 }

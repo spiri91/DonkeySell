@@ -52,6 +52,14 @@
       <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.2.1\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.2.1\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -251,9 +259,14 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="ChatHelpers\ChatHelpers.cs" />
+    <Compile Include="ChatHelpers\UserConnection.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ConfirmationsController.cs" />
     <Compile Include="Controllers\FavoriteController.cs" />
+    <Compile Include="Controllers\FriendsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ImprovementsController.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Controllers\OtherController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
@@ -261,10 +274,14 @@
     <Compile Include="Extra\Authorization.cs" />
     <Compile Include="Extra\DonkeySellDatabaseFunctions.cs" />
     <Compile Include="Extra\Logger.cs" />
+    <Compile Include="Extra\MailSender.cs" />
+    <Compile Include="Extra\MyPasswordGenerator.cs" />
     <Compile Include="Extra\MyQueryBuilder.cs" />
+    <Compile Include="Extra\ThrowExceptionToUser.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Hubs\ChatHub.cs" />
     <Compile Include="Migrations\201610191253272_initial.cs" />
     <Compile Include="Migrations\201610191253272_initial.Designer.cs">
       <DependentUpon>201610191253272_initial.cs</DependentUpon>
@@ -289,11 +306,21 @@
     <Compile Include="Migrations\201611041118397_setCollectionOnImages.Designer.cs">
       <DependentUpon>201611041118397_setCollectionOnImages.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611070804359_confirmationGuids.cs" />
+    <Compile Include="Migrations\201611070804359_confirmationGuids.Designer.cs">
+      <DependentUpon>201611070804359_confirmationGuids.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611090818405_addedFriends.cs" />
+    <Compile Include="Migrations\201611090818405_addedFriends.Designer.cs">
+      <DependentUpon>201611090818405_addedFriends.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DatabaseModels\Category.cs" />
     <Compile Include="Models\DatabaseModels\City.cs" />
+    <Compile Include="Models\DatabaseModels\Improvement.cs" />
+    <Compile Include="Models\Shared\Friend.cs" />
     <Compile Include="Models\Shared\Image.cs" />
     <Compile Include="Models\DatabaseModels\Product.cs" />
     <Compile Include="Models\DatabaseModels\User.cs" />
@@ -301,6 +328,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\DatabaseModels\Message.cs" />
     <Compile Include="Models\DatabaseModels\UsersFavoriteProducts.cs" />
+    <Compile Include="Models\ViewModels\ResetPassword.cs" />
     <Compile Include="Models\ViewModels\ViewCategory.cs" />
     <Compile Include="Models\ViewModels\ViewCity.cs" />
     <Compile Include="Models\ViewModels\ViewUsersFavoriteProducts.cs" />
@@ -311,7 +339,10 @@
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Workers\Checks.cs" />
     <Compile Include="Workers\CrudOnFavorites.cs" />
+    <Compile Include="Workers\CrudOnFriends.cs" />
+    <Compile Include="Workers\CrudOnImprovments.cs" />
     <Compile Include="Workers\CrudOnMessages.cs" />
     <Compile Include="Workers\CrudOnProducts.cs" />
     <Compile Include="Workers\CrudOnUsers.cs" />
@@ -349,6 +380,8 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.1.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.1.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -356,7 +389,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -401,6 +436,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611041118397_setCollectionOnImages.resx">
       <DependentUpon>201611041118397_setCollectionOnImages.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611070804359_confirmationGuids.resx">
+      <DependentUpon>201611070804359_confirmationGuids.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611090818405_addedFriends.resx">
+      <DependentUpon>201611090818405_addedFriends.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

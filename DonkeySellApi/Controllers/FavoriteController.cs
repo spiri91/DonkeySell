@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
@@ -16,48 +17,68 @@ namespace DonkeySellApi.Controllers
     {
         private ICrudOnFavorites crudOnFavorites;
         private IAuthorization authorization;
+        private IThrowExceptionToUser throwExceptionToUser;
 
-        public FavoriteController(ICrudOnFavorites crudOnFavorites, IAuthorization authorization)
+        public FavoriteController(ICrudOnFavorites crudOnFavorites, IAuthorization authorization, IThrowExceptionToUser throwExceptionToUser)
         {
             this.crudOnFavorites = crudOnFavorites;
             this.authorization = authorization;
+            this.throwExceptionToUser = throwExceptionToUser;
         }
 
         [HttpGet]
         [Route("")]
         public async Task<IHttpActionResult> GetFavorites(string username)
         {
+            try
+            {
                 var products = await crudOnFavorites.GetUsersFavoriteProducts(username);
                 var viewProducts = Mapper.Map<IEnumerable<ViewProduct>>(products);
 
                 return Ok(viewProducts);
+            }
+            catch (Exception ex)
+            {
+                return throwExceptionToUser.Throw(ex);
+            }
         }
 
         [Route("{productId:int}")]
         public async Task<IHttpActionResult> Post(string username, int productId)
         {
-            if (await authorization.UserIsHimself(User.Identity.GetUserName(), username))
+            if (!await authorization.UserIsHimself(User.Identity.GetUserName(), username))
+                return Unauthorized();
+
+            try
             {
                 var usf = await crudOnFavorites.AddProductToFavorites(username, productId);
                 var viewUsf = Mapper.Map<ViewUsersFavoriteProducts>(usf);
 
                 return Ok(viewUsf);
             }
+            catch (Exception ex)
+            {
+                return throwExceptionToUser.Throw(ex);
+            }
 
-            return Unauthorized();
         }
 
         [Route("{productId:int}")]
         public async Task<IHttpActionResult> Delete(string username, int productid)
         {
-            if (await authorization.UserIsHimself(User.Identity.GetUserName(), username))
+            try
             {
+                if (!await authorization.UserIsHimself(User.Identity.GetUserName(), username))
+                    return Unauthorized();
+
                 var deleted = await crudOnFavorites.DeleteProductFromFavorites(username, productid);
 
                 return Ok(deleted);
             }
-
-            return Unauthorized();
+            catch (Exception ex)
+            {
+                return throwExceptionToUser.Throw(ex);
+            }
         }
     }
 }

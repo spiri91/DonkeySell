@@ -1,4 +1,6 @@
 ﻿using System.Linq;
+using DonkeySellApi.Models.DatabaseModels;
+using DonkeySellApi.Models.ViewModels;
 using DonkeySellApi.Workers;
 using Ninject;
 using NUnit.Framework;
@@ -10,7 +12,10 @@ namespace DonkeySell.Tests.Unit_tests
     {
         private ICrudOnFavorites crudOnFavorites;
         private ICrudOnProducts crudOnProducts;
-        private string username = "LittleDonkey";
+        private ICrudOnUsers crudOnUsers;
+        private string username;
+
+
         private int productId = 2;
 
         [SetUp]
@@ -19,7 +24,16 @@ namespace DonkeySell.Tests.Unit_tests
             TestInitialiser.Initialise();
             crudOnFavorites = TestInitialiser.ninjectKernel.kernel.Get<ICrudOnFavorites>();
             crudOnProducts = TestInitialiser.ninjectKernel.kernel.Get<ICrudOnProducts>();
+            crudOnUsers = TestInitialiser.ninjectKernel.kernel.Get<ICrudOnUsers>();
 
+            var viewUser = TestInitialiser.CreateUser();
+            username = crudOnUsers.CreateOrUpdateUser(viewUser).Result.UserName;
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            crudOnUsers.DeleteUser(username).Wait();
         }
 
         [Test]
