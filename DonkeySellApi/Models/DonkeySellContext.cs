@@ -35,7 +35,7 @@ namespace DonkeySellApi.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            Database.SetInitializer<DonkeySellContext>(null);
+            Database.SetInitializer<DonkeySellContext>(new CreateDatabaseIfNotExists<DonkeySellContext>());
 
             base.OnModelCreating(modelBuilder);
 

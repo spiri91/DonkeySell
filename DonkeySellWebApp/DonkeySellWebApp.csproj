@@ -165,7 +165,7 @@
     <Content Include="Content\assets\client4.png" />
     <Content Include="Content\assets\client5.png" />
     <Content Include="Content\assets\donkey.ico" />
-    <Content Include="Content\assets\donkeyNewIco.ico" />
+    <Content Include="Content\assets\donkeyNewIco.png" />
     <Content Include="Content\assets\favIco.ico" />
     <Content Include="Content\assets\glyphicons-halflings-regular.svg" />
     <Content Include="Content\assets\google-play.png" />
