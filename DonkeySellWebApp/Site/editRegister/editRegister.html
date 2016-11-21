@@ -11,38 +11,41 @@
         <div class="col-sm-4 col-sm-offset-2 centered">
             <form name="registerForm">
                 <md-input-container class="md-block">
-                    <md-icon><i class="fa fa-user"></i></md-icon>
+                    <md-tooltip>Should be between 5 and 15 characters!</md-tooltip>
+                    <md-icon><i class="fa fa-user fa-2x"></i></md-icon>
                     <input type="text" class="text-input" ng-model="user.userName" placeholder="Username" ng-disabled="isEdit" ng-minlength="5" ng-maxlength="15" ng-blur="checkUsername()" required>
                 </md-input-container>
                 <md-input-container class="md-block">
-                    <md-icon><i class="fa fa-envelope"></i></md-icon>
+                    <md-icon><i class="fa fa-envelope fa-2x"></i></md-icon>
                     <input type="email" class="text-input" ng-model="user.email" placeholder="Email" ng-minlength="5" ng-maxlength="30" ng-blur="checkEmail()" required>
                 </md-input-container>
                 <md-input-container class="md-block">
-                    <md-icon><i class="fa fa-location-arrow"></i></md-icon>
-                    <input type="text" class="text-input" ng-model="user.address" placeholder="Address" ng-minlength="10" ng-maxlength="40" required>
+                    <md-tooltip>Should be between 10 and 50 characters!</md-tooltip>
+                    <md-icon><i class="fa fa-location-arrow fa-2x"></i></md-icon>
+                    <input type="text" class="text-input" ng-model="user.address" placeholder="Address" ng-minlength="10" ng-blur="checkAddress()" ng-maxlength="50" required>
                 </md-input-container>
                 <md-input-container class="md-block">
-                    <md-icon><i class="fa fa-key"></i></md-icon>
-                    <input class="text-input" placeholder="Password" ng-model="user.password" type="password" ng-blur="checkPassword()" required><br />
+                    <md-tooltip>Password should be between 8 and 16 characters, should contain at least one digit, one uppercase letter no symbol characters!</md-tooltip>
+                    <md-icon><i class="fa fa-key fa-2x"></i></md-icon>
+                    <input class="text-input" placeholder="Password" ng-model="user.password" type="password" ng-blur="checkPassword()" required><br/>
                 </md-input-container>
                 <md-input-container class="md-block">
-                    <md-icon><i class="fa fa-circle"></i></md-icon>
+                    <md-icon><i class="fa fa-circle fa-2x"></i></md-icon>
                     <input type="password" class="text-input" ng-model="confirmPassword" placeholder="Confirm password" ng-blur="checkPasswordValidation()" required />
                 </md-input-container>
             </form>
         </div>
         <div class="col-sm-4 centered">
             <md-input-container class="md-block">
-                <md-icon><i class="fa fa-facebook"></i></md-icon>
+                <md-icon><i class="fa fa-facebook fa-2x"></i></md-icon>
                 <input type="text" class="text-input" ng-model="user.facebook" placeholder="Facebook address" ng-maxlength="40">
             </md-input-container>
             <md-input-container class="md-block">
-                <md-icon><i class="fa fa-twitter"></i></md-icon>
+                <md-icon><i class="fa fa-twitter fa-2x"></i></md-icon>
                 <input type="text" class="text-input" ng-model="user.twitter" placeholder="Twitter address" ng-maxlength="40">
             </md-input-container>
             <md-input-container class="md-block">
-                <md-icon><i class="fa fa-phone"></i></md-icon>
+                <md-icon><i class="fa fa-phone fa-2x"></i></md-icon>
                 <input type="text" class="text-input" ng-model="user.phone" placeholder="Phone number" ng-maxlength="15">
             </md-input-container>
             <input type="file" style="display: none;" id="pictures" accept="image/*" onchange="angular.element(this).scope().setAvatar()" />

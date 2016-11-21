@@ -113,7 +113,7 @@ namespace DonkeySellApi.Controllers
                 if (!await authorization.UserOwnsThisProduct(User.Identity.GetUserName(), username, id))
                     return Unauthorized();
 
-                var message = crudOnMessages.MessageWasRead(id);
+                var message = await crudOnMessages.MessageWasRead(id);
                 var viewMessage = Mapper.Map<ViewMessage>(message);
 
                 return Ok(viewMessage);
