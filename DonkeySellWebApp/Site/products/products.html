@@ -26,13 +26,14 @@
     <div class="col-sm-12" ng-if="products.length < itemsPerPage">
         <span>No more results found&nbsp;<i class="fa fa-smile-o"></i></span>
         <br/>
+        <br/>
     </div>
     <footer class="row">
         <div class="col-sm-6 centered pull-right">
-            <a class="btn btn-success btn-lg col-sm-2 col-sm-offset-5" ng-click="showNextProducts()" ng-disabled="products.length < itemsPerPage">>></a>
+            <button class="btn btn-success btn-lg col-sm-2 col-sm-offset-5" ng-click="showNextProducts()" ng-disabled="products.length < itemsPerPage">>></button>
         </div>
         <div class="col-sm-6 centered pull-left">
-            <a class="btn btn-success btn-lg col-sm-2 col-sm-offset-5" ng-click="showPreviousProducts()" ng-disabled="skip==0"><<</a>
+            <button class="btn btn-success btn-lg col-sm-2 col-sm-offset-5" ng-click="showPreviousProducts()" ng-disabled="skip==0"><<</button>
         </div>
     </footer>
 </div>

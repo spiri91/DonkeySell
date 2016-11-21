@@ -8,16 +8,17 @@ function usersService(apiRootAddress, $http, storageService) {
         let getTokenDataString = "grant_type=password&username=" + user.userName + "&password=" + user.password;
 
         return $.ajax({
-            method: 'POST',
-            url: this.tokenApiAddress,
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
-            data: getTokenDataString
-        })
-            .then(function (data) {
+                method: 'POST',
+                url: this.tokenApiAddress,
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+                data: getTokenDataString
+            })
+            .then(function(data) {
                 storageService.set('token', data.access_token);
                 return true;
-            },
-                function (error) {
+            })
+            .fail(
+                function(error) {
                     console.log(error.message);
                     return false;
                 });

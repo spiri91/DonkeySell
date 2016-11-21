@@ -9,7 +9,7 @@
                     <md-list-item class="md-3-line favorite-poduct" ng-repeat="product in favorites">
                         <div class="md-list-item-text" layout="column" ng-click="goToProduct(product.id)">
                             <h3><strong>{{ product.title }}</strong></h3><br>
-                            <h4><strong>Price:&nbsp;</strong>{{ product.price | currency : "€":1}}</h4>
+                            <h4><strong>Price:&nbsp;</strong>{{ product.price | currency : "lei":1}}</h4>
                             <p><strong>By:&nbsp;</strong>{{ product.userName }}</p>
                         </div>
                         <a ng-click="removeProductFromFavorites(product)">

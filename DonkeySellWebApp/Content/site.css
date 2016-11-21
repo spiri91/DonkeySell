@@ -371,7 +371,7 @@ hr {
 .fixed-bottom {
     position: fixed;
     bottom: 15px;
-    right: 10px;
+    right: 0px;
 }
 
 .large-btn {
@@ -513,10 +513,72 @@ toggle-switch {
 
 .fixed-actionbtn-width {
     width: 12em;
- }
+}
 
 @media only screen and (max-width: 480px) {
     .improvment-box {
+        display: none;
+    }
+
+    .product {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .small-padding {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    .fixed-width {
+        width: 10em;
+    }
+
+    .user-product {
+        padding: 0 !important;
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+    .no-space-xs {
+        display: flex;
+        padding: 0;
+    }
+
+        .no-space-xs * {
+            margin: 0 !important;
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+    .md-padding {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    .no-padding-xs {
+        padding-left: 0;
+        padding-right: 0;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .md-padding-content {
+        padding-left: 0.2em;
+    }
+
+    .friends {
+        position: fixed;
+        top: 3.7em;
+        right: -72px;
+        z-index: 100;
+        transform: rotate(90deg);
+        transform-origin: left top 0;
+    }
+}
+
+@media only screen and (min-width: 480px) {
+    .friends {
         display: none;
     }
 }
@@ -527,24 +589,24 @@ toggle-switch {
     left: 2em;
     min-width: 150px;
     max-height: 100px;
-    max-width: 500px;
+    max-width: 200px;
 }
 
-.improvment-box a {
-    color: white;
-}
+    .improvment-box a {
+        color: white;
+    }
 
-.improvment-box a:hover {
-    color: black;
-}
+        .improvment-box a:hover {
+            color: black;
+        }
 
-.improvment-box .header {
-    background-color: #00BCD4;
-    color: white;
-    border-top-right-radius: 5px;
-    border-top-left-radius: 5px;
-}
+    .improvment-box .header {
+        background-color: #00BCD4;
+        color: white;
+        border-top-right-radius: 5px;
+        border-top-left-radius: 5px;
+    }
 
 .send-improvement-button {
-    color: #008b8b !important
+    color: #008b8b !important;
 }

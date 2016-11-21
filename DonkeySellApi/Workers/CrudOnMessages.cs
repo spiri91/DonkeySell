@@ -107,8 +107,13 @@ namespace DonkeySellApi.Workers
             if (!context.Users.Any(x => x.UserName == username))
                 throw new ObjectNotFoundException();
 
-            var pocos = context.Messages.Where(x => x.UserName == username && x.MessageWasRead == false);
-            return pocos.ToList();
+            var userProducts = context.Products.Where(x => x.UserName == username).ToList();
+            if (!userProducts.Any())
+                return null;
+
+            var unreadMessages = userProducts.SelectMany(x => x.Messages.Where(y => y.MessageWasRead == false)).ToList();
+
+            return unreadMessages;
         }
 
         public async Task<Message> MessageWasRead(int id)

@@ -34,6 +34,8 @@ function mainController($scope, $uibModal, usersService, $location, toastr, favo
             $scope.getUser();
             $scope.getFavorites();
             $scope.getUnreadMessages();
+        } else {
+            
         }
     }
 

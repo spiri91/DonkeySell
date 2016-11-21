@@ -22,8 +22,8 @@ function othersService(apiRootAddress, $http) {
     }
 
     this.emailInUse = function (email) {
-        email = email.replace('.', '$');
-        let urlAddress = this.urlApiAddress + "/emailNotInUse/" + email;
+        let emailWithoutDots = email.replace(/\./g, '$');
+        let urlAddress = this.urlApiAddress + "/emailNotInUse/" + emailWithoutDots;
 
         return $http.get(urlAddress).then(this.successHandler, this.errorHandler);
     };
