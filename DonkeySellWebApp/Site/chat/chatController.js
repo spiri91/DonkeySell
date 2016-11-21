@@ -17,7 +17,8 @@ function chatController($scope, storageService, othersService, friendsService, $
 
     // signalR initialization
     $.connection.hub.qs = { 'access_token': storageService.get('token') };
-    $.connection.hub.url = 'http://localhost:57792/signalr';
+    //$.connection.hub.url = 'http://localhost:57792/signalr';
+    $.connection.hub.url = 'http://spiri91-001-site1.ftempurl.com/signalr';
     setTimeout(function () {
         $.connection.hub.start({ jsonp: true })
             .done(function () {
