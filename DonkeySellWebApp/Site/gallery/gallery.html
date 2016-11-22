@@ -1,0 +1,17 @@
+﻿<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-6 col-xs-offset-1" ng-if="images.length>1">
+            <button class="btn btn-default" ng-click="showNext()">>></button>
+            <button class="btn btn-default" ng-click="showPrevious()"><<</button>
+        </div>
+        <div class="col-xs-2 pull-right">
+            <p>{{(index+1)'/'+images.length}}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <img ng-src="{{selectedImage.value}}" class="img-responsive center-block"/>
+        </div>
+    </div>
+    <br/>
+</div>

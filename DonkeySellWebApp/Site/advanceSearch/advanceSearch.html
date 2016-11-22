@@ -1,11 +1,14 @@
 ﻿<div class="container-fluid">
     <br/>
-    <div class="row">
-        <div class="col-sm-1 pull-right centered">
+    <div class="row fixed-line-height">
+        <div class="col-xs-10 col-sm-3 pull-left">
+            <h3 class="subtitle">Advance search</h3>
+        </div>
+        <div class="col-xs-2 col-sm-1 pull-right centered">
             <button type="button" class="btn btn-danger" data-toggle="collapse" data-target="#search" aria-expanded="true" md-tooltip="Minimize search form"><i class="fa fa-arrow-circle-o-up"></i><md-tooltip>Minimize search criteria</md-tooltip></button>
         </div>
     </div>
-    <div class="collapse in" id="search">
+    <div class="collapse in larger-font-size" id="search">
         <div class="row">
             <div class="col-sm-6 centered">
                 <md-input-container class="md-block" flex-gt-sm>
@@ -99,7 +102,7 @@
         <div class="col-xs-7 col-sm-3 pull-left">
             <md-input-container class="md-icon-float md-icon-right md-block">
                 <label>Items per page</label>
-                <input ng-model="itemsPerPage" type="number" ng-change="resetSkipAndGetProducts()" step="1" ng-min="0">
+                <input ng-model="itemsPerPage" type="number" ng-change="resetSkipAndGetProducts()" step="1" ng-min="1">
             </md-input-container>
         </div>
     </div>

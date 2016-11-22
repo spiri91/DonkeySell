@@ -1,12 +1,10 @@
-﻿'use strict';
-
-app.controller('mainController',
+﻿app.controller('mainController',
 [
     '$scope', '$uibModal', 'usersService', '$location', 'toastr', 'favoritesService', 'othersService',
-    'storageService', mainController
+    'storageService',  '$timeout', '$mdSidenav', '$log', mainController
 ]);
 
-function mainController($scope, $uibModal, usersService, $location, toastr, favoritesService, othersService, storageService) {
+function mainController($scope, $uibModal, usersService, $location, toastr, favoritesService, othersService, storageService, $timeout, $mdSidenav, $log) {
     $scope.user = {};
     $scope.username = "";
     $scope.favorites = [];
@@ -15,6 +13,18 @@ function mainController($scope, $uibModal, usersService, $location, toastr, favo
 
     $scope.cities = [];
     $scope.categories = [];
+
+    $scope.buildToggler = function(navId) {
+        return function () {
+            $mdSidenav(navId)
+                .toggle();
+        }
+    }
+
+    $scope.toggleLeft = $scope.buildToggler('left');
+    $scope.isOpenLeft = function () {
+        return $mdSidenav('left').isOpen();
+    };
 
     $scope.login = function () {
         let modalInstance = $uibModal.open({

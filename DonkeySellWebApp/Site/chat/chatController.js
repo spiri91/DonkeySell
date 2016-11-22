@@ -12,13 +12,14 @@ function chatController($scope, storageService, othersService, friendsService, $
     $scope.generalMessages = [];
     $scope.privateChatUsers = [];
     $scope.privateMessages = {};
+    $scope.noUsersFound = false;
 
     var originatorEv;
 
     // signalR initialization
     $.connection.hub.qs = { 'access_token': storageService.get('token') };
-    //$.connection.hub.url = 'http://localhost:57792/signalr';
-    $.connection.hub.url = 'http://spiri91-001-site1.ftempurl.com/signalr';
+    $.connection.hub.url = 'http://localhost:57792/signalr';
+    //$.connection.hub.url = 'http://spiri91-001-site1.ftempurl.com/signalr';
     setTimeout(function () {
         $.connection.hub.start({ jsonp: true })
             .done(function () {
@@ -43,8 +44,13 @@ function chatController($scope, storageService, othersService, friendsService, $
         if ($scope.usernameLike.length >= 4)
             othersService.usersLike($scope.usernameLike)
                 .then(function (users) {
-                    if (users.data)
-                        $scope.foundUsers = users.data;
+                    if (users.data) {
+                        if (users.data.length > 0) {
+                            $scope.noUsersFound = false;
+                            $scope.foundUsers = users.data;
+                        } else
+                            $scope.noUsersFound = true;
+                    }
                 }, function (error) {
                     $scope.doSomethingWithError(error);
                 });
@@ -177,25 +183,25 @@ function chatController($scope, storageService, othersService, friendsService, $
 
     $scope.chatHub.client.addStatusNottification = function (user, status) {
         toastr.warning(user + " is now " + status);
-        
-            let index = $scope.onlineFriends.indexOf(user);
-            if (status === 'Online') {
-                if (index === -1)
-                    $scope.$apply(function() {
-                        $scope.onlineFriends.push(user);
-                    });
-                if ($scope.privateChatUsers.indexOf(user) !== -1) {
-                    $scope.chatHub.client.addPrivateMessage(user, " is online!");
-                }
 
-            } else {
-                if (index >= 0)
-                    $scope.$apply(function() {
-                        $scope.onlineFriends.splice(index, 1);
-                    });
-                if ($scope.privateChatUsers.indexOf(user) !== -1)
-                    $scope.chatHub.client.addPrivateMessage(user, " is offline!");
+        let index = $scope.onlineFriends.indexOf(user);
+        if (status === 'Online') {
+            if (index === -1)
+                $scope.$apply(function () {
+                    $scope.onlineFriends.push(user);
+                });
+            if ($scope.privateChatUsers.indexOf(user) !== -1) {
+                $scope.chatHub.client.addPrivateMessage(user, " is online!");
             }
+
+        } else {
+            if (index >= 0)
+                $scope.$apply(function () {
+                    $scope.onlineFriends.splice(index, 1);
+                });
+            if ($scope.privateChatUsers.indexOf(user) !== -1)
+                $scope.chatHub.client.addPrivateMessage(user, " is offline!");
+        }
     }
 
     $scope.doSomethingWithError = function (error) {

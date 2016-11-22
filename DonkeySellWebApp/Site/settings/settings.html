@@ -1,0 +1,15 @@
+﻿<div ng-controller="settingsController">
+    <md-toolbar>
+        <h3 class="sidebar-title">
+            <i class="fa fa-gears"></i>&nbsp;Settings
+        </h3>
+    </md-toolbar>
+    <hr />
+    <md-content layout="column" layout-align="center">
+        <md-switch class="md-primary" ng-model="useCustomBackground" ng-change="setUseBackground()">
+            Use custom background
+        </md-switch>
+        <input type="file" style="display: none;" id="backgroundImage" accept="image/*" onchange="angular.element(this).scope().setBackgroundImage()"/>
+        <input type="button" class="btn btn-green" value="Set background image" ng-disabled="!useCustomBackground" onclick="document.getElementById('backgroundImage').click();"/><br/>
+    </md-content>
+</div>

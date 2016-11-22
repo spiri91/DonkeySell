@@ -1,4 +1,4 @@
-﻿<div class="container-fluid">
+﻿<div class="container-fluid larger-font-size">
     <div class="row">
         <div class="col-sm-10 col-sm-offset-1">
             <h3 class="subtitle">Add new product</h3>
@@ -8,38 +8,51 @@
             <form name="newProductForm" id="newProductForm">
                 <div class="row">
                     <div class="col-sm-8">
-                        <md-input-container class="md-block" flex-gt-sm>
+                        <md-input-container class="md-block" flex-gt-sm name="title">
+                            <md-tooltip>Title should be between 5 and 30 characters!</md-tooltip>
                             <label>Title</label>
-                            <input type="text" ng-model="product.title" ng-minlength="5" ng-maxlength="30" required />
+                            <input type="text" ng-model="product.title" ng-minlength="5" ng-maxlength="30" required/>
+                            <div ng-messages="newProductForm.title.$error">
+                                <div ng-message="required">Title required or invalid.</div>
+                            </div>
                         </md-input-container>
                     </div>
                     <div class="col-sm-4">
-                        <md-input-container class="md-block" flex-gt-sm>
+                        <md-input-container class="md-block" flex-gt-sm name="price">
                             <md-tooltip> In lei :)</md-tooltip>
                             <label>Price</label>
                             <input type="number" ng-model="product.price" ng-min="0" step="10" required/>
+                            <div ng-messages="newProductForm.price.$error">
+                                <div ng-message="required">Price required or invalid.</div>
+                            </div>
                         </md-input-container>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-6">
-                        <md-input-container class="md-block" flex-gt-sm>
+                        <md-input-container class="md-block" flex-gt-sm name="category">
                             <label>Category</label>
                             <md-select ng-model="product.categoryId" required>
                                 <md-option ng-repeat="category in categories" value="{{category.id}}">
                                     {{category.name}}
                                 </md-option>
                             </md-select>
+                            <div ng-messages="newProductForm.category.$error">
+                                <div ng-message="required">Category required.</div>
+                            </div>
                         </md-input-container>
                     </div>
                     <div class="col-sm-6">
-                        <md-input-container class="md-block" flex-gt-sm>
+                        <md-input-container class="md-block" flex-gt-sm name="city">
                             <label>City</label>
                             <md-select ng-model="product.cityId" required>
                                 <md-option ng-repeat="city in cities" value="{{city.id}}">
                                     {{city.name}}
                                 </md-option>
                             </md-select>
+                            <div ng-messages="newProductForm.city.$error">
+                                <div ng-message="required">City required.</div>
+                            </div>
                         </md-input-container>
                     </div>
                 </div>
@@ -59,9 +72,13 @@
                 <br />
                 <div class="row">
                     <div class="col-sm-12">
-                        <md-input-container class="md-block">
+                        <md-input-container class="md-block" name="description">
+                            <md-tooltip>Description should be between 5 and 30 characters!</md-tooltip>
                             <label>Description</label>
                             <textarea ng-model="product.description" ng-minlength="20" ng-maxlength="150" md-maxlength="150" rows="3" md-select-on-focus required></textarea>
+                            <div ng-messages="newProductForm.description.$error">
+                                <div ng-message="required">Description required, should be between 20 and 150 characters.</div>
+                            </div>
                         </md-input-container>
                     </div>
                 </div>

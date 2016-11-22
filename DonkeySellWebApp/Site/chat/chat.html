@@ -17,7 +17,7 @@
                                 <div class="col-sm-11 centered">
                                     <div class="input-group">
                                         <md-tooltip>Minimun 4 letters!</md-tooltip>
-                                        <input type="text" class="form-control" ng-model="usernameLike" placeholder="search for" />
+                                        <input type="text" class="form-control" ng-model="usernameLike" placeholder="search for" on-key-enter="searchForUsers()"/>
                                         <a class="input-group-addon"><i class="fa fa-search" ng-click="searchForUsers()"></i></a>
                                     </div>
                                 </div>
@@ -36,6 +36,9 @@
                                     <a ng-href="#/user/{{user}}"><i class="fa fa-search-plus"></i></a>
                                 </div>
                                 <md-divider ng-if="!$last+1"></md-divider>
+                            </div>
+                            <div ng-if="noUsersFound">
+                                <p><i>No one found</i></p>
                             </div>
                         </div>
                     </div>
@@ -93,7 +96,7 @@
                             <div class="row">
                                 <div class="col-sm-11 centered">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" ng-model="newGeneralMessage" placeholder="New message" />
+                                        <input type="text" class="form-control" ng-model="newGeneralMessage" placeholder="New message" on-key-enter="sendGeneralMessage()"/>
                                         <a class="input-group-addon"><i class="fa fa-send-o" ng-click="sendGeneralMessage()"></i></a>
                                     </div>
                                 </div>

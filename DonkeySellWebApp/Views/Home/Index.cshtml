@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>DonkeySell</title>
-
+     
     <!--links-->
     <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
@@ -35,8 +35,8 @@
     <script src="~/Scripts/bootstrap.js"></script>
     <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
     <script src="~/Scripts/jquery.signalR-2.2.1.js"></script>
-    <script src="http://spiri91-001-site1.ftempurl.com/signalr/js"></script>
-    @*<script src="http://localhost:57792/signalr/js"></script>*@
+    @*<script src="http://spiri91-001-site1.ftempurl.com/signalr/js"></script>*@
+    <script src="http://localhost:57792/signalr/js"></script>
     <script src="~/Site/shared/models/product.js"></script>
     <script src="~/Site/shared/models/user.js"></script>
     <script src="~/Site/shared/models/message.js"></script>
@@ -69,6 +69,7 @@
     <script src="~/Site/home/homeController.js"></script>
     <script src="~/Site/shared/services/improvmentsService.js"></script>
     <script src="~/Site/login/loginController.js"></script>
+    <script src="~/Site/settings/settingsController.js"></script>
     <script src="~/Site/improvements/improvementsController.js"></script>
     <script src="~/Site/product/productController.js"></script>
     <script src="~/Site/products/productsController.js"></script>
@@ -89,10 +90,11 @@
     <script src="~/Site/shared/directives/productsDirective/productsDirective.js"></script>
     <script src="~/Site/shared/directives/loadingDirective/loadingDirective.js"></script>
     <script src="~/Site/shared/directives/enterPress/enterPressDirective.js"></script>
+    <script src="~/Site/gallery/galleryController.js"></script>
 </head>
 
 <body ng-app="app">
-<div ng-controller="mainController">
+<div ng-controller="mainController" id="body">
     <md-progress-linear md-mode="query" class="md-warn loading-bar" loading></md-progress-linear>
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
@@ -107,8 +109,9 @@
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="navbar-nav">
-                    <li><a class="navbar-brand" href="https://github.com/spiri91/DonkeySell"><i class="fa fa-info"><span>&nbsp;About</span></i></a></li>
-                    <li><a class="navbar-brand" href="mailto:spataru.ionut91@yahoo.com"><i class="fa fa-phone" ><span>&nbsp;Contact</span></i></a></li>
+                    <li><a class="navbar-brand" ng-click="toggleLeft()"><i class="fa fa-gears"><span>&nbsp;Settings</span></i></a></li>
+                    <li><a class="navbar-brand" target="_blank" href="https://github.com/spiri91/DonkeySell"><i class="fa fa-info"><span>&nbsp;About</span></i></a></li>
+                    <li><a class="navbar-brand" href="mailto:spataru.ionut91@yahoo.com"><i class="fa fa-phone"><span>&nbsp;Contact</span></i></a></li>
                 </ul>
             </div>
         </div>
@@ -138,6 +141,11 @@
                 </div>
             </div>
         </div>
+
+        <md-sidenav class="settings-sidebar" md-component-id="left">
+            <div ng-include src="'Site/settings/settings.html'"></div>
+        </md-sidenav>
+
         <md-fab-speed-dial md-open="isOpen" md-direction="up" class="md-scale fixed-bottom">
             <md-fab-trigger>
                 <md-button class="md-fab md-warn large-btn shadowed">
@@ -180,7 +188,7 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-12">
                         <div class="input-group">
-                            <input type="text" class="form-control" ng-model="suggestion" placeholder="New suggestion"/>
+                            <input type="text" class="form-control" ng-model="suggestion" placeholder="New suggestion" on-key-enter="sendSuggestion()"/>
                             <a class="input-group-addon send-improvement-button" ng-disabled="suggestion.length==0" ng-click="sendSuggestion()"><md-tooltip>Send</md-tooltip><i class="fa fa-send-o" ng-click=""></i></a>
                         </div>
                     </div>

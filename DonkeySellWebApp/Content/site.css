@@ -540,22 +540,6 @@ toggle-switch {
         margin-left: 0;
     }
 
-    .no-space-xs {
-        display: flex;
-        padding: 0;
-    }
-
-        .no-space-xs * {
-            margin: 0 !important;
-            padding-left: 0;
-            padding-right: 0;
-        }
-
-    .md-padding {
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-    }
-
     .no-padding-xs {
         padding-left: 0;
         padding-right: 0;
@@ -570,10 +554,14 @@ toggle-switch {
     .friends {
         position: fixed;
         top: 3.7em;
-        right: -72px;
+        right: -79px;
         z-index: 100;
         transform: rotate(90deg);
         transform-origin: left top 0;
+    }
+
+    .allign-center-xs {
+        text-align: center;
     }
 }
 
@@ -609,4 +597,48 @@ toggle-switch {
 
 .send-improvement-button {
     color: #008b8b !important;
+}
+
+.larger-font-size {
+    font-size: 1.2em;
+}
+
+.settings-sidebar {
+    background-color: black;
+    color: white;
+}
+
+    .settings-sidebar .sidebar-title {
+        font-family: 'Permanent Marker', cursive;
+        line-height: 1.5em;
+        padding-left: 0.5em;
+    }
+
+    .settings-sidebar md-toolbar {
+        background-color: black;
+    }
+
+    .settings-sidebar md-content {
+        background-color: black;
+        color: white;
+        padding: 0.5em;
+    }
+
+.errors {
+    font-size: 0.7em;
+}
+
+#body {
+    min-height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.add-border-radius {
+    border-radius: 5px;
+}
+
+.no-hover-effect :hover *{
+    pointer-events: none;
 }

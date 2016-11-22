@@ -1,6 +1,6 @@
-﻿app.controller('productController', ['$scope', 'messagesService', 'productsService', 'usersService', '$routeParams', 'toastr', '$mdDialog', 'favoritesService', '$mdBottomSheet', productController]);
+﻿app.controller('productController', ['$scope', 'messagesService', 'productsService', 'usersService', '$routeParams', 'toastr', '$mdDialog', 'favoritesService', '$mdBottomSheet','$uibModal', productController]);
 
-function productController($scope, messagesService, productsService, usersService, $routeParams, toastr, $mdDialog, favoritesService, $mdBottomSheet) {
+function productController($scope, messagesService, productsService, usersService, $routeParams, toastr, $mdDialog, favoritesService, $mdBottomSheet, $uibModal) {
     $scope.id = $routeParams.productId;
     $scope.product = {};
     $scope.productOwner = {};
@@ -91,7 +91,10 @@ function productController($scope, messagesService, productsService, usersServic
     };
 
     $scope.saveMessage = function () {
-        if ($scope.$parent.token) {
+        if (!$scope.newMessage)
+            return;
+
+        if ($scope.$parent.token ) {
             let message = new Message(null, $scope.$parent.user.userName, $scope.newMessage, Date.now(), $scope.id, false);
             messagesService.postMessageForProduct(message, $scope.$parent.token)
                 .then(function (newMessage) {
@@ -114,6 +117,24 @@ function productController($scope, messagesService, productsService, usersServic
                 }, function(error){$scope.doSomethingWithError(error)});
         }
     }
+
+    $scope.openImage = function(index) {
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: 'Site/gallery/gallery.html',
+            controller: 'galleryController',
+            size:'lg',
+            resolve: {
+                images: function () { return $scope.product.images },
+                index: function () { return index }
+            }
+        });
+
+        modalInstance.result.then(function () {
+            $scope.init();
+        });
+    }
+
     $scope.setSelected = function(index) {
         $scope.selectedImage = $scope.product.images[index].value;
     };

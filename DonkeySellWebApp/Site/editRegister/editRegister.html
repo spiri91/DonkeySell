@@ -1,4 +1,4 @@
-﻿<div class="container-fluid">
+﻿<div class="container-fluid larger-font-size">
     <div class="row">
         <div class="col-sm-11 col-sm-offset-1">
             <h3 class="subtitle">{{user.userName ? "Edit profile" : "Create profile"}}</h3>
@@ -8,58 +8,80 @@
             <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
             <p>Chose your username wisely because it can not be change afterwards! :)</p>
         </div>
-        <div class="col-sm-4 col-sm-offset-2 centered">
-            <form name="registerForm">
-                <md-input-container class="md-block">
-                    <md-tooltip>Should be between 5 and 15 characters!</md-tooltip>
-                    <md-icon><i class="fa fa-user fa-2x"></i></md-icon>
-                    <input type="text" class="text-input" ng-model="user.userName" placeholder="Username" ng-disabled="isEdit" ng-minlength="5" ng-maxlength="15" ng-blur="checkUsername()" required>
-                </md-input-container>
-                <md-input-container class="md-block">
-                    <md-icon><i class="fa fa-envelope fa-2x"></i></md-icon>
-                    <input type="email" class="text-input" ng-model="user.email" placeholder="Email" ng-minlength="5" ng-maxlength="30" ng-blur="checkEmail()" required>
-                </md-input-container>
-                <md-input-container class="md-block">
-                    <md-tooltip>Should be between 10 and 50 characters!</md-tooltip>
-                    <md-icon><i class="fa fa-location-arrow fa-2x"></i></md-icon>
-                    <input type="text" class="text-input" ng-model="user.address" placeholder="Address" ng-minlength="10" ng-blur="checkAddress()" ng-maxlength="50" required>
-                </md-input-container>
-                <md-input-container class="md-block">
-                    <md-tooltip>Password should be between 8 and 16 characters, should contain at least one digit, one uppercase letter no symbol characters!</md-tooltip>
-                    <md-icon><i class="fa fa-key fa-2x"></i></md-icon>
-                    <input class="text-input" placeholder="Password" ng-model="user.password" type="password" ng-blur="checkPassword()" required><br/>
-                </md-input-container>
-                <md-input-container class="md-block">
-                    <md-icon><i class="fa fa-circle fa-2x"></i></md-icon>
-                    <input type="password" class="text-input" ng-model="confirmPassword" placeholder="Confirm password" ng-blur="checkPasswordValidation()" required />
-                </md-input-container>
-            </form>
-        </div>
-        <div class="col-sm-4 centered">
-            <md-input-container class="md-block">
-                <md-icon><i class="fa fa-facebook fa-2x"></i></md-icon>
-                <input type="text" class="text-input" ng-model="user.facebook" placeholder="Facebook address" ng-maxlength="40">
-            </md-input-container>
-            <md-input-container class="md-block">
-                <md-icon><i class="fa fa-twitter fa-2x"></i></md-icon>
-                <input type="text" class="text-input" ng-model="user.twitter" placeholder="Twitter address" ng-maxlength="40">
-            </md-input-container>
-            <md-input-container class="md-block">
-                <md-icon><i class="fa fa-phone fa-2x"></i></md-icon>
-                <input type="text" class="text-input" ng-model="user.phone" placeholder="Phone number" ng-maxlength="15">
-            </md-input-container>
-            <input type="file" style="display: none;" id="pictures" accept="image/*" onchange="angular.element(this).scope().setAvatar()" />
-            <input type="button" class="btn btn-green" value="Select avatar" onclick="document.getElementById('pictures').click();" /><br />
-            <img class="img img-circle image-small" ng-src="{{user.avatar}}" alt="avatar image" />
-        </div>
         <div class="row">
-            <div class="col-sm-8 col-sm-offset-2 centered" ng-repeat="error in errors">
-                <div class="alert alert-danger">
-                    <i class="fa fa-exclamation-triangle"></i>&nbsp;{{error.value}}
-                </div>
+            <div class="col-sm-4 col-sm-offset-2 centered">
+                <form name="registerForm">
+                    <md-input-container class="md-block" name="username">
+                        <md-tooltip>Should be between 5 and 15 characters!</md-tooltip>
+                        <md-icon><i class="fa fa-user fa-2x"></i></md-icon>
+                        <input type="text" class="text-input" ng-model="user.userName" placeholder="Username" ng-disabled="isEdit" ng-minlength="5" ng-maxlength="15" ng-blur="checkUsername()" required>
+                        <div ng-messages="registerForm.username.$error">
+                            <div ng-message="required">Username required.</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block" name="mail">
+                        <md-icon><i class="fa fa-envelope fa-2x"></i></md-icon>
+                        <input type="email" class="text-input" ng-model="user.email" placeholder="Email" ng-minlength="5" ng-maxlength="30" ng-blur="checkEmail()" required>
+                        <div ng-messages="registerForm.mail.$error">
+                            <div ng-message="required">Email not pressent or invalid.</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block" name="address">
+                        <md-tooltip>Should be between 10 and 50 characters!</md-tooltip>
+                        <md-icon><i class="fa fa-location-arrow fa-2x"></i></md-icon>
+                        <input type="text" class="text-input" ng-model="user.address" placeholder="Address" ng-minlength="10" ng-blur="checkAddress()" ng-maxlength="50" required>
+                        <div ng-messages="registerForm.address.$error">
+                            <div ng-message="required">Address should be between 10 and 50 characters.</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block" name="password">
+                        <md-tooltip>Password should be between 8 and 16 characters, should contain at least one digit, one uppercase letter no symbol characters!</md-tooltip>
+                        <md-icon><i class="fa fa-key fa-2x"></i></md-icon>
+                        <input class="text-input" placeholder="Password" ng-model="user.password" type="password" ng-blur="checkPassword()" required><br/>
+                        <div ng-messages="registerForm.password.$error">
+                            <div ng-message="required">Password required.</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block" name="confirmPassword">
+                        <md-icon><i class="fa fa-circle fa-2x"></i></md-icon>
+                        <input type="password" class="text-input" ng-model="confirmPassword" placeholder="Confirm password" ng-blur="checkPasswordValidation()" required/>
+                        <div ng-messages="registerForm.confirmPassword.$error">
+                            <div ng-message="required">Confirm password required.</div>
+                        </div>
+                    </md-input-container>
+                </form>
+            </div>
+            <div class="col-sm-4 centered">
+                <md-input-container class="md-block">
+                    <md-icon><i class="fa fa-facebook fa-2x"></i></md-icon>
+                    <input type="text" class="text-input" ng-model="user.facebook" placeholder="Facebook address" ng-maxlength="40">
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <md-icon><i class="fa fa-twitter fa-2x"></i></md-icon>
+                    <input type="text" class="text-input" ng-model="user.twitter" placeholder="Twitter address" ng-maxlength="40">
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <md-icon><i class="fa fa-phone fa-2x"></i></md-icon>
+                    <input type="text" class="text-input" ng-model="user.phone" placeholder="Phone number" ng-maxlength="15">
+                </md-input-container>
+                <input type="file" style="display: none;" id="pictures" accept="image/*" onchange="angular.element(this).scope().setAvatar()"/>
+                <input type="button" class="btn btn-green" value="Select avatar" onclick="document.getElementById('pictures').click();"/><br/>
+                <img class="img img-circle image-small" ng-src="{{user.avatar}}" alt="avatar image"/>
             </div>
         </div>
         <br/>
+        <div class="row errors">
+            <div class="col-sm-10 col-sm-offset-1">
+                <div class="row">
+                    <div class="col-sm-4 centered" ng-repeat="error in errors">
+                        <div class="alert alert-danger">
+                            <i class="fa fa-exclamation-triangle"></i>&nbsp;{{error.value}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
         <div class="row">
             <div class="col-xs-6 col-sm-6 centered">
                 <md-button class="md-raised md-primary fixed-width" ng-click="register()" ng-disabled="registerForm.$invalid || error.length>0">Save</md-button>

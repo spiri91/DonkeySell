@@ -356,6 +356,8 @@
     <Content Include="Site\chat\chat.html" />
     <Content Include="Site\donkeySellModule.js" />
     <Content Include="Site\favorites\favoritesProducts.html" />
+    <Content Include="Site\gallery\gallery.html" />
+    <Content Include="Site\gallery\galleryController.js" />
     <Content Include="Site\home\home.html" />
     <Content Include="Site\home\homeController.js" />
     <Content Include="Site\improvements\improvementsController.js" />
@@ -364,6 +366,8 @@
     <Content Include="Site\mainController.js" />
     <Content Include="Site\product\contactPage\contactPage.html" />
     <Content Include="Site\product\contactPage\ContactPageController.js" />
+    <Content Include="Site\settings\settings.html" />
+    <Content Include="Site\settings\settingsController.js" />
     <Content Include="Site\shared\directives\enterPress\enterPressDirective.js" />
     <Content Include="Site\shared\directives\loadingDirective\loadingDirective.js" />
     <Content Include="Site\shared\directives\productsDirective\productsDirective.html" />
