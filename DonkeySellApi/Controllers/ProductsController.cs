@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Helpers;
 using System.Web.Http;
 using System.Web.Http.OData;
 using AutoMapper;
 using DonkeySellApi.Extra;
 using DonkeySellApi.Models.DatabaseModels;
 using DonkeySellApi.Models.ViewModels;
+using DonkeySellApi.Models.Wrapers;
 using DonkeySellApi.Workers;
 using Microsoft.AspNet.Identity;
 
@@ -43,9 +44,9 @@ namespace DonkeySellApi.Controllers
             return viewProducts;
         }
 
-        [Route("query/{givenQuery}/{take:int}/{skip:int}/{orderedBy}")]
+        [Route("query/{givenQuery}/{take:int}/{skip:int}/{orderedBy}/{sortOrder}")]
         [HttpGet]
-        public async Task<IHttpActionResult> GetByQuery(string givenQuery, int take, int skip, string orderedBy)
+        public async Task<IHttpActionResult> GetByQuery(string givenQuery, int take, int skip, string orderedBy, int sortOrder)
         {
             string query = null;
             try
@@ -53,10 +54,11 @@ namespace DonkeySellApi.Controllers
                 if (givenQuery != "all")
                     query = await myQueryBuilder.BuildQuery(givenQuery);
 
-                var products = await crudOnProducts.GetProductsByQuery(query, take, skip, orderedBy);
-                var viewProducts = Mapper.Map<IEnumerable<ViewProduct>>(products);
+                var sortDirection = sortOrder == 2 ? SortDirection.Descending : SortDirection.Ascending;
+                var productsAndCount = await crudOnProducts.GetProductsByQuery(query, take, skip, orderedBy, sortDirection);
+                var viewProducts = Mapper.Map<IEnumerable<ViewProduct>>(productsAndCount.Products);
 
-                return Ok(viewProducts);
+                return Ok(new ViewProductsAndCount() { Count = productsAndCount.Count, Products = viewProducts });
             }
             catch (Exception ex)
             {

@@ -36,7 +36,7 @@ function editRegisterController($scope, usersService, toastr, $location, othersS
     }
 
     $scope.checkUsername = function () {
-        if ($scope.user.userName === undefined ||$scope.user.userName.length < 4) {
+        if ($scope.user.userName === undefined || $scope.user.userName.length < 4) {
             $scope.addError(new ErrorTypeAndValue("usernameFormat", "Username should be between 5 and 15 characters!"));
             return;
         }
@@ -143,7 +143,7 @@ function editRegisterController($scope, usersService, toastr, $location, othersS
             let file = (document.getElementById('pictures')).files[0];
             let reader = new FileReader();
             reader.readAsDataURL(file);
-            reader.onload = () => {
+            reader.onload = function () {
                 $scope.$apply(function () {
                     $scope.user.avatar = reader.result;
                 });

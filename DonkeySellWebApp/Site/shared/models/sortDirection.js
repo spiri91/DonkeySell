@@ -1,0 +1,1 @@
+﻿var sortDirection = Object.freeze({ ascending: 1, descending: 2 });

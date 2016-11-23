@@ -4,11 +4,10 @@ using System.Collections.ObjectModel;
 using System.Data.Entity.Core;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Helpers;
 using DonkeySellApi.Models;
 using DonkeySellApi.Models.DatabaseModels;
-using Microsoft.Data.OData.Query.SemanticAst;
-using Ninject.Infrastructure.Language;
-using WebGrease.Css.Extensions;
+using DonkeySellApi.Models.Wrapers;
 
 namespace DonkeySellApi.Workers
 {
@@ -20,7 +19,7 @@ namespace DonkeySellApi.Workers
         Task<int> DeleteProduct(int id);
         Task DeleteAllProductsOfUser(string username);
         Task<List<Product>> GetProductsOfUser(string username);
-        Task<List<Product>> GetProductsByQuery(string query, int take, int skip, string orderedBy);
+        Task<ProductsAndCount> GetProductsByQuery(string query, int take, int skip, string orderedBy, SortDirection sortDirection = SortDirection.Descending);
     }
 
     public class CrudOnProducts : ICrudOnProducts, IDisposable
@@ -162,29 +161,33 @@ namespace DonkeySellApi.Workers
             return poco.ToList();
         }
 
-        public async Task<List<Product>> GetProductsByQuery(string query, int take, int skip, string orderedBy)
+        public async Task<ProductsAndCount> GetProductsByQuery(string query, int take, int skip, string orderedBy, SortDirection sortDirection = SortDirection.Descending)
         {
-            var products = query != null ? context.Products.SqlQuery(query).ToList() : context.Products.ToList();
+            var dbProducts = query != null ? context.Products.SqlQuery(query).ToList() : context.Products.ToList();
+            var count = dbProducts.Count();
 
-            var simpleProducts =
-                products.Select(
-                    x =>
-                        new Product()
-                        {
-                            Id = x.Id,
-                            Title = x.Title,
-                            Price = x.Price,
-                            UserName = x.UserName,
-                            Category = x.Category,
-                            DatePublished = x.DatePublished,
-                            City = x.City,
-                            Images = x.Images.Any() ? new Collection<Image>() {x.Images.ToList()[0]} : null
-                        });
-            return
-                simpleProducts.OrderByDescending(x => x.GetType().GetProperty(orderedBy).GetValue(x, null))
-                    .Skip(skip)
-                    .Take(take)
-                    .ToList();
+            var simpleProducts = dbProducts.Select(CreateSimpleProduct);
+
+            var products = sortDirection == SortDirection.Descending
+                ? simpleProducts.OrderByDescending(x => x.GetType().GetProperty(orderedBy).GetValue(x, null))
+                : simpleProducts.OrderBy(x => x.GetType().GetProperty(orderedBy).GetValue(x, null));
+
+            return new ProductsAndCount() {Count = count, Products = products.Skip(skip).Take(take).ToList()};
+        }
+
+        private static Product CreateSimpleProduct(Product x)
+        {
+            return new Product()
+            {
+                Id = x.Id,
+                Title = x.Title,
+                Price = x.Price,
+                UserName = x.UserName,
+                Category = x.Category,
+                DatePublished = x.DatePublished,
+                City = x.City,
+                Images = x.Images.Any() ? new Collection<Image>() {x.Images.ToList()[0]} : null
+            };
         }
 
         public void Dispose()

@@ -11,7 +11,7 @@ function settingsController($scope, storageService, toastr) {
             let file = (document.getElementById('backgroundImage')).files[0];
             let reader = new FileReader();
             reader.readAsDataURL(file);
-            reader.onload = () => {
+            reader.onload = function () {
                 let image = reader.result;
                 let url = 'url(' + image + ')';
                 $scope.postImageInStorage(image);
@@ -44,7 +44,7 @@ function settingsController($scope, storageService, toastr) {
         $('#body').css("background-image", imageUrl);
     }
 
-    $scope.setUseBackground = function() {
+    $scope.setUseBackground = function () {
         if ($scope.useCustomBackground === false) {
             $scope.applyImageBackground('none');
             storageService.set($scope.useBackground, 'false');
@@ -53,7 +53,7 @@ function settingsController($scope, storageService, toastr) {
 
         storageService.set($scope.useBackground, 'true');
         $scope.init();
-    } 
+    }
 
     $scope.init();
 }

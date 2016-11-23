@@ -26,10 +26,10 @@ function homeController($scope, usersService, $location, productsService) {
     }
 
     $scope.init = function () {
-        productsService.queryProducts("all", 6, 0, "DatePublished")
-            .then(function (products) {
-                if(products.data)
-                    $scope.products = products.data;
+        productsService.queryProducts("all", 6, 0, "DatePublished", sortDirection.descending)
+            .then(function (productsAndCount) {
+                if (productsAndCount.data)
+                    $scope.products = productsAndCount.data.products;
             }, function() {
                 console.log(error);
             });

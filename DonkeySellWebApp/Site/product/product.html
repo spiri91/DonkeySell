@@ -49,7 +49,8 @@
                                 <br />
                                 <div class="row" ng-if="product.images">
                                     <div class="col-xs-4 col-sm-4 centered" ng-repeat="image in product.images">
-                                        <img ng-src="{{image.value}}" class="img img-responsive img-thumbnail fixed-size-image" ng-hover="setSelected($index)" ng-click="openImage($index)" />
+                                        <md-tooltip>Click to enlarge</md-tooltip>
+                                        <img ng-src="{{image.value}}" class="img img-responsive img-thumbnail fixed-size-image" ng-mouseover="setSelected($index)" ng-click="openImage($index)"/>
                                     </div>
                                 </div>
                             </div>

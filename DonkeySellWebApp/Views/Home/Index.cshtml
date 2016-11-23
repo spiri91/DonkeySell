@@ -35,8 +35,8 @@
     <script src="~/Scripts/bootstrap.js"></script>
     <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
     <script src="~/Scripts/jquery.signalR-2.2.1.js"></script>
-    @*<script src="http://spiri91-001-site1.ftempurl.com/signalr/js"></script>*@
-    <script src="http://localhost:57792/signalr/js"></script>
+    <script src="http://spiri91-001-site1.ftempurl.com/signalr/js"></script>
+   @* <script src="http://localhost:57792/signalr/js"></script>*@
     <script src="~/Site/shared/models/product.js"></script>
     <script src="~/Site/shared/models/user.js"></script>
     <script src="~/Site/shared/models/message.js"></script>
@@ -47,6 +47,9 @@
     <script src="~/Site/shared/models/resetPassword.js"></script>
     <script src="~/Site/shared/models/usersFavoriteProducts.js"></script>
     <script src="~/Site/shared/models/friend.js"></script>
+    <script src="~/Site/shared/models/productsAndCount.js"></script>
+    <script src="~/Site/shared/models/sortDirection.js"></script>
+    <script src="~/Site/shared/models/sortOptions.js"></script>
     <script src="~/Scripts/angular.js"></script>
     <script src="~/Scripts/angular-route.js"></script>
     <script src="~/Scripts/angular-ui/ui-bootstrap-tpls.js"></script>
@@ -61,8 +64,6 @@
     <script src="~/Scripts/angular-toastr.tpls.js"></script>
     <script src="~/Site/shared/models/improvement.js"></script>
     <script src="~/Scripts/angular-material/angular-material.js"></script>
-    <script src="~/Scripts/angular-cookies.js"></script>
-    <script src="~/Scripts/odataresources.js"></script>
     <script src="~/Site/donkeySellModule.js"></script>
     <script src="~/Site/mainController.js"></script>
     <script src="~/Site/shared/services/storageService.js"></script>
@@ -91,6 +92,7 @@
     <script src="~/Site/shared/directives/loadingDirective/loadingDirective.js"></script>
     <script src="~/Site/shared/directives/enterPress/enterPressDirective.js"></script>
     <script src="~/Site/gallery/galleryController.js"></script>
+    <script src="~/Site/shared/services/sortOptionsService.js"></script>
 </head>
 
 <body ng-app="app">
@@ -112,6 +114,7 @@
                     <li><a class="navbar-brand" ng-click="toggleLeft()"><i class="fa fa-gears"><span>&nbsp;Settings</span></i></a></li>
                     <li><a class="navbar-brand" target="_blank" href="https://github.com/spiri91/DonkeySell"><i class="fa fa-info"><span>&nbsp;About</span></i></a></li>
                     <li><a class="navbar-brand" href="mailto:spataru.ionut91@yahoo.com"><i class="fa fa-phone"><span>&nbsp;Contact</span></i></a></li>
+                    <li><a class="navbar-brand"><i class="fa fa-star"><span>&nbsp;What's new (v0.8)</span></i></a></li>
                 </ul>
             </div>
         </div>
@@ -212,3 +215,4 @@
 </script>
 </body>
 </html>
+

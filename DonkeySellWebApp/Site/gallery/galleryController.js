@@ -14,11 +14,21 @@ function galleryController($scope, $uibModalInstance, images, index) {
     }
 
     $scope.showNext = function() {
-        
+        if ($scope.index === $scope.images.length-1)
+            $scope.index = 0;
+        else 
+            $scope.index++;
+
+        $scope.init();
     }
 
     $scope.showPrevious = function() {
-        
+        if ($scope.index === 0)
+            $scope.index = $scope.images.length - 1;
+        else
+            $scope.index--;
+
+        $scope.init();
     }
 
     $scope.init();

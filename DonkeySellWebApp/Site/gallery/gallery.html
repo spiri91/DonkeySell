@@ -1,11 +1,15 @@
 ﻿<div class="container-fluid">
-    <div class="row">
-        <div class="col-xs-6 col-xs-offset-1" ng-if="images.length>1">
-            <button class="btn btn-default" ng-click="showNext()">>></button>
+    <div class="row fixed-line-height">
+        <div class="col-xs-5" ng-if="images.length>1">
             <button class="btn btn-default" ng-click="showPrevious()"><<</button>
+            <button class="btn btn-default" ng-click="showNext()">>></button>
         </div>
-        <div class="col-xs-2 pull-right">
-            <p>{{(index+1)'/'+images.length}}</p>
+        <div class="col-xs-2">
+            <p class="centered">{{(index+1)+'/'+images.length}}</p>
+        </div>
+        <div class="col-xs-1 pull-right">
+            <md-tooltip>Close</md-tooltip>
+            <a ng-click="cancel()"><i class="fa fa-close"></i></a>
         </div>
     </div>
     <div class="row">

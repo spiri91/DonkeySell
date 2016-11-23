@@ -1,6 +1,6 @@
-﻿app.controller('advanceSearchController', ['$scope', 'productsService', '$location', 'othersService', 'queryBuilderService', advanceSearchController]);
+﻿app.controller('advanceSearchController', ['$scope', 'productsService', '$location', 'othersService', 'queryBuilderService', 'sortOptionsService', advanceSearchController]);
 
-function advanceSearchController($scope, productsService, $location, othersService, queryBuilderService) {
+function advanceSearchController($scope, productsService, $location, othersService, queryBuilderService, sortOptionsService) {
 
     $scope.products = [];
     $scope.cities = [];
@@ -14,13 +14,15 @@ function advanceSearchController($scope, productsService, $location, othersServi
     $scope.searchInDescriptionAlso = false;
     $scope.title = "";
     $scope.endOfList = false;
+    $scope.count = 0;
+    $scope.sortOptions = sortOptionsService.getSortOptions();
+    $scope.sortBy = {};
 
     $scope.itemsPerPage = 5;
     $scope.skip = 0;
     $scope.query = "";
-    $scope.sortBy = "DatePublished";
-    $scope.sortOptions = ["Price", "DatePublished", "UserName"];
-
+    $scope.currentPage = 0;
+    $scope.totalPages = 0;
 
     $scope.buidQuery = function () {
         let queryParts = new Array();
@@ -79,11 +81,12 @@ function advanceSearchController($scope, productsService, $location, othersServi
     $scope.getProducts = function () {
         $scope.buidQuery();
         $scope.itemsPerPage = $scope.itemsPerPage ? $scope.itemsPerPage : 4;
-        productsService.queryProducts($scope.query, $scope.itemsPerPage, $scope.skip, $scope.sortBy)
-            .then(function (products) {
-                if (products.data) {
-                    $scope.products = products.data;
-                    $scope.checkForEndOfTheList();
+        productsService.queryProducts($scope.query, $scope.itemsPerPage, $scope.skip, $scope.sortBy.value, $scope.sortBy.sortDirection)
+            .then(function (productsAndCount) {
+                if (productsAndCount.data) {
+                    $scope.products = productsAndCount.data.products;
+                    $scope.count = productsAndCount.data.count;
+                    $scope.calculatePages();
                 }
             }, function (error) {
                 $scope.endOfList = true;
@@ -91,16 +94,21 @@ function advanceSearchController($scope, productsService, $location, othersServi
             });
     };
 
+    $scope.calculatePages = function () {
+        let totalPages = $scope.count / $scope.itemsPerPage;
+        $scope.totalPages = Math.ceil(totalPages);
+
+        if ($scope.skip === 0)
+            $scope.currentPage = 1;
+        else {
+            let currentPage = $scope.skip / $scope.itemsPerPage;
+            $scope.currentPage = Math.floor(currentPage) + 1;
+        }
+    }
+
     $scope.resetSkipAndGetProducts = function () {
         $scope.skip = 0;
         $scope.getProducts();
-    }
-
-    $scope.checkForEndOfTheList = function () {
-        if ($scope.products.length < $scope.itemsPerPage)
-            $scope.endOfList = true;
-        else
-            $scope.endOfList = false;
     }
 
     $scope.showNextProducts = function () {
@@ -116,6 +124,7 @@ function advanceSearchController($scope, productsService, $location, othersServi
     }
 
     $scope.init = function () {
+        $scope.sortBy = $scope.sortOptions[2];
         $scope.getCategories();
         $scope.getCities();
         $scope.setDates();
