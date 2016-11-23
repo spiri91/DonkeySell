@@ -1,7 +1,7 @@
 ﻿<div class="container-fluid larger-font-size">
     <div class="row">
-        <div class="col-sm-10 col-sm-offset-1">
-            <h3 class="subtitle">Add new product</h3>
+        <div class="col-sx-12 col-sm-10 col-sm-offset-1 ">
+            <h3 class="subtitle centered-xs">Add new product</h3>
         </div>
         <br />
         <div class="col-xs-12 col-sm-6 col-sm-offset-1">
@@ -84,11 +84,11 @@
                 </div>
             </form>
         </div>
-        <div class="col-xs-12 col-sm-4 col-sm-offset-1">
+        <div class="col-xs-12 col-sm-4 col-sm-offset-1 centered">
             <div flow-init flow-drop flow-files-added="processFiles($files)" class="alert alert-info" flow-files-submitted="$flow.cancel()">
                 <md-tooltip>Maximum number of images is 3</md-tooltip>
                 <input type="file" flow-btn id="pictures" accept="image/*" style="display: none">
-                <input type="button" class="btn btn-green" value="Select images" onclick="document.getElementById('pictures').click();"/>
+                <input type="button" class="btn btn-green" value="Select images" onclick="document.getElementById('pictures').click();"/><br/><br/>
                 <span>&nbsp;&nbsp;Or drag them here&nbsp;&nbsp;<i class="fa fa-hand-grab-o"></i></span>
             </div>
             <br/>

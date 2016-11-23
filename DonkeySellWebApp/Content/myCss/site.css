@@ -515,62 +515,6 @@ toggle-switch {
     width: 12em;
 }
 
-@media only screen and (max-width: 480px) {
-    .improvment-box {
-        display: none;
-    }
-
-    .product {
-        margin-left: 0;
-        margin-right: 0;
-    }
-
-    .small-padding {
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-    }
-
-    .fixed-width {
-        width: 10em;
-    }
-
-    .user-product {
-        padding: 0 !important;
-        margin-right: 0;
-        margin-left: 0;
-    }
-
-    .no-padding-xs {
-        padding-left: 0;
-        padding-right: 0;
-        margin-left: 0;
-        margin-right: 0;
-    }
-
-    .md-padding-content {
-        padding-left: 0.2em;
-    }
-
-    .friends {
-        position: fixed;
-        top: 3.7em;
-        right: -79px;
-        z-index: 100;
-        transform: rotate(90deg);
-        transform-origin: left top 0;
-    }
-
-    .allign-center-xs {
-        text-align: center;
-    }
-}
-
-@media only screen and (min-width: 480px) {
-    .friends {
-        display: none;
-    }
-}
-
 .improvment-box {
     position: fixed;
     bottom: 2em;
