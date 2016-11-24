@@ -58,4 +58,8 @@
     .centered-xs-right-rest {
         text-align: center;
     }
+    
+    .title {
+        font-size: 3.5em;
+    }
 }

@@ -45,7 +45,7 @@ function mainController($scope, $uibModal, usersService, $location, toastr, favo
             $scope.getFavorites();
             $scope.getUnreadMessages();
         } else {
-            
+            //promt him to register
         }
     }
 

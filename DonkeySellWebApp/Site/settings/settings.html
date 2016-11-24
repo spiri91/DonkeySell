@@ -6,10 +6,12 @@
     </md-toolbar>
     <hr />
     <md-content layout="column" layout-align="center">
-        <md-switch class="md-primary" ng-model="useCustomBackground" ng-change="setUseBackground()">
+        <md-switch class="md-primary" ng-model="useFixedNavbar" ng-change="changeNavbarPreference()">
+            Use fixed navbar
+        </md-switch>
+        <md-switch class="md-primary" ng-model="useCustomBackground" ng-change="changeBackgroundPreference()">
             Use custom background
         </md-switch>
         <input type="file" style="display: none;" id="backgroundImage" accept="image/*" onchange="angular.element(this).scope().setBackgroundImage()"/>
-        <input type="button" class="btn btn-green" value="Set background image" ng-disabled="!useCustomBackground" onclick="document.getElementById('backgroundImage').click();"/><br/>
     </md-content>
 </div>

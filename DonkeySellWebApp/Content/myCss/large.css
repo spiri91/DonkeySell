@@ -10,4 +10,8 @@
     .centered-xs-right-rest {
         text-align: right;
     }
+
+    .add-height {
+        margin-top: 3em;
+    }
 }

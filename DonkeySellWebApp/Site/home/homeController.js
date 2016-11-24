@@ -1,8 +1,8 @@
-﻿app.controller('homeController', ['$scope','usersService', '$location', 'productsService', homeController]);
+﻿app.controller('homeController', ['$scope', 'usersService', '$location', 'productsService', '$uibModal', homeController]);
 
-function homeController($scope, usersService, $location, productsService) {
+function homeController($scope, usersService, $location, productsService, $uibModal) {
     $scope.productName = "";
-    $scope.selectedCityId = 0;
+    $scope.selectedCity = {};
     $scope.products = [];
 
     $scope.simulateQuery = false;
@@ -12,17 +12,17 @@ function homeController($scope, usersService, $location, productsService) {
     $scope.searchSpecific = function () {
         if ($scope.productName === "")
             $scope.productName = 'allProducts';
-        if ($scope.selectedCityId === 0)
+        if ($scope.selectedCity === 0 || !$scope.selectedCity)
             $scope.selectedCityId = 'allCities';
-        this.getProducts($scope.productName, $scope.selectedCityId);
+        this.getProducts($scope.productName, $scope.selectedCity.id);
     };
 
-    $scope.showAll = function() {
+    $scope.showAll = function () {
         this.getProducts('allProducts', 'allCities');
     };
 
     $scope.getProducts = function (products, city) {
-        $location.url('/products/'+ products +'/'+ city );
+        $location.url('/products/' + products + '/' + city);
     }
 
     $scope.init = function () {
@@ -30,10 +30,26 @@ function homeController($scope, usersService, $location, productsService) {
             .then(function (productsAndCount) {
                 if (productsAndCount.data)
                     $scope.products = productsAndCount.data.products;
-            }, function() {
+            }, function () {
                 console.log(error);
             });
     };
+
+    $scope.openCitiesModal = function () {
+        let modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: 'Site/choseCity/choseCity.html',
+            controller: 'choseCityController',
+            resolve: {
+                cities: function () { return $scope.$parent.cities }
+            }
+        });
+
+        modalInstance.result.then(function (selectedCity) {
+            $scope.selectedCity = selectedCity;
+        });
+    };
+
 
     $scope.init();
 }

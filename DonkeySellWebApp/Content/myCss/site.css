@@ -395,9 +395,10 @@ toggle-switch {
 
 .title {
     font-family: 'Permanent Marker', cursive;
-    margin-top: 1em;
-    margin-bottom: 1.2em;
-    font-size: 4em;
+    margin-top: 0.8em;
+    margin-bottom: 1em;
+    padding-left: 0.5em;
+    font-size: 5em;
     text-shadow: 2px 2px #888888;
 }
 
@@ -585,4 +586,68 @@ toggle-switch {
 
 .no-hover-effect :hover *{
     pointer-events: none;
+}
+
+.hy-z-index {
+    z-index: 1000;
+}
+
+.added-margin-top {
+    margin-top: 3em;
+}
+
+#actionBtn {
+    cursor: move;
+}
+
+.custom-input {
+    background-color: gray;
+}
+
+.custom-background {
+    background-color: #e8e8e8;
+}
+
+.special-input {
+    margin-top: 0.4em;
+    padding: 0.3em;
+    height: auto;
+    border-width: 5px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.special-input :hover {
+    box-shadow: 2px 2px 2px #888888;
+}
+
+.special-input:focus {
+    text-align: left;
+    -webkit-transition-duration: 0.5s;
+    -moz-transition-duration: 0.5s;
+    -ms-transition-duration: 0.5s;
+    -o-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+}
+
+.select-city {
+    padding: 0.2em;
+}
+
+.select-city:hover {
+    -webkit-transform: scale(1.5);
+    -moz-transform: scale(1.5);
+    -ms-transform: scale(1.5);
+    -o-transform: scale(1.5);
+    transform: scale(1.5);
+    color: #D32F2F;
+    background-color: wheat;
+    -webkit-transition-duration: 0.2s;
+    -moz-transition-duration: 0.2s;
+    -ms-transition-duration: 0.2s;
+    -o-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+    text-align: center;
+    z-index: 100;
+    border-radius: 15px;
 }
