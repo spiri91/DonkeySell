@@ -43,7 +43,9 @@ a {
     border-radius: 15px;
     margin: 0.2em;
     background-color: #3F51B5;
-    padding: 0.5em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+
 }
 
 .hide-scroll {
@@ -509,7 +511,7 @@ toggle-switch {
 }
 
 .fixed-height {
-    height: 15em;
+    height: 13em;
 }
 
 .fixed-actionbtn-width {
@@ -654,4 +656,10 @@ toggle-switch {
 
 .indent {
     text-indent: 50px;
+    text-align: justify;
+}
+
+.v-allign {
+    margin-bottom: 0;
+    margin-top: 0.5em
 }

@@ -12,8 +12,8 @@ function homeController($scope, usersService, $location, productsService, $uibMo
     $scope.searchSpecific = function () {
         if ($scope.productName === "")
             $scope.productName = 'allProducts';
-        if ($scope.selectedCity === 0 || !$scope.selectedCity)
-            $scope.selectedCityId = 'allCities';
+        if (!$scope.selectedCity.id || $scope.selectedCity.id === 0)
+            $scope.selectedCity.id = 'allCities';
         this.getProducts($scope.productName, $scope.selectedCity.id);
     };
 
