@@ -1,0 +1,46 @@
+﻿ng-include.ng-enter, ng-view.ng-enter, [ng-include].ng-enter, [ng-view].ng-enter, [ng-if].ng-enter {
+    -webkit-animation: fadeInUp 1s;
+    -moz-animation: fadeInUp 1s;
+    -ms-animation: fadeInUp 1s;
+    -o-animation: fadeInUp 1s;
+    animation: fadeInUp 1s;
+}
+
+ng-include.ng-leave, ng-view.ng-leave, [ng-include].ng-leave, [ng-view].ng-leave, [ng-if].ng-leave {
+    -webkit-animation: fadeOut 1s;
+    -moz-animation: fadeOut 1s;
+    -ms-animation: fadeOut 1s;
+    -o-animation: fadeOut 1s;
+    animation: fadeOut 1s;
+}
+
+/*[ng-show].ng-hide-add {
+    -webkit-animation: fadeIn 1s;
+    -moz-animation: fadeIn 1s;
+    -ms-animation: fadeIn 1s;
+    -o-animation: fadeIn 1s;
+    animation: fadeOut 1s
+}*/
+
+
+
+[ng-repeat].ng-move, [ng-repeat].ng-enter {
+    -webkit-animation: flipInX 1s;
+    -moz-animation: flipInX 1s;
+    -ms-animation: flipInX 1s;
+    -o-animation: flipInX 1s;
+    animation: flipInX 1s;
+}
+
+[ng-repeat].ng-enter-stagger {
+    animation-delay: 0.2s;
+}
+
+[ng-repeat].ng-leave-stagger {
+    animation-delay: 0.2s;
+}
+
+.animate-on-hover:hover {
+    transform: rotate(30deg);
+    transition: all 0.5s ease;
+}

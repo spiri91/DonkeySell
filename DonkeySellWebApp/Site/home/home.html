@@ -1,5 +1,5 @@
 ﻿<div class="container-fluid">
-    <div class="row">
+    <div class="row" id="mainScreen">
         <div class="col-sm-6 centered">
             <br class="hidden-sm-down" />
             <h1 class="title">
@@ -20,15 +20,6 @@
                     </div>
                     <div class="col-sm-4 col-sm-offset-1">
                         <input type="text" class="form-control big-input special-input" placeholder="City" ng-model="selectedCity.name" ng-click="openCitiesModal()"/>
-                        <!--<md-input-container class="md-block big-input" flex-gt-sm>
-                            <label><strong>City</strong></label>
-                            <md-select ng-model="selectedCityId">
-                                <md-option value="0" selected> All cities</md-option>
-                                <md-option ng-repeat="city in $parent.cities" value="{{city.id}}">
-                                    {{city.name}}
-                                </md-option>
-                            </md-select>
-                        </md-input-container>-->
                     </div>
                     <div class="col-xs-12 col-sm-2 centered">
                         <md-button class="md-fab md-primary large-btn" ng-click="searchSpecific()"><i class="fa fa-search"></i><md-tooltip>Search</md-tooltip></md-button>

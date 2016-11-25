@@ -2,11 +2,11 @@
 
 function improvementsController($scope, improvementsService, toastr) {
     $scope.minimize = false;
-    $scope.close = false;
+    $scope.open = true;
     $scope.suggestion = "";
 
     $scope.closeWindow = function () {
-        $scope.close = true;
+        $scope.open = false;
     }
 
     $scope.minimizeWindow = function () {

@@ -12,6 +12,5 @@ function contactPageController($scope, $mdBottomSheet, Item, $mdDialog) {
             .textContent(info)
             .ok('Got it!')
         );
-
     }
 }

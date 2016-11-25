@@ -156,6 +156,8 @@
     <Content Include="Content\angular-toastr.min.css" />
     <Content Include="Content\angular-toggle-switch-bootstrap.css" />
     <Content Include="Content\angular-toggle-switch.css" />
+    <Content Include="Content\myCss\animate.css" />
+    <Content Include="Content\animate.min.css" />
     <Content Include="Content\assets\app-store.png" />
     <Content Include="Content\assets\bootstrap.css" />
     <Content Include="Content\assets\bootstrap.min.js" />
@@ -190,6 +192,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\myCss\animations.css" />
     <Content Include="Content\myCss\large.css" />
     <Content Include="Content\myCss\set1.css" />
     <Content Include="Content\myCss\set2.css" />
@@ -355,6 +358,7 @@
     <Content Include="Scripts\search.svg" />
     <Content Include="Scripts\signalr.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Site\about\about.html" />
     <Content Include="Site\advanceSearch\advanceSearch.html" />
     <Content Include="Site\advanceSearch\advanceSearchController.js" />
     <Content Include="Site\changePassword\changePassword.html" />

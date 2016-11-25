@@ -1,27 +1,27 @@
 ﻿<div class="col-xs-12 col-sm-4 cursor-hand small-padding" ng-repeat="product in products" ng-click="goToProduct(product.id)">
-    <div class="product fixed-height">
-        <div class="row">
-            <div class="flex-allign">
-                <div class="col-xs-10 col-sm-10">
-                    <h3 class="h3">
-                        <strong>{{product.title}}</strong>
-                    </h3>
+        <div class="product fixed-height">
+            <div class="row">
+                <div class="flex-allign">
+                    <div class="col-xs-10 col-sm-10">
+                        <h3 class="h3">
+                            <strong>{{product.title}}</strong>
+                        </h3>
+                    </div>
+                    <div class="col-xs-2 col-sm-2">
+                        <md-button ng-click="addToFavorites(product, $event)" class="md-fab md-mini pull-right"><i class="fa fa-heart"></i><md-tooltip>Add product to favorites</md-tooltip></md-button>
+                    </div>
                 </div>
-                <div class="col-xs-2 col-sm-2">
-                    <md-button ng-click="addToFavorites(product, $event)" class="md-fab md-mini pull-right"><i class="fa fa-heart"></i><md-tooltip>Add product to favorites</md-tooltip></md-button>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 col-sm-6">
+                    <h4>{{product.price | currency : "lei ": 0 }}</h4>
+                    <h5><strong>By:&nbsp;</strong>{{product.userName}} </h5>
+                    <span><strong>In:&nbsp;</strong>{{product.category.name}}</span><br />
+                    <span><strong>City:&nbsp;</strong>{{product.city.name}}</span>
+                </div>
+                <div class="col-xs-6 col-sm-6" ng-if="product.images[0].value">
+                    <img class="image-small" ng-src="{{product.images[0].value}}" />
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-xs-6 col-sm-6">
-                <h4>{{product.price | currency : "lei ": 0 }}</h4>
-                <h5><strong>By:&nbsp;</strong>{{product.userName}} </h5>
-                <span><strong>In:&nbsp;</strong>{{product.category.name}}</span><br/>
-                <span><strong>City:&nbsp;</strong>{{product.city.name}}</span>
-            </div>
-            <div class="col-xs-6 col-sm-6" ng-if="product.images[0].value">
-                <img class="image-small" ng-src="{{product.images[0].value}}"/>
-            </div>
-        </div>
-    </div>
 </div>

@@ -1,10 +1,10 @@
 ﻿app.controller('mainController',
 [
     '$scope', '$uibModal', 'usersService', '$location', 'toastr', 'favoritesService', 'othersService',
-    'storageService',  '$timeout', '$mdSidenav', '$log', mainController
+    'storageService', '$timeout', '$mdSidenav', '$log', '$mdDialog', mainController
 ]);
 
-function mainController($scope, $uibModal, usersService, $location, toastr, favoritesService, othersService, storageService, $timeout, $mdSidenav, $log) {
+function mainController($scope, $uibModal, usersService, $location, toastr, favoritesService, othersService, storageService, $timeout, $mdSidenav, $log, $mdDialog) {
     $scope.user = {};
     $scope.username = "";
     $scope.favorites = [];
@@ -14,7 +14,7 @@ function mainController($scope, $uibModal, usersService, $location, toastr, favo
     $scope.cities = [];
     $scope.categories = [];
 
-    $scope.buildToggler = function(navId) {
+    $scope.buildToggler = function (navId) {
         return function () {
             $mdSidenav(navId)
                 .toggle();
@@ -44,8 +44,6 @@ function mainController($scope, $uibModal, usersService, $location, toastr, favo
             $scope.getUser();
             $scope.getFavorites();
             $scope.getUnreadMessages();
-        } else {
-            //promt him to register
         }
     }
 
@@ -60,8 +58,8 @@ function mainController($scope, $uibModal, usersService, $location, toastr, favo
                    $scope.user = result.data;
            }, function (error) {
                $scope.showErrorMessage("Please logIn again!");
-                $scope.doSomethingWithError(error);
-            });
+               $scope.doSomethingWithError(error);
+           });
     }
 
     $scope.getFavorites = function () {
@@ -70,17 +68,17 @@ function mainController($scope, $uibModal, usersService, $location, toastr, favo
                 if (products.data)
                     $scope.favorites = products.data;
             }, function (error) {
-               $scope.doSomethingWithError(error);
+                $scope.doSomethingWithError(error);
             });
     };
 
     $scope.getUnreadMessages = function () {
         usersService.getUnreadMessages($scope.username, $scope.token)
             .then(function (messages) {
-                if(messages.data)
+                if (messages.data)
                     $scope.unreadMessages = messages.data;
-            }, function(error) {
-               $scope.doSomethingWithError(error);
+            }, function (error) {
+                $scope.doSomethingWithError(error);
             });
     };
 
@@ -112,21 +110,21 @@ function mainController($scope, $uibModal, usersService, $location, toastr, favo
     $scope.getCities = function () {
         othersService.getCities()
           .then(function (result) {
-              if(result.data)
-                $scope.cities = result.data;
-          }, function(error) {
-               $scope.doSomethingWithError(error);
-            });
+              if (result.data)
+                  $scope.cities = result.data;
+          }, function (error) {
+              $scope.doSomethingWithError(error);
+          });
     }
 
     $scope.getCategories = function () {
         othersService.getCategories()
          .then(function (result) {
-             if(result.data)
-                $scope.categories = result.data;
-         }, function(error) {
-               $scope.doSomethingWithError(error);
-            });
+             if (result.data)
+                 $scope.categories = result.data;
+         }, function (error) {
+             $scope.doSomethingWithError(error);
+         });
     };
 
     $scope.removeProductFromFavorites = function (product) {
@@ -135,8 +133,8 @@ function mainController($scope, $uibModal, usersService, $location, toastr, favo
                 toastr.success("Product removed!");
                 let index = $scope.favorites.indexOf(product);
                 $scope.favorites.splice(index, 1);
-            }, function(error) {
-               $scope.doSomethingWithError(error);
+            }, function (error) {
+                $scope.doSomethingWithError(error);
             });
     };
 
@@ -145,7 +143,7 @@ function mainController($scope, $uibModal, usersService, $location, toastr, favo
             .then(function () {
                 let index = $scope.unreadMessages.indexOf(message);
                 $scope.unreadMessages.splice(index, 1);
-            }, function() {
+            }, function () {
                 $scope.doSomethingWithError(error);
             });
 
@@ -156,7 +154,7 @@ function mainController($scope, $uibModal, usersService, $location, toastr, favo
         $location.url('/product/' + id);
     }
 
-    $scope.doSomethingWithError = function(error) {
+    $scope.doSomethingWithError = function (error) {
         console.log(error);
     }
 
@@ -168,6 +166,16 @@ function mainController($scope, $uibModal, usersService, $location, toastr, favo
         $scope.$broadcast('logout');
         toastr.success('You logged out!');
     };
+
+    $scope.contactMe = function () {
+        $mdDialog.show(
+            $mdDialog.alert()
+            .clickOutsideToClose(true)
+            .title('Contact me')
+            .textContent('Send me a mail at:  spataru.ionut91@gmail.com')
+            .ok('Got it!')
+        );
+    }
 
     $scope.getCitiesAndCategories();
     $scope.init();

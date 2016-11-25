@@ -1,4 +1,4 @@
-﻿var app = angular.module('app', ['ngRoute', 'toastr', 'ui.bootstrap', 'ngMaterial', 'toggle-switch', 'flow']);
+﻿var app = angular.module('app', ['ngRoute', 'toastr', 'ui.bootstrap', 'ngMaterial', 'toggle-switch', 'flow', 'ngAnimate']);
 
 app.config(function ($routeProvider, $mdThemingProvider, toastrConfig, $mdAriaProvider) {
     $routeProvider
@@ -46,6 +46,10 @@ app.config(function ($routeProvider, $mdThemingProvider, toastrConfig, $mdAriaPr
         {
             templateUrl: 'Site/advanceSearch/advanceSearch.html',
             controller: 'advanceSearchController'
+        })
+         .when('/about',
+        {
+            templateUrl: 'Site/about/about.html'
         })
         .otherwise({ redirectTo: '/' });
 
