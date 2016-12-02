@@ -1,25 +1,56 @@
-﻿app.controller('userController', ['$scope', 'usersService', 'productsService', '$location', '$routeParams', 'toastr', '$mdDialog','favoritesService', '$uibModal', userController]);
+﻿app.controller('userController', ['$scope', 'usersService', 'productsService', '$location',
+    '$routeParams', 'toastr', '$mdDialog', 'favoritesService', '$uibModal','$rootScope', 'userStateService', userController]);
 
-function userController($scope, usersService, productsService, $location, $routeParams, toastr, $mdDialog, favoritesService, $uibModal) {
+function userController($scope, usersService, productsService, $location, $routeParams, toastr, $mdDialog, favoritesService, $uibModal, $rootScope, userStateService) {
     $scope.username = $routeParams.username;
     $scope.showEditButtons = $scope.$parent.username === $scope.username;
     $scope.user = {};
     $scope.products = [];
 
     $scope.init = function () {
+        if (userStateService.hasState() === true && (($rootScope.fromUrl.indexOf('/product/') > -1) || ($rootScope.fromUrl.indexOf('/updateCreateProduct/') > -1)) && userStateService.getUsernameFromState() === $scope.username)
+            $scope.getLastState();
+        else {
+            $scope.getUser();
+            $scope.getUsersProducts();
+        }
+    };
+
+    $scope.getLastState = function() {
+        let state = userStateService.get();
+
+        $scope.username = state.username;
+        $scope.showEditButtons = state.showEditButtons;
+        $scope.user = state.user;
+        $scope.products = state.products;
+    };
+
+    $scope.setState = function() {
+        let state = {};
+        state.username = $scope.username;
+        state.showEditButtons = $scope.showEditButtons;
+        state.user = $scope.user;
+        state.products = $scope.products;
+
+        userStateService.set(state);
+    }
+
+    $scope.getUsersProducts = function() {
+        productsService.getProductsOfUser($scope.username)
+           .then(function (products) {
+               if (products.data)
+                   $scope.products = products.data;
+           }, function (error) {
+               $scope.doSomethingWithError(error);
+           });
+    }
+
+    $scope.getUser = function() {
         usersService.getUser($scope.username)
             .then(function (user) {
-                if(user.data)
+                if (user.data)
                     $scope.user = user.data;
-            }, function(error) {
-                $scope.doSomethingWithError(error);
-            });
-
-        productsService.getProductsOfUser($scope.username)
-            .then(function (products) {
-                if(products.data)
-                    $scope.products = products.data;
-            }, function(error) {
+            }, function (error) {
                 $scope.doSomethingWithError(error);
             });
     };
@@ -64,6 +95,7 @@ function userController($scope, usersService, productsService, $location, $route
     };
 
     $scope.getProduct = function (id) {
+        $scope.setState();
         $location.url('/product/' + id);
     };
 
@@ -107,6 +139,12 @@ function userController($scope, usersService, productsService, $location, $route
             modalInstance.result.then(function () {
                 $scope.init();
             });
+    };
+
+    $scope.editProduct = function(productId, $event) {
+        $event.stopPropagation();
+        $scope.setState();
+        $location.url('/updateCreateProduct/' + productId);
     };
 
     $scope.doSomethingWithError = function(error) {

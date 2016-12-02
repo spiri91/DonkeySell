@@ -1,6 +1,8 @@
-﻿app.controller('advanceSearchController', ['$scope', 'productsService', '$location', 'othersService', 'queryBuilderService', 'sortOptionsService', advanceSearchController]);
+﻿app.controller('advanceSearchController', ['$scope', 'productsService', '$location',
+    'othersService', 'queryBuilderService', 'sortOptionsService', '$rootScope', 'advanceSearchStateService', advanceSearchController]);
 
-function advanceSearchController($scope, productsService, $location, othersService, queryBuilderService, sortOptionsService) {
+function advanceSearchController($scope, productsService, $location, othersService,
+    queryBuilderService, sortOptionsService, $rootScope, advanceSearchStateService) {
 
     $scope.products = [];
     $scope.cities = [];
@@ -16,7 +18,7 @@ function advanceSearchController($scope, productsService, $location, othersServi
     $scope.endOfList = false;
     $scope.count = 0;
     $scope.sortOptions = sortOptionsService.getSortOptions();
-    $scope.sortBy = {};
+    $scope.sortBy = $scope.sortOptions[2];
 
     $scope.itemsPerPage = 5;
     $scope.skip = 0;
@@ -64,6 +66,52 @@ function advanceSearchController($scope, productsService, $location, othersServi
 
         $scope.query = queryBuilderService.buildQuery(queryParts);
     }
+
+    $scope.setState = function () {
+        let state = {};
+
+        state.products = $scope.products;
+        state.selectedCategoryId = $scope.selectedCategoryId;
+        state.selectedCityId = $scope.selectedCityId;
+        state.minPrice = $scope.minPrice;
+        state.maxPrice = $scope.maxPrice;
+        state.minDate = $scope.minDate;
+        state.maxDate = $scope.maxDate;
+        state.searchInDescriptionAlso = $scope.searchInDescriptionAlso;
+        state.title = $scope.title;
+        state.endOfList = $scope.endOfList;
+        state.count = $scope.count;
+        state.sortByIndex = $scope.sortOptions.indexOf($scope.sortBy);
+        state.itemsPerPage = $scope.itemsPerPage;
+        state.skip = $scope.skip;
+        state.query = $scope.query;
+        state.currentPage = $scope.currentPage;
+        state.totalPages = $scope.totalPages;
+
+        advanceSearchStateService.set(state);
+    };
+
+    $scope.getLastState = function () {
+        let state = advanceSearchStateService.get();
+
+        $scope.products = state.products;
+        $scope.selectedCategoryId = state.selectedCategoryId;
+        $scope.selectedCityId = state.selectedCityId;
+        $scope.minPrice = state.minPrice;
+        $scope.maxPrice = state.maxPrice;
+        $scope.minDate = state.minDate;
+        $scope.maxDate = state.maxDate;
+        $scope.searchInDescriptionAlso = state.searchInDescriptionAlso;
+        $scope.title = state.title;
+        $scope.endOfList = state.endOfList;
+        $scope.count = state.count;
+        $scope.sortBy = $scope.sortOptions[state.sortByIndex];
+        $scope.itemsPerPage = state.itemsPerPage;
+        $scope.skip = state.skip;
+        $scope.query = state.query;
+        $scope.currentPage = state.currentPage;
+        $scope.totalPages = state.totalPages;
+    };
 
     $scope.getCities = function () {
         $scope.cities = $scope.$parent.cities;
@@ -124,10 +172,12 @@ function advanceSearchController($scope, productsService, $location, othersServi
     }
 
     $scope.init = function () {
-        $scope.sortBy = $scope.sortOptions[2];
         $scope.getCategories();
         $scope.getCities();
         $scope.setDates();
+
+        if (($rootScope.fromUrl.indexOf('/product/') > -1) && (advanceSearchStateService.hasState()===true))
+            $scope.getLastState();
     };
 
     $scope.setDates = function () {
@@ -142,6 +192,16 @@ function advanceSearchController($scope, productsService, $location, othersServi
     $scope.doSomethingWithError = function (error) {
         console.log(error);
     }
+
+    $scope.showProduct = function (id) {
+        $scope.setState();
+        $location.url('/product/' + id);
+    };
+
+    $scope.showProduct = function (id) {
+        $scope.setState();
+        $location.url('/product/' + id);
+    };
 
     $scope.init();
 

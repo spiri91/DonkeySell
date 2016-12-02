@@ -1,10 +1,11 @@
 ﻿app.controller('mainController',
 [
     '$scope', '$uibModal', 'usersService', '$location', 'toastr', 'favoritesService', 'othersService',
-    'storageService', '$timeout', '$mdSidenav', '$log', '$mdDialog', mainController
+    'storageService', '$timeout', '$mdSidenav', '$log', '$mdDialog', '$rootScope', mainController
 ]);
 
-function mainController($scope, $uibModal, usersService, $location, toastr, favoritesService, othersService, storageService, $timeout, $mdSidenav, $log, $mdDialog) {
+function mainController($scope, $uibModal, usersService, $location, toastr,
+    favoritesService, othersService, storageService, $timeout, $mdSidenav, $log, $mdDialog, $rootScope) {
     $scope.user = {};
     $scope.username = "";
     $scope.favorites = [];
@@ -176,6 +177,10 @@ function mainController($scope, $uibModal, usersService, $location, toastr, favo
             .ok('Got it!')
         );
     }
+
+    $rootScope.$on('$locationChangeSuccess', function (e, newLocation, oldLocation) {
+        $rootScope.fromUrl = oldLocation;
+    });
 
     $scope.getCitiesAndCategories();
     $scope.init();

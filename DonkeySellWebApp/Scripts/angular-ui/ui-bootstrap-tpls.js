@@ -4494,7 +4494,6 @@ angular.module('ui.bootstrap.paging', [])
         if ($attrs.itemsPerPage) {
           ctrl._watchers.push($scope.$parent.$watch($attrs.itemsPerPage, function(value) {
             ctrl.itemsPerPage = parseInt(value, 10);
-            $scope.totalPages = ctrl.calculateTotalPages();
             ctrl.updatePage();
           }));
         } else {

@@ -50,6 +50,9 @@ function homeController($scope, usersService, $location, productsService, $uibMo
         });
     };
 
+    $scope.showProduct = function (id) {
+        $location.url('/product/' + id);
+    };
 
     $scope.init();
 }

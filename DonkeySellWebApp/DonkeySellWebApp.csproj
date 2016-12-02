@@ -404,6 +404,9 @@
     <Content Include="Site\shared\services\queryBuilderService.js" />
     <Content Include="Site\shared\services\sortOptionsService.js" />
     <Content Include="Site\shared\services\storageService.js" />
+    <Content Include="Site\shared\viewStates\advanceSearchStateService.js" />
+    <Content Include="Site\shared\viewStates\productsStateService.js" />
+    <Content Include="Site\shared\viewStates\userStateService.js" />
     <Content Include="Site\unreadMessages\unreadMessages.html" />
     <Content Include="Site\updateCreateProduct\updateCreateProduct.html" />
     <Content Include="Site\updateCreateProduct\updateCreateProductController.js" />
