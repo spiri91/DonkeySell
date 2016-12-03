@@ -1,4 +1,6 @@
-﻿app.directive('onKeyEnter', ['$parse', function ($parse) {
+﻿app.directive('onKeyEnter', ['$parse', onKeyEnter]);
+
+function onKeyEnter($parse) {
     return {
         restrict: 'A',
         link: function (scope, element, attrs) {
@@ -10,9 +12,9 @@
                 }
             });
             scope.$on('$destroy',
-                function() {
+                function () {
                     element.unbind('keydown keypress');
                 });
         }
     };
-}]);
+}

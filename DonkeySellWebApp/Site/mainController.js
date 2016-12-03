@@ -53,14 +53,14 @@ function mainController($scope, $uibModal, usersService, $location, toastr,
     }
 
     $scope.getUser = function () {
-        return usersService.getUser($scope.username)
-           .then(function (result) {
-               if (result.data)
-                   $scope.user = result.data;
-           }, function (error) {
-               $scope.showErrorMessage("Please logIn again!");
-               $scope.doSomethingWithError(error);
-           });
+        usersService.getUser($scope.username)
+          .then(function (result) {
+              if (result.data)
+                  $scope.user = result.data;
+          }, function (error) {
+              $scope.showErrorMessage("Please logIn again!");
+              $scope.doSomethingWithError(error);
+          });
     }
 
     $scope.getFavorites = function () {

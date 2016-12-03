@@ -1,12 +1,13 @@
 ﻿<div class="container-fluid larger-font-size">
     <div class="row">
         <div class="col-xs-12 col-sm-11 col-sm-offset-1">
-            <h3 class="subtitle centered-xs">{{user.userName ? "Edit profile" : "Create profile"}}</h3>
+            <h3 class="subtitle centered-xs">{{isEdit? "Edit profile" : "Create profile"}}</h3>
         </div>
         <br />
         <div class="col-xs-12 col-sm-8 col-sm-offset-2 alert alert-success fade in" ng-if="!isEdit">
             <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
             <p>Chose your username wisely because it can not be change afterwards! :)</p>
+            <p>After you register please confirm in the email you will receive, check the spam also.</p>
         </div>
     </div>
     <div class="row">
@@ -17,7 +18,7 @@
                     <md-icon><i class="fa fa-user fa-2x"></i></md-icon>
                     <input type="text" class="text-input" ng-model="user.userName" placeholder="Username" ng-disabled="isEdit" ng-minlength="5" ng-maxlength="15" ng-blur="checkUsername()" required>
                     <div ng-messages="registerForm.username.$error">
-                        <div ng-message="required">Username required.</div>
+                        <div ng-message="required">Username should be between 5 and 15 characters.</div>
                     </div>
                 </md-input-container>
                 <md-input-container class="md-block" name="mail">
@@ -70,8 +71,8 @@
             <img class="img img-circle image-small" ng-src="{{user.avatar}}" alt="avatar image" />
         </div>
     </div>
-    <br />
-    <div class="row errors">
+    <div class="row errors" ng-if="errors.length>0">
+        <br />
         <div class="col-sm-10 col-sm-offset-1">
             <div class="row">
                 <div class="col-sm-4 centered" ng-animate="'animate'" ng-repeat="error in errors">
@@ -81,8 +82,8 @@
                 </div>
             </div>
         </div>
+        <br />
     </div>
-    <br />
     <div class="row">
         <div class="col-xs-6 col-sm-6 centered">
             <md-button class="md-raised md-primary fixed-width" ng-click="register()" ng-disabled="registerForm.$invalid || error.length>0">Save</md-button>

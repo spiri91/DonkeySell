@@ -26,7 +26,7 @@ function chatController($scope, storageService, othersService, friendsService, $
                 $scope.chatHub.server.findOnlineFriends($scope.$parent.username);
                 $scope.chatHub.server.sendOnlineNotification($scope.$parent.username);
             });
-    }, 3000);
+    }, 5000);
     $scope.chatHub = $.connection.chatHub;
     // finished initialization
 

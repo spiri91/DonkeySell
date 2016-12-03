@@ -1,8 +1,6 @@
 ﻿app.service('productsStateService', [productsStateService]);
 
 function productsStateService() {
-    this.state = {};
-
     this.set = function(state) {
         this.state = state;
     }

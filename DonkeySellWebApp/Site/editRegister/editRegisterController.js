@@ -17,6 +17,7 @@ function editRegisterController($scope, usersService, toastr, $location, othersS
                         let message = $scope.isEdit ? "Edit successful" : "Register successful";
                         toastr.success(message);
                         $location.path('/home');
+                        $scope.$parent.login();
                     }
                 }
             }, function (error) {

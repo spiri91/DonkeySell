@@ -5,10 +5,13 @@ function loginController($scope, $uibModalInstance, usersService, toastr, storag
     $scope.password = "";
     $scope.rememberCredentials = false;
     $scope.mailSent = false;
+    $scope.isLoading = false;
+
     var passwordCacheName = "password";
     var usernameCacheName = "username";
 
     $scope.login = function () {
+        $scope.isLoading = true;
         let user = new User();
         user.userName = $scope.username;
         user.password = $scope.password;
@@ -20,6 +23,7 @@ function loginController($scope, $uibModalInstance, usersService, toastr, storag
                 $uibModalInstance.close($scope.username);
             },
                 function () {
+                    $scope.isLoading = false;
                     toastr.error('Login failed!');
                     $scope.username = $scope.password = "";
                 });

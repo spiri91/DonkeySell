@@ -10,6 +10,7 @@
 /// <reference path="angular-cookies.min.js" />
 /// <reference path="angular-material/angular-material.min.js" />
 /// <reference path="angular-material/angular-material-mocks.js" />
+/// <reference path="angular-messages.min.js" />
 /// <reference path="angular-mocks.js" />
 /// <reference path="angular-route.min.js" />
 /// <reference path="angular-toastr.min.js" />

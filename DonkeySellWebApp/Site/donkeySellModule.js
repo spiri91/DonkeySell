@@ -1,4 +1,4 @@
-﻿var app = angular.module('app', ['ngRoute', 'toastr', 'ui.bootstrap', 'ngMaterial', 'toggle-switch', 'flow', 'ngAnimate']);
+﻿var app = angular.module('app', ['ngRoute', 'toastr', 'ui.bootstrap', 'ngMaterial', 'toggle-switch', 'flow', 'ngAnimate', 'ngMessages']);
 
 app.config(function ($routeProvider, $mdThemingProvider, toastrConfig, $mdAriaProvider) {
     $routeProvider

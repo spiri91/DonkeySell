@@ -663,3 +663,7 @@ toggle-switch {
     margin-bottom: 0;
     margin-top: 0.5em
 }
+
+.badge-right {
+    margin-left: 10px;
+}

@@ -1,8 +1,6 @@
 ﻿app.service('advanceSearchStateService', [advanceSearchStateService]);
 
 function advanceSearchStateService() {
-    this.state = {};
-
     this.set = function (state) {
         this.state = state;
     }
