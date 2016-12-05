@@ -667,3 +667,7 @@ toggle-switch {
 .badge-right {
     margin-left: 10px;
 }
+
+.fixed-max-width-image {
+    max-height: 9em;
+}

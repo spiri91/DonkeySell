@@ -91,13 +91,13 @@
                                         <md-input-container class="md-block">
                                             <label>New message</label>
                                             <input md-maxlength="90" md-no-asterisk name="description" ng-model="newMessage" on-key-enter="saveMessage()">
-                                            <div>
+                                            <div ng-messages="projectForm.description.$error">
                                                 <div ng-message="md-maxlength">The description must be less than 90 characters long.</div>
                                             </div>
                                         </md-input-container>
                                     </div>
                                     <div class="col-sm-1 centered">
-                                        <md-button ng-click="saveMessage()" ng-disabled="!newMessage" class="md-fab"><span class="fa fa-send fa-2x"></span></md-button>
+                                        <md-button ng-click="saveMessage()" ng-disabled="!newMessage" class="md-fab"><i class="fa fa-send fa-2x"></i></md-button>
                                     </div>
                                 </div>
                             </div>

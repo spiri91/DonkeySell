@@ -388,6 +388,8 @@
     <Content Include="Site\settings\settingsController.js" />
     <Content Include="Site\shared\directives\enterPress\enterPressDirective.js" />
     <Content Include="Site\shared\directives\loadingDirective\loadingDirective.js" />
+    <Content Include="Site\shared\directives\loadingSpecificDirective\loadingSpecific.html" />
+    <Content Include="Site\shared\directives\loadingSpecificDirective\loadingSpecificDirective.js" />
     <Content Include="Site\shared\directives\productsDirective\productsDirective.html" />
     <Content Include="Site\shared\directives\productsDirective\productsDirective.js" />
     <Content Include="Site\shared\models\category.js" />

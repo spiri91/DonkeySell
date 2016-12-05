@@ -58,6 +58,7 @@
 /// <reference path="../site/settings/settingscontroller.js" />
 /// <reference path="../site/shared/directives/enterpress/enterpressdirective.js" />
 /// <reference path="../site/shared/directives/loadingdirective/loadingdirective.js" />
+/// <reference path="../site/shared/directives/loadingspecificdirective/loadingspecificdirective.js" />
 /// <reference path="../site/shared/directives/productsdirective/productsdirective.js" />
 /// <reference path="../site/shared/models/category.js" />
 /// <reference path="../site/shared/models/city.js" />

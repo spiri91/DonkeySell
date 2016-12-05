@@ -12,6 +12,7 @@ function productsController($scope, productsService, $routeParams, $location, qu
     $scope.count = 0;
     $scope.currentPage = 0;
     $scope.totalPages = 0;
+    $scope.loading = false;
 
     $scope.products = [];
 
@@ -70,19 +71,29 @@ function productsController($scope, productsService, $routeParams, $location, qu
     }
 
     $scope.getProducts = function () {
+        $scope.loading = true;
+
         $scope.itemsPerPage = $scope.itemsPerPage ? $scope.itemsPerPage : 4;
 
-        productsService.queryProducts($scope.query, $scope.itemsPerPage, $scope.skip, $scope.sortBy.value, $scope.sortBy.sortDirection)
-                .then(function (productsAndCount) {
+        productsService.queryProducts($scope.query,
+                $scope.itemsPerPage,
+                $scope.skip,
+                $scope.sortBy.value,
+                $scope.sortBy.sortDirection)
+            .then(function(productsAndCount) {
                     if (productsAndCount.data) {
                         $scope.products = productsAndCount.data.products;
                         $scope.count = productsAndCount.data.count;
                         $scope.calculatePages();
                     }
-                }, function (error) {
+                },
+                function(error) {
                     toastr.error('An error occured!');
                     $scope.doSomethingWithError(error);
-                });
+                })
+            .finally(function() {
+                $scope.loading = false;
+            });
     }
 
     $scope.resetGetProducts = function () {

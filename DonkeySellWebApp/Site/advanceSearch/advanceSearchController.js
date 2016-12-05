@@ -19,6 +19,7 @@ function advanceSearchController($scope, productsService, $location, othersServi
     $scope.count = 0;
     $scope.sortOptions = sortOptionsService.getSortOptions();
     $scope.sortBy = $scope.sortOptions[2];
+    $scope.loading = false;
 
     $scope.itemsPerPage = 5;
     $scope.skip = 0;
@@ -127,18 +128,27 @@ function advanceSearchController($scope, productsService, $location, othersServi
     }
 
     $scope.getProducts = function () {
+        $scope.loading = true;
         $scope.buidQuery();
         $scope.itemsPerPage = $scope.itemsPerPage ? $scope.itemsPerPage : 4;
-        productsService.queryProducts($scope.query, $scope.itemsPerPage, $scope.skip, $scope.sortBy.value, $scope.sortBy.sortDirection)
-            .then(function (productsAndCount) {
-                if (productsAndCount.data) {
-                    $scope.products = productsAndCount.data.products;
-                    $scope.count = productsAndCount.data.count;
-                    $scope.calculatePages();
-                }
-            }, function (error) {
-                $scope.endOfList = true;
-                $scope.doSomethingWithError(error);
+        productsService.queryProducts($scope.query,
+                $scope.itemsPerPage,
+                $scope.skip,
+                $scope.sortBy.value,
+                $scope.sortBy.sortDirection)
+            .then(function(productsAndCount) {
+                    if (productsAndCount.data) {
+                        $scope.products = productsAndCount.data.products;
+                        $scope.count = productsAndCount.data.count;
+                        $scope.calculatePages();
+                    }
+                },
+                function(error) {
+                    $scope.endOfList = true;
+                    $scope.doSomethingWithError(error);
+                })
+            .finally(function() {
+                $scope.loading = false;
             });
     };
 

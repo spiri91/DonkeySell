@@ -4,6 +4,7 @@ function homeController($scope, usersService, $location, productsService, $uibMo
     $scope.productName = "";
     $scope.selectedCity = {};
     $scope.products = [];
+    $scope.loading = false;
 
     $scope.simulateQuery = false;
     $scope.isDisabled = false;
@@ -26,12 +27,17 @@ function homeController($scope, usersService, $location, productsService, $uibMo
     }
 
     $scope.init = function () {
+        $scope.loading = true;
         productsService.queryProducts("all", 6, 0, "DatePublished", sortDirection.descending)
-            .then(function (productsAndCount) {
-                if (productsAndCount.data)
-                    $scope.products = productsAndCount.data.products;
-            }, function () {
-                console.log(error);
+            .then(function(productsAndCount) {
+                    if (productsAndCount.data)
+                        $scope.products = productsAndCount.data.products;
+                },
+                function() {
+                    console.log(error);
+                })
+            .finally(function() {
+                $scope.loading = false;
             });
     };
 

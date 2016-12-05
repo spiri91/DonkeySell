@@ -15,15 +15,16 @@
             <md-input-container class="md-block">
                 <md-tooltip>Min munber is 4</md-tooltip>
                 <label>Items per page</label>
-                <input ng-model="itemsPerPage" type="number" ng-change="resetGetProducts()" step="1" ng-min="1">
+                <input ng-model="itemsPerPage" type="number" ng-model-options='{ debounce: 1000 }' ng-change="resetGetProducts()" step="1" ng-min="1">
             </md-input-container>
         </div>
     </div>
     <div>
+        <div ng-if="loading" loading-specific></div>
         <div class="row">
             <div products-directive></div>
         </div>
-        <hr />
+        <hr/>
         <div class="col-sm-12">
             <div class="col-xs-6 col-sm-4">
                 <span class="pull-left"><strong>{{count + ' results'}}</strong></span>
@@ -34,8 +35,8 @@
             <div class="col-xs-12 col-sm-4">
                 <span ng-if="(skip + products.length) == count" class="centered-xs-right-rest"><strong>End of the list &nbsp;<i class="fa fa-smile-o"></i></strong></span>
             </div>
-            <br />
-            <br />
+            <br/>
+            <br/>
         </div>
         <footer class="row">
             <div class="col-sm-6 centered pull-right">

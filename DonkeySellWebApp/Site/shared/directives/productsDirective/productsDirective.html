@@ -17,8 +17,8 @@
                     <span><strong>In:&nbsp;</strong>{{product.category.name}}</span><br />
                     <span><strong>City:&nbsp;</strong>{{product.city.name}}</span>
                 </div>
-                <div class="col-xs-7 col-xs-offset-1 col-sm-7 col-sm-offset-1" ng-if="product.images[0].value">
-                    <img class="img img-responsive " ng-src="{{product.images[0].value}}" />
+                <div class="col-xs-7 col-xs-offset-1 col-sm-7 col-sm-offset-1 fixed-max-width-image" ng-if="product.images[0].value">
+                    <img class="img img-responsive center-block fixed-max-width-image" ng-src="{{product.images[0].value}}" />
                 </div>
             </div>
         </div>

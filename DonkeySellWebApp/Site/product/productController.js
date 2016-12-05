@@ -1,4 +1,4 @@
-﻿app.controller('productController', ['$scope', 'messagesService', 'productsService', 'usersService', '$routeParams', 'toastr', '$mdDialog', 'favoritesService', '$mdBottomSheet','$uibModal', productController]);
+﻿app.controller('productController', ['$scope', 'messagesService', 'productsService', 'usersService', '$routeParams', 'toastr', '$mdDialog', 'favoritesService', '$mdBottomSheet', '$uibModal', productController]);
 
 function productController($scope, messagesService, productsService, usersService, $routeParams, toastr, $mdDialog, favoritesService, $mdBottomSheet, $uibModal) {
     $scope.id = $routeParams.productId;
@@ -18,10 +18,10 @@ function productController($scope, messagesService, productsService, usersServic
     $scope.getProductOwner = function () {
         usersService.getUser($scope.product.userName)
             .then(function (user) {
-                if(user.data)
+                if (user.data)
                     $scope.productOwner = user.data;
-            }, function(error) {
-                $scope.doSomethingWithError(error)
+            }, function (error) {
+                $scope.doSomethingWithError(error);
             });
     }
 
@@ -43,24 +43,24 @@ function productController($scope, messagesService, productsService, usersServic
     };
 
     $scope.getProductAndProductOwner = function () {
-        productsService.getProduct(this.id)
+        productsService.getProduct($scope.id)
             .then(function (product) {
                 if (product.data) {
                     $scope.product = product.data;
                     $scope.selectedImage = $scope.product.images[0] ? $scope.product.images[0].value : "";
                 }
-            }, function(error) { $scope.doSomethingWithError(error); })
+            }, function (error) { $scope.doSomethingWithError(error); })
             .then(function () {
                 $scope.getProductOwner();
             });
     }
 
     $scope.getMessages = function () {
-        messagesService.getMessagesForProduct(this.id)
+        messagesService.getMessagesForProduct($scope.id)
             .then(function (messages) {
-                if(messages.data)
+                if (messages.data)
                     $scope.messages = messages.data;
-            }, function(error) {
+            }, function (error) {
                 $scope.doSomethingWithError(error);
             });
     }
@@ -85,7 +85,7 @@ function productController($scope, messagesService, productsService, usersServic
             .then(function () {
                 $scope.$parent.favorites.push($scope.product);
                 toastr.success('Product added to Favorites!');
-            }, function(error) {
+            }, function (error) {
                 $scope.doSomethingWithError(error);
             });
     };
@@ -94,14 +94,14 @@ function productController($scope, messagesService, productsService, usersServic
         if (!$scope.newMessage)
             return;
 
-        if ($scope.$parent.token ) {
+        if ($scope.$parent.token) {
             let message = new Message(null, $scope.$parent.user.userName, $scope.newMessage, Date.now(), $scope.id, false);
             messagesService.postMessageForProduct(message, $scope.$parent.token)
                 .then(function (newMessage) {
-                    if(newMessage.data)
+                    if (newMessage.data)
                         $scope.messages.push(newMessage.data);
                     $scope.newMessage = '';
-                }, function(error) { $scope.doSomethingWithError(error); });
+                }, function (error) { $scope.doSomethingWithError(error); });
         } else {
             toastr.error("Please login first!");
         }
@@ -114,32 +114,28 @@ function productController($scope, messagesService, productsService, usersServic
                     let message = $.grep($scope.messages, function (m) { return m.id === id.data });
                     let index = $scope.messages.indexOf(message);
                     $scope.messages.splice(index, 1);
-                }, function(error){$scope.doSomethingWithError(error)});
+                }, function (error) { $scope.doSomethingWithError(error) });
         }
     }
 
-    $scope.openImage = function(index) {
-        var modalInstance = $uibModal.open({
+    $scope.openImage = function (index) {
+        $uibModal.open({
             animation: true,
             templateUrl: 'Site/gallery/gallery.html',
             controller: 'galleryController',
-            size:'lg',
+            size: 'lg',
             resolve: {
                 images: function () { return $scope.product.images },
                 index: function () { return index }
             }
         });
-
-        modalInstance.result.then(function () {
-            $scope.init();
-        });
     }
 
-    $scope.setSelected = function(index) {
+    $scope.setSelected = function (index) {
         $scope.selectedImage = $scope.product.images[index].value;
     };
 
-    $scope.doSomethingWithError = function(error) {
+    $scope.doSomethingWithError = function (error) {
         console.log(error);
     }
 
