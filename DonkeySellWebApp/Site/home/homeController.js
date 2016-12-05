@@ -53,6 +53,7 @@ function homeController($scope, usersService, $location, productsService, $uibMo
 
         modalInstance.result.then(function (selectedCity) {
             $scope.selectedCity = selectedCity;
+            $('#searchBtn').focus();
         });
     };
 

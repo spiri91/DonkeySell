@@ -1,6 +1,6 @@
-﻿app.controller('loginController', ['$scope', '$uibModalInstance', 'usersService', 'toastr', 'storageService', loginController]);
+﻿app.controller('loginController', ['$scope', '$uibModalInstance', 'usersService', 'toastr', 'storageService', '$location', loginController]);
 
-function loginController($scope, $uibModalInstance, usersService, toastr, storageService) {
+function loginController($scope, $uibModalInstance, usersService, toastr, storageService, $location) {
     $scope.username = "";
     $scope.password = "";
     $scope.rememberCredentials = false;
@@ -56,14 +56,20 @@ function loginController($scope, $uibModalInstance, usersService, toastr, storag
     };
 
     $scope.resetPassword = function () {
-        if($scope.username)
-        usersService.resetPassword($scope.username)
-            .then(function () {
-                $scope.mailSent = true;
-            }, function (error) {
-                console.log(error);
-                toastr.error('Reset password failed! :(');
-            });
+        if ($scope.username)
+            usersService.resetPassword($scope.username)
+                .then(function () {
+                    $scope.mailSent = true;
+                },
+                    function (error) {
+                        console.log(error);
+                        toastr.error('Reset password failed! :(');
+                    });
+    };
+
+    $scope.register = function () {
+        $scope.cancel();
+        $location.url('/register');
     };
 
     $scope.init();

@@ -5,87 +5,89 @@
             <h3 class="subtitle centered-xs">Advance search</h3>
         </div>
         <div class="col-xs-2 col-sm-1 pull-right centered">
-            <button type="button" class="btn btn-danger" data-toggle="collapse" data-target="#search" aria-expanded="true" md-tooltip="Minimize search form"><i class="fa fa-arrow-circle-o-up"></i><md-tooltip>Minimize search criteria</md-tooltip></button>
+            <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#search" aria-expanded="true" md-tooltip="Minimize/expand search form"><i class="fa fa-arrows-v fa-2x"></i><md-tooltip>Minimize search criteria</md-tooltip></button>
         </div>
     </div>
     <div class="collapse in larger-font-size" id="search">
-        <div class="row">
-            <div class="col-sm-6 centered">
-                <md-input-container class="md-block" flex-gt-sm>
-                    <label>Search for</label>
-                    <input md-maxlength="30" name="name" ng-model="title"/>
-                    <div class="hint" ng-if="showHints">What your're searching for.. </div>
-                </md-input-container>
+        <form name="advanceSearch">
+            <div class="row">
+                <div class="col-sm-6 centered">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Search for</label>
+                        <input md-maxlength="30" name="name" ng-model="title" />
+                        <div class="hint" ng-if="showHints">What your're searching for.. </div>
+                    </md-input-container>
+                </div>
+                <div class="col-sm-4 col-sm-offset-1">
+                    <md-switch class="md-primary" md-no-ink ng-model="searchInDescriptionAlso">
+                        Search in description also
+                    </md-switch>
+                </div>
             </div>
-            <div class="col-sm-4 col-sm-offset-1">
-                <md-switch class="md-primary" md-no-ink ng-model="searchInDescriptionAlso">
-                    Search in description also
-                </md-switch>
+            <div class="row">
+                <div class="col-sm-3">
+                    <md-input-container class="md-block">
+                        <label>Minimum price</label>
+                        <input type="number" step="10" ng-model="minPrice" min="0" />
+                    </md-input-container>
+                </div>
+                <div class="col-sm-3">
+                    <md-input-container class="md-block">
+                        <label>Maximum price</label>
+                        <input type="number" step="10" ng-model="maxPrice" min="0" />
+                    </md-input-container>
+                </div>
+                <div class="col-xs-12 col-sm-3 centered">
+                    <md-input-container class="md-block">
+                        <md-tooltip>Miminum date is set automatically to 31 days before today</md-tooltip>
+                        <label>Posted after</label>
+                        <md-datepicker ng-model="minDate" md-placeholder="Enter date"></md-datepicker>
+                    </md-input-container>
+                </div>
+                <div class="col-xs-12 col-sm-3 centered">
+                    <md-input-container class="md-block">
+                        <label>Posted before</label>
+                        <md-datepicker ng-model="maxDate" md-placeholder="Enter date"></md-datepicker>
+                    </md-input-container>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-3">
-                <md-input-container class="md-block">
-                    <label>Minimum price</label>
-                    <input type="number" step="10" ng-model="minPrice" min="0"/>
-                </md-input-container>
+            <div class="row">
+                <div class="col-sm-6">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Category</label>
+                        <md-select ng-model="selectedCategoryId">
+                            <md-option disabled>
+                                -- Select Category --
+                            </md-option>
+                            <md-option ng-repeat="category in categories" value="{{category.id}}">
+                                {{category.name}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div class="col-sm-6">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>City</label>
+                        <md-select ng-model="selectedCityId">
+                            <md-option disabled>
+                                -- Select City --
+                            </md-option>
+                            <md-option ng-repeat="city in cities" value="{{city.id}}">
+                                {{city.name}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
             </div>
-            <div class="col-sm-3">
-                <md-input-container class="md-block">
-                    <label>Maximum price</label>
-                    <input type="number" step="10" ng-model="maxPrice" min="0"/>
-                </md-input-container>
+            <div class="row">
+                <div class="col-sm-2 col-sm-offset-5 centered">
+                    <md-button class="md-fab md-primary" md-tooltip="Search" ng-disabled="advanceSearch.$invalid" ng-click="firstSearch()">
+                        <md-tooltip>Search :)</md-tooltip>
+                        <i class="fa fa-search"></i>
+                    </md-button>
+                </div>
             </div>
-            <div class="col-xs-12 col-sm-3 centered">
-                <md-input-container class="md-block">
-                    <md-tooltip>Miminum date is set automatically to 31 days before today</md-tooltip>
-                    <label>Posted after</label>
-                    <md-datepicker ng-model="minDate" md-placeholder="Enter date"></md-datepicker>
-                </md-input-container>
-            </div>
-            <div class="col-xs-12 col-sm-3 centered">
-                <md-input-container class="md-block">
-                    <label>Posted before</label>
-                    <md-datepicker ng-model="maxDate" md-placeholder="Enter date"></md-datepicker>
-                </md-input-container>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6">
-                <md-input-container class="md-block" flex-gt-sm>
-                    <label>Category</label>
-                    <md-select ng-model="selectedCategoryId">
-                        <md-option disabled>
-                            -- Select Category --
-                        </md-option>
-                        <md-option ng-repeat="category in categories" value="{{category.id}}">
-                            {{category.name}}
-                        </md-option>
-                    </md-select>
-                </md-input-container>
-            </div>
-            <div class="col-sm-6">
-                <md-input-container class="md-block" flex-gt-sm>
-                    <label>City</label>
-                    <md-select ng-model="selectedCityId">
-                        <md-option disabled>
-                            -- Select City --
-                        </md-option>
-                        <md-option ng-repeat="city in cities" value="{{city.id}}">
-                            {{city.name}}
-                        </md-option>
-                    </md-select>
-                </md-input-container>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-2 col-sm-offset-5 centered">
-                <md-button class="md-fab md-primary" md-tooltip="Search" ng-click="firstSearch()">
-                    <md-tooltip>Search :)</md-tooltip>
-                    <i class="fa fa-search"></i>
-                </md-button>
-            </div>
-        </div>
+        </form>
     </div>
     <br/>
     <div class="row">

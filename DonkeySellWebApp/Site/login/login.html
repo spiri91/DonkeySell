@@ -35,9 +35,10 @@
             </div>
             <div class="row">
                 <div class="col-sm-5 col-sm-offset-1">
-                    <p>Don't have an acount yet?&nbsp;</p><a ng-href="#/register">Register here</a>
+                    <p>Don't have an acount yet?&nbsp;</p><a ng-click="register()">Register here</a>
                 </div>
                 <div class="col-sm-5">
+                    <md-tooltip>Be sure to fill your username!</md-tooltip>
                     <p>Forgot your password?&nbsp;</p><a ng-click="resetPassword()" ng-disabled="!username">Reset it here</a>
                 </div>
             </div>

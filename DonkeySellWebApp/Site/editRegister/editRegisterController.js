@@ -8,22 +8,37 @@ function editRegisterController($scope, usersService, toastr, $location, othersS
     $scope.errors = [];
     $scope.confirmPassword = "";
     $scope.isEdit = false;
+    $scope.isLoading = false;
+
+    $scope.extraCheck = function() {
+        $scope.checkAddress();
+        $scope.checkEmail();
+        $scope.checkPassword();
+        $scope.checkUsername();
+        $scope.checkPasswordValidation();
+    }
 
     $scope.register = function () {
-        usersService.createEditUser($scope.user)
-            .then(function (user) {
-                if (user.data) {
-                    if (user.data.userName === $scope.user.userName) {
-                        let message = $scope.isEdit ? "Edit successful" : "Register successful";
-                        toastr.success(message);
-                        $location.path('/home');
-                        $scope.$parent.login();
-                    }
-                }
-            }, function (error) {
-                toastr.error('Plase try again!');
-                $scope.doSomethingWithError(error);
-            });
+        $scope.loading = true;
+        $scope.extraCheck();
+        if ($scope.errors.length === 0)
+            usersService.createEditUser($scope.user)
+                .then(function(user) {
+                        if (user.data) {
+                            if (user.data.userName === $scope.user.userName) {
+                                let message = $scope.isEdit ? "Edit successful" : "Register successful";
+                                toastr.success(message);
+                                $location.path('/home');
+                                $scope.$parent.login();
+                            }
+                        }
+                    },
+                    function(error) {
+                        toastr.error('Plase try again!');
+                        $scope.doSomethingWithError(error);
+                    });
+        else
+            $scope.loading = false;
     };
 
     $scope.checkAddress = function () {
