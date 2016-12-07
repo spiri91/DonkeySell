@@ -28,26 +28,26 @@
                 <div class="col-sm-3">
                     <md-input-container class="md-block">
                         <label>Minimum price</label>
-                        <input type="number" step="10" ng-model="minPrice" min="0" />
+                        <input type="number" step="10" ng-model="minPrice" ng-min="0" ng-maxlength="maxPrice-1" required/>
                     </md-input-container>
                 </div>
                 <div class="col-sm-3">
                     <md-input-container class="md-block">
                         <label>Maximum price</label>
-                        <input type="number" step="10" ng-model="maxPrice" min="0" />
+                        <input type="number" step="10" ng-model="maxPrice" ng-min="minPrice+1" required/>
                     </md-input-container>
                 </div>
                 <div class="col-xs-12 col-sm-3 centered">
                     <md-input-container class="md-block">
                         <md-tooltip>Miminum date is set automatically to 31 days before today</md-tooltip>
                         <label>Posted after</label>
-                        <md-datepicker ng-model="minDate" md-placeholder="Enter date"></md-datepicker>
+                        <md-datepicker ng-model="minDate" md-placeholder="Enter date"  md-max-date="maxDate" ng-required></md-datepicker>
                     </md-input-container>
                 </div>
                 <div class="col-xs-12 col-sm-3 centered">
                     <md-input-container class="md-block">
                         <label>Posted before</label>
-                        <md-datepicker ng-model="maxDate" md-placeholder="Enter date"></md-datepicker>
+                        <md-datepicker ng-model="maxDate" md-placeholder="Enter date"  md-min-date="minDate" ng-required></md-datepicker>
                     </md-input-container>
                 </div>
             </div>

@@ -17,7 +17,7 @@ function productsDirective($location, toastr, favoritesService) {
                     return;
                 }
 
-                if (scope.$parent.$parent.favorites.indexOf(product) >= 0) {
+                if (scope.$parent.$parent.favorites.filter(function(x){return x.id === product.id}).length > 0) {
                     toastr.error('This product is allready added!');
                     return;
                 }

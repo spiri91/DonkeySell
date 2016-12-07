@@ -1,16 +1,20 @@
 ﻿<div class="container-fluid">
-    <div class="row centered">
-        <h2 class="h2">Select city</h2>
+    <div class="row">
+        <div class="col-xs-12 centered">
+            <h2 class="h2">
+                <strong>Select city</strong>
+            </h2>
+        </div>
     </div>
     <hr/>
     <div class="row">
         <div class="col-xs-4 col-xs-offset-4">
-            <h4 class="h4 centered select-city cursor-hand" ng-click="selectCity()">All</h4>
+            <h4 class="h4 centered select-city" ng-click="selectCity()"><strong>All</strong></h4>
         </div>
     </div>
     <br/>
     <div class="row">
-        <div ng-repeat="city in cities" class="col-xs-3 col-sm-3 centered select-city" ng-click="selectCity(city);">
+        <div ng-repeat="city in cities" class="col-xs-4 col-sm-3 centered select-city" ng-click="selectCity(city);">
             {{city.name}}
         </div>
     </div>
