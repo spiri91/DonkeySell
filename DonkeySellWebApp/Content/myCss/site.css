@@ -671,3 +671,12 @@ toggle-switch {
 .fixed-max-width-image {
     max-height: 9em;
 }
+
+.contact-info {
+    font-size: large;
+    margin-left: 15px;
+}
+
+.contact-page i{
+    color: #283593;
+}

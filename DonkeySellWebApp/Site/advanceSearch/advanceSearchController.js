@@ -1,8 +1,8 @@
 ﻿app.controller('advanceSearchController', ['$scope', 'productsService', '$location',
-    'othersService', 'queryBuilderService', 'sortOptionsService', '$rootScope', 'advanceSearchStateService', advanceSearchController]);
+    'othersService', 'queryBuilderService', 'sortOptionsService', '$rootScope', 'advanceSearchStateService', 'productNavigationService', advanceSearchController]);
 
 function advanceSearchController($scope, productsService, $location, othersService,
-    queryBuilderService, sortOptionsService, $rootScope, advanceSearchStateService) {
+    queryBuilderService, sortOptionsService, $rootScope, advanceSearchStateService, productNavigationService) {
 
     $scope.products = [];
     $scope.cities = [];
@@ -195,7 +195,13 @@ function advanceSearchController($scope, productsService, $location, othersServi
         $scope.maxDate.setDate($scope.maxDate.getDate() + 1);
     };
 
+    $scope.setProductNavigation = function () {
+        let productsIds = $scope.products.map(function (product) { return product.id; });
+        productNavigationService.setValues($scope.query, $scope.skip, $scope.sortBy, $scope.count, productsIds);
+    }
+
     $scope.getProduct = function (id) {
+        $scope.setProductNavigation();
         $location.url('/product/' + id);
     }
 

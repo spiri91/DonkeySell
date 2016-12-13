@@ -1,4 +1,6 @@
-﻿using System.Web.Http;
+﻿using System.Net.Http.Extensions.Compression.Core.Compressors;
+using System.Web.Http;
+using Microsoft.AspNet.WebApi.Extensions.Compression.Server;
 using Microsoft.Owin.Security.OAuth;
 
 namespace DonkeySellApi
@@ -20,6 +22,8 @@ namespace DonkeySellApi
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            config.MessageHandlers.Insert(0, new ServerCompressionHandler(new GZipCompressor(), new DeflateCompressor()));
         }
     }
 }

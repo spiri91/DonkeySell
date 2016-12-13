@@ -6,10 +6,6 @@ function productsDirective($location, toastr, favoritesService) {
         templateUrl: 'Site/shared/directives/productsDirective/productsDirective.html',
         scope: true,
         link: function (scope, elem, attrs) {
-            scope.goToProduct = function (id) {
-                $location.url('/product/' + id);
-            };
-
             scope.addToFavorites = function (product, $event) {
                 $event.stopPropagation();
                 if (!scope.$parent.$parent.token) {

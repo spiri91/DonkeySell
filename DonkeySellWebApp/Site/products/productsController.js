@@ -1,7 +1,9 @@
 ﻿app.controller('productsController', ['$scope', 'productsService', '$routeParams', '$location', 'queryBuilderService',
-    'toastr', 'sortOptionsService', '$rootScope', 'productsStateService', productsController]);
+    'toastr', 'sortOptionsService', '$rootScope', 'productsStateService', 'productNavigationService', productsController]);
 
-function productsController($scope, productsService, $routeParams, $location, queryBuilderService, toastr, sortOptionsService, $rootScope, productsStateService) {
+function productsController($scope, productsService, $routeParams, $location, queryBuilderService, toastr,
+    sortOptionsService, $rootScope, productsStateService, productNavigationService) {
+
     $scope.productName = $routeParams.productName;
     $scope.cityId = $routeParams.city;
     $scope.skip = 0;
@@ -125,7 +127,13 @@ function productsController($scope, productsService, $routeParams, $location, qu
         }
     }
 
+    $scope.setProductNavigation = function () {
+        let productsIds = $scope.products.map(function(product) { return product.id; });
+        productNavigationService.setValues($scope.query, $scope.skip, $scope.sortBy, $scope.count, productsIds);
+    }
+
     $scope.showProduct = function (id) {
+        $scope.setProductNavigation();
         $scope.setState();
         $location.url('/product/' + id);
     };

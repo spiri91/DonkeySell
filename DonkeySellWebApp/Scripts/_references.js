@@ -79,6 +79,7 @@
 /// <reference path="../site/shared/services/improvmentsservice.js" />
 /// <reference path="../site/shared/services/messagesservice.js" />
 /// <reference path="../site/shared/services/othersservice.js" />
+/// <reference path="../site/shared/services/productnavigationservice.js" />
 /// <reference path="../site/shared/services/productsservice.js" />
 /// <reference path="../site/shared/services/querybuilderservice.js" />
 /// <reference path="../site/shared/services/sortoptionsservice.js" />

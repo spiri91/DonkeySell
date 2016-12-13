@@ -1,12 +1,16 @@
-﻿app.controller('productController', ['$scope', 'messagesService', 'productsService', 'usersService', '$routeParams', 'toastr', '$mdDialog', 'favoritesService', '$mdBottomSheet', '$uibModal', productController]);
+﻿app.controller('productController', ['$scope', 'messagesService', 'productsService', 'usersService', '$routeParams', 'toastr',
+    '$mdDialog', 'favoritesService', '$mdBottomSheet', '$uibModal', 'productNavigationService', '$location', productController]);
 
-function productController($scope, messagesService, productsService, usersService, $routeParams, toastr, $mdDialog, favoritesService, $mdBottomSheet, $uibModal) {
+function productController($scope, messagesService, productsService, usersService, $routeParams, toastr,
+    $mdDialog, favoritesService, $mdBottomSheet, $uibModal, productNavigationService, $location) {
     $scope.id = $routeParams.productId;
     $scope.product = {};
     $scope.productOwner = {};
     $scope.messages = [];
     $scope.newMessage = "";
     $scope.selectedImage = "";
+    $scope.endOfListToRight = false;
+    $scope.endOfListToLeft = false;
 
     var originatorEv;
 
@@ -23,6 +27,69 @@ function productController($scope, messagesService, productsService, usersServic
             }, function (error) {
                 $scope.doSomethingWithError(error);
             });
+    }
+
+    $scope.nextProduct = function () {
+        let id = productNavigationService.getNextProduct($scope.product.id);
+
+        if (id === null)
+            productNavigationService.getNextProducts()
+                .then(function (products) {
+                    if (!$scope.checkEndOfListToRight(products))
+                        $scope.getProductsForNavigation(products, false);
+                });
+        else
+            $scope.goToProduct(id);
+    }
+
+    $scope.checkEndOfListToRight = function (products) {
+        if (products === undefined || products.data.products.length === 0) {
+            $scope.endOfListToRight = true;
+            return true;
+        }
+
+        return false;
+    };
+
+    $scope.previousProduct = function () {
+        let id = productNavigationService.getPreviousProduct($scope.product.id);
+
+        if (id === null)
+            productNavigationService.getPreviousProducts()
+                .then(function (products) {
+                    if (!$scope.checkEndOfListToLeft(products))
+                        $scope.getProductsForNavigation(products, true);
+                });
+        else
+            $scope.goToProduct(id);
+    }
+
+    $scope.checkEndOfListToLeft = function (products) {
+        if (products === undefined || products.data.products.length === 0) {
+            $scope.endOfListToLeft = true;
+            return true;
+        }
+
+        let product = products.data.products[0];
+
+        if (productNavigationService.checkIfIdIsAllreadyAdded(product.id)) {
+            $scope.endOfListToLeft = true;
+            return true;
+        }
+
+        return false;
+    };
+
+    $scope.getProductsForNavigation = function (products, inFront) {
+        let productIds = products.data.products.map(function (x) { return x.id; });
+        inFront === true ? productNavigationService.setProductsIds(productIds, true) : productNavigationService.setProductsIds(productIds, false);
+        let id = productNavigationService.getPreviousProduct($scope.product.id);
+        $scope.goToProduct(id);
+    }
+
+    $scope.goToProduct = function (id) {
+        if (id !== undefined)
+            $location.url('/product/' + id);
     }
 
     $scope.showGridBottomSheet = function () {

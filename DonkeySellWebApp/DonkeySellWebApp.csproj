@@ -407,6 +407,7 @@
     <Content Include="Site\shared\services\friendsService.js" />
     <Content Include="Site\shared\services\improvmentsService.js" />
     <Content Include="Site\shared\services\othersService.js" />
+    <Content Include="Site\shared\services\productNavigationService.js" />
     <Content Include="Site\shared\services\queryBuilderService.js" />
     <Content Include="Site\shared\services\sortOptionsService.js" />
     <Content Include="Site\shared\services\storageService.js" />

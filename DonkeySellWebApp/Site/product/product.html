@@ -1,6 +1,21 @@
 ﻿<div class="container-fluid no-padding-xs">
-    <br />
-    <div ng-cloak>
+    <br class="visible-xs"/>
+    <div class="row">
+        <div class="col-xs-2 pull-left">
+            <md-button class="md-fab md-mini md-primary pull-left" ng-click="previousProduct()" ng-disabled="endOfListToLeft">
+                <md-tooltip>Previous product</md-tooltip>
+                <i class="fa fa-arrow-left"></i>
+            </md-button>
+        </div>
+        <div class="col-xs-2 pull-right">
+            <md-button class="md-fab md-mini md-primary pull-right" ng-click="nextProduct()" ng-disabled="endOfListToRight">
+                <md-tooltip>Next product</md-tooltip>
+                <i class="fa fa-arrow-right"></i>
+            </md-button>
+        </div>
+    </div>
+    <br/>
+    <div>
         <md-content class="add-border-radius">
             <md-tabs md-dynamic-height md-border-bottom>
                 <md-tab label="Product">
@@ -21,7 +36,7 @@
                                 </md-button>
                             </div>
                         </md-toolbar>
-                        <br />
+                        <br/>
                         <div class="row allign-center-xs">
                             <div class="col-xs-12 col-sm-6">
                                 <md-card-header>
@@ -29,12 +44,12 @@
                                         <i class="fa fa-users fa-2x"></i>&nbsp;
                                     </md-card-avatar>
                                     <md-card-header-text>
-                                        <a class="md-title" ng-href="#/user/{{product.userName}}">By:&nbsp;<strong>{{product.userName}}</strong></a><br /><br />
+                                        <a class="md-title" ng-href="#/user/{{product.userName}}">By:&nbsp;<strong>{{product.userName}}</strong></a><br/><br/>
                                         <span class="md-title">Price:&nbsp;<strong>{{product.price | currency : "lei " : 0}}</strong></span><br/><br/>
-                                        <span class="md-subhead">Category: &nbsp;<strong>{{product.category.name}}</strong></span><br /><br />
-                                        <span class="md-subhead">City: &nbsp;<strong>{{product.city.name}}</strong></span><br /><br />
+                                        <span class="md-subhead">Category: &nbsp;<strong>{{product.category.name}}</strong></span><br/><br/>
+                                        <span class="md-subhead">City: &nbsp;<strong>{{product.city.name}}</strong></span><br/><br/>
                                     </md-card-header-text>
-                                </md-card-header><br />
+                                </md-card-header><br/>
                                 <div class="row">
                                     <div class="col-xs-4 col-sm-4" ng-if="product.tradesAccepted">
                                         <span><i class="fa fa-circle"></i>&nbsp;Trades accepted</span>
@@ -46,7 +61,7 @@
                                         <span><i class="fa fa-circle"></i>&nbsp;For rent</span>
                                     </div>
                                 </div>
-                                <br />
+                                <br/>
                                 <div class="row" ng-if="product.images">
                                     <div class="col-xs-4 col-sm-4 centered" ng-repeat="image in product.images">
                                         <md-tooltip>Click to enlarge</md-tooltip>
@@ -84,8 +99,8 @@
                                         </md-list-item>
                                     </md-list>
                                 </md-content>
-                                <br />
-                                <br />
+                                <br/>
+                                <br/>
                                 <div class="row">
                                     <div class="col-sm-9 col-sm-offset-1">
                                         <md-input-container class="md-block">
@@ -106,31 +121,31 @@
                 </md-tab>
                 <md-tab label="Contact">
                     <md-content class="md-padding">
-                        <div class="row">
-                            <div class="col-sm-11 col-sm-offset-1 fixed-line-height" ng-if="productOwner.facebook">
-                                <br />
+                        <div class="row contact-page">
+                            <div class="col-xs-10 col-xs-offset-1 col-sm-5 col-sm-offset-1" ng-if="productOwner.facebook">
+                                <br/>
                                 <i class="fa fa-facebook fa-2x"></i>&nbsp;
-                                <span>{{productOwner.facebook}}</span>
+                                <span class="contact-info">{{productOwner.facebook}}</span>
+                                <hr/>
                             </div>
-                            <br />
-                            <div class="col-sm-11 col-sm-offset-1 fixed-line-height" ng-if="productOwner.email">
-                                <br />
-                                <i class="fa fa-envelope fa-2x fixed-line-height"></i>&nbsp;
-                                <span> {{productOwner.email}} </span>
+                            <div class="col-xs-10 col-xs-offset-1 col-sm-5 col-sm-offset-1" ng-if="productOwner.email">
+                                <br/>
+                                <i class="fa fa-envelope fa-2x"></i>&nbsp;
+                                <span class="contact-info"> {{productOwner.email}} </span>
+                                <hr/>
                             </div>
-                            <br />
-                            <div class="col-sm-11 col-sm-offset-1 fixed-line-height">
-                                <br />
-                                <i class="fa fa-twitter fa-2x" ng-if="productOwner.twitter"></i>&nbsp;
-                                <span> {{productOwner.twitter}} </span>
+                            <div class="col-xs-10 col-xs-offset-1 col-sm-5 col-sm-offset-1" ng-if="productOwner.twitter">
+                                <br/>
+                                <i class="fa fa-twitter fa-2x"></i>&nbsp;
+                                <span class="contact-info"> {{productOwner.twitter}} </span>
+                                <hr/>
                             </div>
-                            <br />
-                            <div class="col-sm-11 col-sm-offset-1 fixed-line-height">
-                                <br />
-                                <i class="fa fa-phone fa-2x" ng-if="productOwner.phone"></i>&nbsp;
-                                <span> {{productOwner.phone}} </span>
+                            <div class="col-xs-10 col-xs-offset-1 col-sm-5 col-sm-offset-1" ng-if="productOwner.phone">
+                                <br/>
+                                <i class="fa fa-phone fa-2x"></i>&nbsp;
+                                <span class="contact-info"> {{productOwner.phone}} </span>
+                                <hr/>
                             </div>
-                            <br />
                         </div>
                     </md-content>
                 </md-tab>

@@ -30,7 +30,7 @@ function mainController($scope, $uibModal, usersService, $location, toastr,
     $scope.login = function () {
         let modalInstance = $uibModal.open({
             templateUrl: 'Site/login/login.html',
-            controller: 'loginController',
+            controller: 'loginController'
         });
 
         modalInstance.result.then(function () {

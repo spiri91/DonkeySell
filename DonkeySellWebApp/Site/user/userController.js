@@ -1,7 +1,7 @@
 ﻿app.controller('userController', ['$scope', 'usersService', 'productsService', '$location',
-    '$routeParams', 'toastr', '$mdDialog', 'favoritesService', '$uibModal','$rootScope', 'userStateService', userController]);
+    '$routeParams', 'toastr', '$mdDialog', 'favoritesService', '$uibModal', '$rootScope', 'userStateService', 'productNavigationService', userController]);
 
-function userController($scope, usersService, productsService, $location, $routeParams, toastr, $mdDialog, favoritesService, $uibModal, $rootScope, userStateService) {
+function userController($scope, usersService, productsService, $location, $routeParams, toastr, $mdDialog, favoritesService, $uibModal, $rootScope, userStateService, productNavigationService) {
     $scope.username = $routeParams.username;
     $scope.showEditButtons = $scope.$parent.username === $scope.username;
     $scope.user = {};
@@ -94,7 +94,13 @@ function userController($scope, usersService, productsService, $location, $route
             });
     };
 
+    $scope.setProductNavigation = function () {
+        let productsIds = $scope.products.map(function (product) { return product.id; });
+        productNavigationService.setValues('', 0, undefined, 0, productsIds);
+    }
+
     $scope.getProduct = function (id) {
+        $scope.setProductNavigation();
         $scope.setState();
         $location.url('/product/' + id);
     };

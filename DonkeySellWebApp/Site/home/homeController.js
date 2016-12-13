@@ -1,6 +1,6 @@
-﻿app.controller('homeController', ['$scope', 'usersService', '$location', 'productsService', '$uibModal', homeController]);
+﻿app.controller('homeController', ['$scope', 'usersService', '$location', 'productsService', '$uibModal','sortOptionsService','productNavigationService', homeController]);
 
-function homeController($scope, usersService, $location, productsService, $uibModal) {
+function homeController($scope, usersService, $location, productsService, $uibModal, sortOptionsService, productNavigationService) {
     $scope.productName = "";
     $scope.selectedCity = {};
     $scope.products = [];
@@ -57,7 +57,14 @@ function homeController($scope, usersService, $location, productsService, $uibMo
         });
     };
 
+    $scope.setProductNavigation = function () {
+        let productsIds = $scope.products.map(function (product) { return product.id; });
+        let sortBy = sortOptionsService.getSortOptions()[2];
+        productNavigationService.setValues("all", 0, sortBy, 6, productsIds);
+    }
+
     $scope.showProduct = function (id) {
+        $scope.setProductNavigation();
         $location.url('/product/' + id);
     };
 
