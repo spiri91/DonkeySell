@@ -1,6 +1,6 @@
 ﻿var app = angular.module('app', ['ngRoute', 'toastr', 'ui.bootstrap', 'ngMaterial', 'toggle-switch', 'flow', 'ngAnimate', 'ngMessages']);
 
-app.config(function ($routeProvider, $mdThemingProvider, toastrConfig, $mdAriaProvider) {
+app.config(['$routeProvider', '$mdThemingProvider', 'toastrConfig', '$mdAriaProvider', function ($routeProvider, $mdThemingProvider, toastrConfig, $mdAriaProvider) {
     $routeProvider
         .when('/',
         {
@@ -61,6 +61,6 @@ app.config(function ($routeProvider, $mdThemingProvider, toastrConfig, $mdAriaPr
     });
 
     $mdAriaProvider.disableWarnings();
-});
+}]);
 
 app.constant('apiRootAddress', "http://spiri91-001-site1.ftempurl.com/api/"); //"http://localhost:57792/api/" ,  "http://spiri91-001-site1.ftempurl.com/api/"

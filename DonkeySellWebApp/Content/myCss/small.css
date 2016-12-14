@@ -61,5 +61,8 @@
     
     .title {
         font-size: 3.5em;
+        padding-left: 0;
+        margin-bottom: 0.2em;
+        margin-top: 0.3em;
     }
 }

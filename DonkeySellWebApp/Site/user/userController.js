@@ -88,6 +88,7 @@ function userController($scope, usersService, productsService, $location, $route
                         let product = $scope.products.filter(function (x) { return x.id === id; })[0];
                         let index = $scope.products.indexOf(product);
                         $scope.products.splice(index, 1);
+                        toastr.success('Product deleted!');
                     }, function(error) {
                         $scope.doSomethingWithError(error);
                     });

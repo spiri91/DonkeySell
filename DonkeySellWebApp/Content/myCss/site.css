@@ -617,12 +617,15 @@ toggle-switch {
     border-width: 5px;
     border-radius: 15px;
     text-align: center;
+    border-color: #9E9E9E;
+    transition-duration: 0.5s;
 }
 
-.special-input :hover {
-    box-shadow: 2px 2px 2px #888888;
-}
-
+    .special-input:hover {
+        border-color: #FF5252;
+        transition-duration: 0.5s;
+        color: black;
+    }
 .special-input:focus {
     text-align: left;
     -webkit-transition-duration: 0.5s;
@@ -631,6 +634,17 @@ toggle-switch {
     -o-transition-duration: 0.5s;
     transition-duration: 0.5s;
 }
+
+.nice-border {
+    border-color: #FF5252;
+}
+
+.search-btn :hover {
+    color: #FF5252;
+    background-color: #FF5252 !important;
+    transition-duration: 0.5s;
+}
+
 
 .select-city {
     padding: 0.2em;

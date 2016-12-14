@@ -1,20 +1,5 @@
 ﻿<div class="container-fluid no-padding-xs">
     <br class="visible-xs"/>
-    <div class="row">
-        <div class="col-xs-2 pull-left">
-            <md-button class="md-fab md-mini md-primary pull-left" ng-click="previousProduct()" ng-disabled="endOfListToLeft">
-                <md-tooltip>Previous product</md-tooltip>
-                <i class="fa fa-arrow-left"></i>
-            </md-button>
-        </div>
-        <div class="col-xs-2 pull-right">
-            <md-button class="md-fab md-mini md-primary pull-right" ng-click="nextProduct()" ng-disabled="endOfListToRight">
-                <md-tooltip>Next product</md-tooltip>
-                <i class="fa fa-arrow-right"></i>
-            </md-button>
-        </div>
-    </div>
-    <br/>
     <div>
         <md-content class="add-border-radius">
             <md-tabs md-dynamic-height md-border-bottom>
@@ -151,5 +136,19 @@
                 </md-tab>
             </md-tabs>
         </md-content>
+    </div>
+    <div class="row">
+        <div class="col-xs-2 pull-left">
+            <md-button class="md-fab md-mini md-primary pull-left" ng-click="previousProduct()" ng-disabled="endOfListToLeft">
+                <md-tooltip>Previous product</md-tooltip>
+                <i class="fa fa-arrow-left"></i>
+            </md-button>
+        </div>
+        <div class="col-xs-2 pull-right">
+            <md-button class="md-fab md-mini md-primary pull-right" ng-click="nextProduct()" ng-disabled="endOfListToRight">
+                <md-tooltip>Next product</md-tooltip>
+                <i class="fa fa-arrow-right"></i>
+            </md-button>
+        </div>
     </div>
 </div>

@@ -1,0 +1,240 @@
+[
+  {
+    "outputFileName": "Site/shared/models/models.min.js",
+    "inputFiles": [
+      "Site/shared/models/usersFavoriteProducts.js",
+      "Site/shared/models/category.js",
+      "Site/shared/models/city.js",
+      "Site/shared/models/friend.js",
+      "Site/shared/models/image.js",
+      "Site/shared/models/improvement.js",
+      "Site/shared/models/message.js",
+      "Site/shared/models/product.js",
+      "Site/shared/models/productsAndCount.js",
+      "Site/shared/models/queryBuilderPart.js",
+      "Site/shared/models/resetPassword.js",
+      "Site/shared/models/sortDirection.js",
+      "Site/shared/models/sortOptions.js",
+      "Site/shared/models/user.js"
+    ]
+  },
+  {
+    "outputFileName": "Site/shared/services/_services.js",
+    "inputFiles": [
+      "Site/shared/services/favoritesService.js",
+      "Site/shared/services/friendsService.js",
+      "Site/shared/services/improvmentsService.js",
+      "Site/shared/services/messagesService.js",
+      "Site/shared/services/othersService.js",
+      "Site/shared/services/productsService.js",
+      "Site/shared/services/productNavigationService.js",
+      "Site/shared/services/queryBuilderService.js",
+      "Site/shared/services/sortOptionsService.js",
+      "Site/shared/services/storageService.js",
+      "Site/shared/services/usersService.js"
+    ]
+  },
+  {
+    "outputFileName": "Site/shared/services/_services.min.js",
+    "inputFiles": [
+      "Site/shared/services/favoritesService.js",
+      "Site/shared/services/friendsService.js",
+      "Site/shared/services/improvmentsService.js",
+      "Site/shared/services/messagesService.js",
+      "Site/shared/services/othersService.js",
+      "Site/shared/services/productsService.js",
+      "Site/shared/services/productNavigationService.js",
+      "Site/shared/services/queryBuilderService.js",
+      "Site/shared/services/sortOptionsService.js",
+      "Site/shared/services/storageService.js",
+      "Site/shared/services/usersService.js"
+    ]
+  },
+  {
+    "outputFileName": "Site/shared/viewStates/_viewStates.min.js",
+    "inputFiles": [
+      "Site/shared/viewStates/advanceSearchStateService.js",
+      "Site/shared/viewStates/productsStateService.js",
+      "Site/shared/viewStates/userStateService.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/myCss/_myCss.min.css",
+    "inputFiles": [
+      "Content/myCss/animate.css",
+      "Content/myCss/animations.css",
+      "Content/myCss/large.css",
+      "Content/myCss/set1.css",
+      "Content/myCss/site.css",
+      "Content/myCss/small.css"
+    ]
+  },
+  {
+    "outputFileName": "Site/advanceSearch/advanceSearchController.min.js",
+    "inputFiles": [
+      "Site/advanceSearch/advanceSearchController.js"
+    ]
+  },
+  {
+    "outputFileName": "Site/changePassword/changePasswordController.min.js",
+    "inputFiles": [
+      "Site/changePassword/changePasswordController.js"
+    ]
+  },
+  {
+    "outputFileName": "Site/chat/chatController.min.js",
+    "inputFiles": [
+      "Site/chat/chatController.js"
+    ]
+  },
+  {
+    "outputFileName": "Site/choseCity/choseCityController.min.js",
+    "inputFiles": [
+      "Site/choseCity/choseCityController.js"
+    ]
+  },
+  {
+    "outputFileName": "Site/editRegister/editRegisterController.min.js",
+    "inputFiles": [
+      "Site/editRegister/editRegisterController.js"
+    ]
+  },
+  {
+    "outputFileName": "Site/gallery/galleryController.min.js",
+    "inputFiles": [
+      "Site/gallery/galleryController.js"
+    ]
+  },
+  {
+    "outputFileName": "Site/home/homeController.min.js",
+    "inputFiles": [
+      "Site/home/homeController.js"
+    ]
+  },
+  {
+    "outputFileName": "Site/improvements/improvementsController.min.js",
+    "inputFiles": [
+      "Site/improvements/improvementsController.js"
+    ]
+  },
+  {
+    "outputFileName": "Site/login/loginController.min.js",
+    "inputFiles": [
+      "Site/login/loginController.js"
+    ]
+  },
+  {
+    "outputFileName": "Site/product/contactPage/ContactPageController.min.js",
+    "inputFiles": [
+      "Site/product/contactPage/ContactPageController.js"
+    ]
+  },
+  {
+    "outputFileName": "Site/product/productController.min.js",
+    "inputFiles": [
+      "Site/product/productController.js"
+    ]
+  },
+  {
+    "outputFileName": "Site/products/productsController.min.js",
+    "inputFiles": [
+      "Site/products/productsController.js"
+    ]
+  },
+  {
+    "outputFileName": "Site/settings/settingsController.min.js",
+    "inputFiles": [
+      "Site/settings/settingsController.js"
+    ]
+  },
+  {
+    "outputFileName": "Site/updateCreateProduct/updateCreateProductController.min.js",
+    "inputFiles": [
+      "Site/updateCreateProduct/updateCreateProductController.js"
+    ]
+  },
+  {
+    "outputFileName": "Site/donkeySellModule.min.js",
+    "inputFiles": [
+      "Site/donkeySellModule.js"
+    ]
+  },
+  {
+    "outputFileName": "Site/mainController.min.js",
+    "inputFiles": [
+      "Site/mainController.js"
+    ]
+  },
+  {
+    "outputFileName": "Site/mainEffects.min.js",
+    "inputFiles": [
+      "Site/mainEffects.js"
+    ]
+  },
+  {
+    "outputFileName": "Site/user/userController.min.js",
+    "inputFiles": [
+      "Site/user/userController.js"
+    ]
+  },
+  {
+    "outputFileName": "Site/shared/directives/enterPress/enterPressDirective.min.js",
+    "inputFiles": [
+      "Site/shared/directives/enterPress/enterPressDirective.js"
+    ]
+  },
+  {
+    "outputFileName": "Site/shared/directives/loadingDirective/loadingDirective.min.js",
+    "inputFiles": [
+      "Site/shared/directives/loadingDirective/loadingDirective.js"
+    ]
+  },
+  {
+    "outputFileName": "Site/shared/directives/loadingSpecificDirective/loadingSpecificDirective.min.js",
+    "inputFiles": [
+      "Site/shared/directives/loadingSpecificDirective/loadingSpecificDirective.js"
+    ]
+  },
+  {
+    "outputFileName": "Site/shared/directives/productsDirective/productsDirective.min.js",
+    "inputFiles": [
+      "Site/shared/directives/productsDirective/productsDirective.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/angular-toggle-switch-bootstrap.min.css",
+    "inputFiles": [
+      "Content/angular-toggle-switch-bootstrap.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/angular-toggle-switch.min.css",
+    "inputFiles": [
+      "Content/angular-toggle-switch.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/angular-material.layouts.ie_fixes.min.css",
+    "inputFiles": [
+      "Content/angular-material.layouts.ie_fixes.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/assets/style.min.css",
+    "inputFiles": [
+      "Content/assets/style.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/ui-bootstrap-csp.min.css",
+    "inputFiles": [
+      "Content/ui-bootstrap-csp.css"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/jquery-ui-touch-punch.min.js",
+    "inputFiles": [
+      "Scripts/jquery-ui-touch-punch.js"
+    ]
+  }
+]

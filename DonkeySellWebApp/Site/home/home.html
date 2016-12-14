@@ -1,7 +1,6 @@
 ﻿<div class="container-fluid">
     <div class="row" id="mainScreen">
-        <div class="col-sm-6 centered">
-            <br class="hidden-sm-down" />
+        <div class="col-xs-12 col-sm-6 centered">
             <h1 class="title">
                 Welcome to DonkeySell
             </h1>
@@ -10,16 +9,15 @@
             <img class="img-responsive center-block" src="../../Content/assets/donkeyNewIco.png" />
         </div>
     </div>
-    <br />
     <div class="row centered">
         <div class="col-sm-10 col-sm-offset-1">
             <form>
                 <div class="row add-height">
                     <div class="col-sm-4">
-                        <input type="text" class="form-control big-input special-input" placeholder="Search for" ng-model="productName"/>
+                        <input type="text" ng-class="productName ? 'nice-border' : ''" class="form-control big-input special-input" placeholder="Search for" ng-model="productName"/>
                     </div>
                     <div class="col-sm-4 col-sm-offset-1">
-                        <input type="text" class="form-control big-input special-input" placeholder="City" ng-model="selectedCity.name" ng-click="openCitiesModal()"/>
+                        <input type="text" ng-class="selectedCity.name ? 'nice-border' : ''" class="form-control big-input special-input" placeholder="City" ng-model="selectedCity.name" ng-click="openCitiesModal()"/>
                     </div>
                     <div class="col-xs-12 col-sm-2 centered">
                         <md-button class="md-fab md-primary large-btn" id="searchBtn" ng-click="searchSpecific()"><i class="fa fa-search fa-2x"></i><md-tooltip>Search</md-tooltip></md-button>

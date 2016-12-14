@@ -150,13 +150,25 @@
     <Content Include="Content\angular-material.layout-attributes.min.css" />
     <Content Include="Content\angular-material.layouts.css" />
     <Content Include="Content\angular-material.layouts.ie_fixes.css" />
+    <Content Include="Content\angular-material.layouts.ie_fixes.min.css">
+      <DependentUpon>angular-material.layouts.ie_fixes.css</DependentUpon>
+    </Content>
     <Content Include="Content\angular-material.layouts.min.css" />
     <Content Include="Content\angular-material.min.css" />
     <Content Include="Content\angular-toastr.css" />
     <Content Include="Content\angular-toastr.min.css" />
     <Content Include="Content\angular-toggle-switch-bootstrap.css" />
+    <Content Include="Content\angular-toggle-switch-bootstrap.min.css">
+      <DependentUpon>angular-toggle-switch-bootstrap.css</DependentUpon>
+    </Content>
     <Content Include="Content\angular-toggle-switch.css" />
+    <Content Include="Content\angular-toggle-switch.min.css">
+      <DependentUpon>angular-toggle-switch.css</DependentUpon>
+    </Content>
     <Content Include="Content\assets\loading-gears-animation-10.gif" />
+    <Content Include="Content\assets\style.min.css">
+      <DependentUpon>style.css</DependentUpon>
+    </Content>
     <Content Include="Content\myCss\animate.css" />
     <Content Include="Content\animate.min.css" />
     <Content Include="Content\assets\app-store.png" />
@@ -196,8 +208,8 @@
     <Content Include="Content\myCss\animations.css" />
     <Content Include="Content\myCss\large.css" />
     <Content Include="Content\myCss\set1.css" />
-    <Content Include="Content\myCss\set2.css" />
     <Content Include="Content\myCss\small.css" />
+    <Content Include="Content\myCss\_myCss.min.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -240,6 +252,9 @@
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="Content\ui-bootstrap-csp.css" />
+    <Content Include="Content\ui-bootstrap-csp.min.css">
+      <DependentUpon>ui-bootstrap-csp.css</DependentUpon>
+    </Content>
     <Content Include="Content\ui-grid.css" />
     <Content Include="Content\ui-grid.min.css" />
     <Content Include="Content\ui-grid.svg" />
@@ -314,6 +329,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="bundleconfig.json" />
+    <Content Include="Content\ngPopup.min.css" />
     <None Include="Properties\PublishProfiles\ftp.pubxml" />
     <None Include="Properties\PublishProfiles\ftpserver.pubxml" />
     <Content Include="Scripts\angular-messages.min.js.map" />
@@ -342,6 +359,9 @@
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
     <Content Include="Scripts\jquery-ui-touch-punch.js" />
+    <Content Include="Scripts\jquery-ui-touch-punch.min.js">
+      <DependentUpon>jquery-ui-touch-punch.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\jquery.signalR-2.2.1.js" />
     <Content Include="Scripts\jquery.signalR-2.2.1.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -365,38 +385,100 @@
     <Content Include="Site\about\about.html" />
     <Content Include="Site\advanceSearch\advanceSearch.html" />
     <Content Include="Site\advanceSearch\advanceSearchController.js" />
+    <Content Include="Site\advanceSearch\advanceSearchController.min.js">
+      <DependentUpon>advanceSearchController.js</DependentUpon>
+    </Content>
     <Content Include="Site\changePassword\changePassword.html" />
     <Content Include="Site\changePassword\changePasswordController.js" />
+    <Content Include="Site\changePassword\changePasswordController.min.js">
+      <DependentUpon>changePasswordController.js</DependentUpon>
+    </Content>
     <Content Include="Site\chat\chatController.js" />
     <Content Include="Site\chat\chat.html" />
+    <Content Include="Site\chat\chatController.min.js">
+      <DependentUpon>chatController.js</DependentUpon>
+    </Content>
     <Content Include="Site\choseCity\choseCity.html" />
     <Content Include="Site\choseCity\choseCityController.js" />
+    <Content Include="Site\choseCity\choseCityController.min.js">
+      <DependentUpon>choseCityController.js</DependentUpon>
+    </Content>
     <Content Include="Site\donkeySellModule.js" />
+    <Content Include="Site\donkeySellModule.min.js">
+      <DependentUpon>donkeySellModule.js</DependentUpon>
+    </Content>
+    <Content Include="Site\editRegister\editRegisterController.min.js">
+      <DependentUpon>editRegisterController.js</DependentUpon>
+    </Content>
     <Content Include="Site\favorites\favoritesProducts.html" />
     <Content Include="Site\gallery\gallery.html" />
     <Content Include="Site\gallery\galleryController.js" />
+    <Content Include="Site\gallery\galleryController.min.js">
+      <DependentUpon>galleryController.js</DependentUpon>
+    </Content>
     <Content Include="Site\home\home.html" />
     <Content Include="Site\home\homeController.js" />
+    <Content Include="Site\home\homeController.min.js">
+      <DependentUpon>homeController.js</DependentUpon>
+    </Content>
     <Content Include="Site\improvements\improvementsController.js" />
+    <Content Include="Site\improvements\improvementsController.min.js">
+      <DependentUpon>improvementsController.js</DependentUpon>
+    </Content>
     <Content Include="Site\login\login.html" />
     <Content Include="Site\login\loginController.js" />
+    <Content Include="Site\login\loginController.min.js">
+      <DependentUpon>loginController.js</DependentUpon>
+    </Content>
     <Content Include="Site\mainController.js" />
+    <Content Include="Site\mainController.min.js">
+      <DependentUpon>mainController.js</DependentUpon>
+    </Content>
     <Content Include="Site\mainEffects.js" />
+    <Content Include="Site\mainEffects.min.js">
+      <DependentUpon>mainEffects.js</DependentUpon>
+    </Content>
+    <Content Include="Site\popup\popupController.js" />
+    <Content Include="Site\products\productsController.min.js">
+      <DependentUpon>productsController.js</DependentUpon>
+    </Content>
     <Content Include="Site\product\contactPage\contactPage.html" />
     <Content Include="Site\product\contactPage\ContactPageController.js" />
+    <Content Include="Site\product\contactPage\ContactPageController.min.js">
+      <DependentUpon>ContactPageController.js</DependentUpon>
+    </Content>
+    <Content Include="Site\product\productController.min.js">
+      <DependentUpon>productController.js</DependentUpon>
+    </Content>
     <Content Include="Site\settings\settings.html" />
     <Content Include="Site\settings\settingsController.js" />
+    <Content Include="Site\settings\settingsController.min.js">
+      <DependentUpon>settingsController.js</DependentUpon>
+    </Content>
     <Content Include="Site\shared\directives\enterPress\enterPressDirective.js" />
+    <Content Include="Site\shared\directives\enterPress\enterPressDirective.min.js">
+      <DependentUpon>enterPressDirective.js</DependentUpon>
+    </Content>
     <Content Include="Site\shared\directives\loadingDirective\loadingDirective.js" />
+    <Content Include="Site\shared\directives\loadingDirective\loadingDirective.min.js">
+      <DependentUpon>loadingDirective.js</DependentUpon>
+    </Content>
     <Content Include="Site\shared\directives\loadingSpecificDirective\loadingSpecific.html" />
     <Content Include="Site\shared\directives\loadingSpecificDirective\loadingSpecificDirective.js" />
+    <Content Include="Site\shared\directives\loadingSpecificDirective\loadingSpecificDirective.min.js">
+      <DependentUpon>loadingSpecificDirective.js</DependentUpon>
+    </Content>
     <Content Include="Site\shared\directives\productsDirective\productsDirective.html" />
     <Content Include="Site\shared\directives\productsDirective\productsDirective.js" />
+    <Content Include="Site\shared\directives\productsDirective\productsDirective.min.js">
+      <DependentUpon>productsDirective.js</DependentUpon>
+    </Content>
     <Content Include="Site\shared\models\category.js" />
     <Content Include="Site\shared\models\city.js" />
     <Content Include="Site\shared\models\friend.js" />
     <Content Include="Site\shared\models\image.js" />
     <Content Include="Site\shared\models\improvement.js" />
+    <Content Include="Site\shared\models\_models.min.js" />
     <Content Include="Site\shared\models\productsAndCount.js" />
     <Content Include="Site\shared\models\queryBuilderPart.js" />
     <Content Include="Site\shared\models\resetPassword.js" />
@@ -411,9 +493,15 @@
     <Content Include="Site\shared\services\queryBuilderService.js" />
     <Content Include="Site\shared\services\sortOptionsService.js" />
     <Content Include="Site\shared\services\storageService.js" />
+    <Content Include="Site\shared\services\_services.js" />
+    <Content Include="Site\shared\services\_services.min.js">
+      <DependentUpon>_services.js</DependentUpon>
+    </Content>
     <Content Include="Site\shared\viewStates\advanceSearchStateService.js" />
     <Content Include="Site\shared\viewStates\productsStateService.js" />
     <Content Include="Site\shared\viewStates\userStateService.js" />
+    <Content Include="Site\shared\viewStates\_viewStates.min.js" />
+    <Content Include="Site\popup\test.html" />
     <Content Include="Site\unreadMessages\unreadMessages.html" />
     <Content Include="Site\updateCreateProduct\updateCreateProduct.html" />
     <Content Include="Site\updateCreateProduct\updateCreateProductController.js" />
@@ -429,8 +517,14 @@
     <Content Include="Site\shared\services\messagesService.js" />
     <Content Include="Site\shared\services\productsService.js" />
     <Content Include="Site\shared\services\usersService.js" />
+    <Content Include="Site\updateCreateProduct\updateCreateProductController.min.js">
+      <DependentUpon>updateCreateProductController.js</DependentUpon>
+    </Content>
     <Content Include="Site\user\user.html" />
     <Content Include="Site\user\userController.js" />
+    <Content Include="Site\user\userController.min.js">
+      <DependentUpon>userController.js</DependentUpon>
+    </Content>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -441,9 +535,11 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Scripts\ngPopup.min.js" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Site\_minified\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

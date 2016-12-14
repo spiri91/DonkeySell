@@ -111,7 +111,7 @@
     <div>
         <div class="row">
             <div ng-if="loading" loading-specific></div>
-            <div products-directive></div>
+            <div products-directive ng-if="!loading"></div>
         </div>
         <hr />
         <div class="col-sm-12">

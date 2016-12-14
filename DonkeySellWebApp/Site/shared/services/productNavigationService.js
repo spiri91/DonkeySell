@@ -8,24 +8,24 @@ function productNavigationService(productsService, $q) {
     this.productsIds = [];
     this.count = 0;
     this.defaultItemsPerPage = 10;
+    this.productsService = productsService;
 
-    this.setValues = function (query, skip, sortBy, count, productIds) {
+    this.setValues = function(query, skip, sortBy, count, productIds) {
         this.query = query;
         this.skip = skip;
         this.sortBy = sortBy;
         this.count = count;
         this.productsIds = productIds;
-    }
+    };
 
-    this.getNextProduct = function (id) {
+    this.getNextProduct = function(id) {
         let currentIndex = this.productsIds.indexOf(id);
 
         if (currentIndex === this.productsIds.length - 1)
             return null;
 
         return this.productsIds[currentIndex + 1];
-
-    }
+    };
 
     this.getPreviousProduct = function (id) {
         let currentIndex = this.productsIds.indexOf(id);
@@ -33,7 +33,6 @@ function productNavigationService(productsService, $q) {
             return null;
 
         return this.productsIds[currentIndex - 1];
-
     };
 
     this.getNextProducts = function () {
@@ -51,7 +50,7 @@ function productNavigationService(productsService, $q) {
 
     this.getProducts = function () {
         if (this.query)
-            return productsService.queryProducts(this.query,
+            return this.productsService.queryProducts(this.query,
                 this.defaultItemsPerPage,
                 this.skip,
                 this.sortBy.value,
@@ -68,9 +67,9 @@ function productNavigationService(productsService, $q) {
             inFront === false ? this.productsIds.push(ids[i]) : this.productsIds.unshift(ids[i]);
     }
 
-    this.checkIfIdIsAllreadyAdded = function (id) {
+    this.checkIfIdIsAllreadyAdded = function(id) {
         return this.productsIds.indexOf(id) >= 0;
-    }
+    };
 
     return this;
 };
