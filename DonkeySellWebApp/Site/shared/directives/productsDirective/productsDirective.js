@@ -1,4 +1,4 @@
-﻿app.directive('productsDirective', ['$location', 'toastr', 'favoritesService', '$uibModal','$timeout', productsDirective]);
+﻿app.directive('productsDirective', ['$location', 'toastr', 'favoritesService', '$uibModal', '$timeout', productsDirective]);
 
 function productsDirective($location, toastr, favoritesService, $uibModal, $timeout) {
     return {
@@ -6,7 +6,6 @@ function productsDirective($location, toastr, favoritesService, $uibModal, $time
         templateUrl: 'Site/shared/directives/productsDirective/productsDirective.html',
         scope: true,
         link: function (scope, elem, attrs) {
-            var modalInstance;
             scope.addToFavorites = function (product, $event) {
                 $event.stopPropagation();
                 if (!scope.$parent.$parent.token) {
@@ -26,6 +25,18 @@ function productsDirective($location, toastr, favoritesService, $uibModal, $time
                     }, function (error) {
                         console.log(error);
                     });
+            };
+
+            scope.openPopup = function (id, $event) {
+                $event.stopPropagation();
+                $uibModal.open({
+                    animation: true,
+                    templateUrl: 'Site/popup/popup.html',
+                    controller: 'popupController',
+                    resolve: {
+                        id: function () { return id }
+                    }
+                });
             };
         }
     };

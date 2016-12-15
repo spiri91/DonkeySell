@@ -208,6 +208,7 @@
     <Content Include="Content\myCss\animations.css" />
     <Content Include="Content\myCss\large.css" />
     <Content Include="Content\myCss\set1.css" />
+    <Content Include="Content\myCss\site2.css" />
     <Content Include="Content\myCss\small.css" />
     <Content Include="Content\myCss\_myCss.min.css" />
     <Content Include="Content\themes\base\accordion.css" />
@@ -439,6 +440,9 @@
       <DependentUpon>mainEffects.js</DependentUpon>
     </Content>
     <Content Include="Site\popup\popupController.js" />
+    <Content Include="Site\popup\popupController.min.js">
+      <DependentUpon>popupController.js</DependentUpon>
+    </Content>
     <Content Include="Site\products\productsController.min.js">
       <DependentUpon>productsController.js</DependentUpon>
     </Content>
@@ -501,7 +505,7 @@
     <Content Include="Site\shared\viewStates\productsStateService.js" />
     <Content Include="Site\shared\viewStates\userStateService.js" />
     <Content Include="Site\shared\viewStates\_viewStates.min.js" />
-    <Content Include="Site\popup\test.html" />
+    <Content Include="Site\popup\popup.html" />
     <Content Include="Site\unreadMessages\unreadMessages.html" />
     <Content Include="Site\updateCreateProduct\updateCreateProduct.html" />
     <Content Include="Site\updateCreateProduct\updateCreateProductController.js" />

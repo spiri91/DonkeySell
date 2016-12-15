@@ -52,6 +52,7 @@
     <script src="~/Scripts/angular-material/angular-material.min.js"></script>
     <script src="~/Scripts/respond.min.js"></script>
     <script src="~/Scripts/angular-toastr.tpls.min.js"></script>
+    <link href="~/Content/myCss/site2.css" rel="stylesheet" />
     
     <script src="~/Site/mainEffects.min.js"></script>
 
@@ -82,6 +83,7 @@
     <script src="~/Site/shared/directives/loadingDirective/loadingDirective.min.js"></script>
     <script src="~/Site/shared/directives/enterPress/enterPressDirective.min.js"></script>
     <script src="~/Site/shared/directives/loadingDirective/loadingDirective.min.js"></script>
+    <script src="~/Site/popup/popupController.min.js"></script>
     @*<script src="~/Site/donkeySellModule.js"></script>
         <script src="~/Site/mainController.js"></script>
             <script src="~/Site/home/homeController.js"></script>
@@ -179,6 +181,10 @@
                     </md-button>
                     <md-button class="md-raised fixed-actionbtn-width" ng-click="postNewProduct()" ng-show="user.userName">
                         <i class="fa fa-plus"></i>&nbsp;&nbsp;<span>Add product</span>
+                    </md-button>
+                    <md-button class="md-raised fixed-actionbtn-width alerts-btn" ng-disabled="true" ng-click="" ng-show="user.userName">
+                        <md-tooltip>Work in progress</md-tooltip>
+                        <i class="fa fa-star"></i>&nbsp;&nbsp;<span>Alerts</span>
                     </md-button>
                 </md-fab-actions>
             </md-fab-speed-dial>

@@ -11,6 +11,7 @@ function mainController($scope, $uibModal, usersService, $location, toastr,
     $scope.favorites = [];
     $scope.unreadMessages = [];
     $scope.token = '';
+    $scope.productPopups = [];
 
     $scope.cities = [];
     $scope.categories = [];
@@ -21,16 +22,6 @@ function mainController($scope, $uibModal, usersService, $location, toastr,
                 .toggle();
         }
     }
-
-    $scope.ngPopupConfig = {
-        width: $scope.inputWidth,
-        height: $scope.inputHeight,
-        templateUrl: "Site/popup/test.html",
-        resizable: true,
-        draggable: true,
-        position: { top: 500, left: 500 },
-        product: 14
-}
 
     $scope.toggleLeft = $scope.buildToggler('left');
     $scope.isOpenLeft = function () {

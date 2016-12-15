@@ -82,8 +82,15 @@ function productController($scope, messagesService, productsService, usersServic
 
     $scope.getProductsForNavigation = function (products, inFront) {
         let productIds = products.data.products.map(function (x) { return x.id; });
-        inFront === true ? productNavigationService.setProductsIds(productIds, true) : productNavigationService.setProductsIds(productIds, false);
-        let id = productNavigationService.getPreviousProduct($scope.product.id);
+        productNavigationService.setProductsIds(productIds, inFront);
+        let id;
+
+        if (inFront === true) {
+            id = productNavigationService.getPreviousProduct($scope.product.id);
+        } else {
+            id = productNavigationService.getNextProduct($scope.product.id);
+        }
+
         $scope.goToProduct(id);
     }
 

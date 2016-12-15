@@ -1,25 +1,28 @@
 ﻿<div class="col-xs-12 col-sm-4 cursor-hand small-padding" ng-repeat="product in products" ng-click="$parent.showProduct(product.id)">
-        <div class="product fixed-height">
-            <div class="row">
-                    <div class="col-xs-10 col-sm-10" >
-                        <h3 class="h3 v-allign">
-                            {{product.title}}
-                        </h3>
-                    </div>
-                    <div class="col-xs-2 col-sm-2">
-                        <md-button ng-click="addToFavorites(product, $event)" class="md-fab md-mini pull-right"><i class="fa fa-heart"></i><md-tooltip>Add product to favorites</md-tooltip></md-button>
-                    </div>
+    <div class="product fixed-height">
+        <div class="row">
+            <div class="col-xs-8 col-sm-8">
+                <h3 class="h3 v-allign">
+                    {{product.title}}
+                </h3>
             </div>
-            <div class="row">
-                <div class="col-xs-4 col-sm-4">
-                    <h5>{{product.price | currency : "lei ": 0 }}</h5>
-                    <h5><strong>By:&nbsp;</strong>{{product.userName}} </h5>
-                    <span><strong>In:&nbsp;</strong>{{product.category.name}}</span><br />
-                    <span><strong>City:&nbsp;</strong>{{product.city.name}}</span>
-                </div>
-                <div class="col-xs-7 col-xs-offset-1 col-sm-7 col-sm-offset-1 fixed-max-width-image" ng-if="product.images[0].value">
-                    <img class="img img-responsive center-block fixed-max-width-image" ng-src="{{product.images[0].value}}" />
-                </div>
+            <div class="col-xs-2 col-sm-2">
+                <md-button ng-click="openPopup(product.id, $event) " class="md-fab md-mini pull-right"><i class="fa fa-square-o"></i><md-tooltip>Show in mini window</md-tooltip></md-button>
+            </div>
+            <div class="col-xs-2 col-sm-2">
+                <md-button ng-click="addToFavorites(product, $event)" class="md-fab md-mini pull-right"><i class="fa fa-heart"></i><md-tooltip>Add product to favorites</md-tooltip></md-button>
             </div>
         </div>
+        <div class="row">
+            <div class="col-xs-4 col-sm-4">
+                <h5>{{product.price | currency : "lei ": 0 }}</h5>
+                <h5><strong>By:&nbsp;</strong>{{product.userName}} </h5>
+                <span><strong>In:&nbsp;</strong>{{product.category.name}}</span><br />
+                <span><strong>City:&nbsp;</strong>{{product.city.name}}</span>
+            </div>
+            <div class="col-xs-7 col-xs-offset-1 col-sm-7 col-sm-offset-1 fixed-max-width-image" ng-if="product.images[0].value">
+                <img class="img img-responsive center-block fixed-max-width-image" ng-src="{{product.images[0].value}}" />
+            </div>
+        </div>
+    </div>
 </div>

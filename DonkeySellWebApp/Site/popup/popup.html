@@ -1,0 +1,48 @@
+﻿<div class="container-fluid">
+    <div ng-if="loading" loading-specific></div>
+    <div ng-if="!loading">
+        <div class="row">
+            <div class="col-xs-8 col-xs-offset-2 centered">
+                <h3 class="h3">{{product.title}}</h3>
+            </div>
+            <div class="col-xs-2 centered">
+                <md-button class="md-fab md-mini align-vertically-close-btn" ng-click="close()"><i class="fa fa-close"></i><md-tooltip>Close</md-tooltip></md-button>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-xs-4 col-xs-offset-4 centered">
+                <h3>
+                    <strong>{{product.price | currency : "lei ": 0 }}</strong>
+                </h3>
+            </div>
+        </div>
+        <br />
+        <div class="row centered">
+            <div class="col-xs-4" ng-if="product.tradesAccepted">
+                <strong>Trades accepted</strong>
+            </div>
+            <div class="col-xs-4" ng-if="product.rental">
+                <strong>Rental</strong>
+            </div>
+            <div class="col-xs-4" ng-if="product.free">
+                <strong>Free</strong>
+            </div>
+        </div>
+        <br />
+        <div class="row centered">
+            <div class="col-xs-10 col-xs-offset-1">
+                <p>
+                    {{product.description}}
+                </p>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-xs-10 col-xs-offset-1">
+                <img ng-src="{{product.images[0].value}}" class="img img-responsive center-block" />
+            </div>
+        </div>
+        <br />
+    </div>
+</div>

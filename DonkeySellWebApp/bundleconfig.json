@@ -236,5 +236,11 @@
     "inputFiles": [
       "Scripts/jquery-ui-touch-punch.js"
     ]
+  },
+  {
+    "outputFileName": "Site/popup/popupController.min.js",
+    "inputFiles": [
+      "Site/popup/popupController.js"
+    ]
   }
 ]
