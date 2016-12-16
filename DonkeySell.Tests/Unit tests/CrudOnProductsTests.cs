@@ -1,4 +1,5 @@
-﻿using DonkeySellApi.Models.DatabaseModels;
+﻿using System.Linq;
+using DonkeySellApi.Models.DatabaseModels;
 using DonkeySellApi.Workers;
 using Ninject;
 using NUnit.Framework;
@@ -37,9 +38,9 @@ namespace DonkeySell.Tests.Unit_tests
         [Test]
         public void ShouldUpdateProduct()
         {
-            int newCityId = 1;
+            int newCityId = TestInitialiser.context.Cities.Where(x => x.Name == "Iasi").ToList()[0].Id;
             var dbProduct = crudOnProducts.AddOrUpdate(product).Result;
-            dbProduct.CityId = 1;
+            dbProduct.CityId = newCityId;
             var updatedProduct = crudOnProducts.AddOrUpdate(dbProduct).Result;
             Assert.AreEqual(newCityId, updatedProduct.CityId);
             crudOnProducts.DeleteProduct(dbProduct.Id).Wait();

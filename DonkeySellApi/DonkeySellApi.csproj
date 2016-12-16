@@ -279,6 +279,7 @@
     <Compile Include="ChatHelpers\ChatHelpers.cs" />
     <Compile Include="ChatHelpers\UserConnection.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AlertsController.cs" />
     <Compile Include="Controllers\ConfirmationsController.cs" />
     <Compile Include="Controllers\FavoriteController.cs" />
     <Compile Include="Controllers\FriendsController.cs" />
@@ -331,12 +332,17 @@
     <Compile Include="Migrations\201611090818405_addedFriends.Designer.cs">
       <DependentUpon>201611090818405_addedFriends.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612160917243_addedAlertsAndMeetingPoints.cs" />
+    <Compile Include="Migrations\201612160917243_addedAlertsAndMeetingPoints.Designer.cs">
+      <DependentUpon>201612160917243_addedAlertsAndMeetingPoints.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DatabaseModels\Category.cs" />
     <Compile Include="Models\DatabaseModels\City.cs" />
     <Compile Include="Models\DatabaseModels\Improvement.cs" />
+    <Compile Include="Models\DatabaseModels\Alert.cs" />
     <Compile Include="Models\Shared\Friend.cs" />
     <Compile Include="Models\Shared\Image.cs" />
     <Compile Include="Models\DatabaseModels\Product.cs" />
@@ -346,6 +352,7 @@
     <Compile Include="Models\DatabaseModels\Message.cs" />
     <Compile Include="Models\DatabaseModels\UsersFavoriteProducts.cs" />
     <Compile Include="Models\ViewModels\ResetPassword.cs" />
+    <Compile Include="Models\ViewModels\ViewAlert.cs" />
     <Compile Include="Models\ViewModels\ViewCategory.cs" />
     <Compile Include="Models\ViewModels\ViewCity.cs" />
     <Compile Include="Models\ViewModels\ViewUsersFavoriteProducts.cs" />
@@ -359,6 +366,7 @@
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Workers\Checks.cs" />
+    <Compile Include="Workers\CrudOnAlerts.cs" />
     <Compile Include="Workers\CrudOnFavorites.cs" />
     <Compile Include="Workers\CrudOnFriends.cs" />
     <Compile Include="Workers\CrudOnImprovments.cs" />
@@ -463,6 +471,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611090818405_addedFriends.resx">
       <DependentUpon>201611090818405_addedFriends.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612160917243_addedAlertsAndMeetingPoints.resx">
+      <DependentUpon>201612160917243_addedAlertsAndMeetingPoints.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

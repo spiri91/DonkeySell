@@ -16,7 +16,7 @@ namespace DonkeySell.Tests.Unit_tests
         private string username;
 
 
-        private int productId = 2;
+        private int productId;
 
         [SetUp]
         public void Initialize()
@@ -26,6 +26,7 @@ namespace DonkeySell.Tests.Unit_tests
             crudOnProducts = TestInitialiser.ninjectKernel.kernel.Get<ICrudOnProducts>();
             crudOnUsers = TestInitialiser.ninjectKernel.kernel.Get<ICrudOnUsers>();
 
+            productId = TestInitialiser.context.Products.ToList()[0].Id;
             var viewUser = TestInitialiser.CreateUser();
             username = crudOnUsers.CreateOrUpdateUser(viewUser).Result.UserName;
         }
@@ -56,7 +57,7 @@ namespace DonkeySell.Tests.Unit_tests
         [Test]
         public void ShouldRetrieveFavoriteProducts()
         {
-            var usf = crudOnFavorites.AddProductToFavorites(username, productId).Result;
+            crudOnFavorites.AddProductToFavorites(username, productId).Wait();
             var pocos = crudOnFavorites.GetUsersFavoriteProducts(username).Result;
             Assert.IsNotNull(pocos);
             crudOnFavorites.DeleteProductFromFavorites(username, productId);

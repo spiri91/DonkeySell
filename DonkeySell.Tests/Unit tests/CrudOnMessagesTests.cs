@@ -1,4 +1,5 @@
-﻿using DonkeySellApi.Models.DatabaseModels;
+﻿using System.Linq;
+using DonkeySellApi.Models.DatabaseModels;
 using DonkeySellApi.Workers;
 using Ninject;
 using NUnit.Framework;
@@ -10,6 +11,7 @@ namespace DonkeySell.Tests.Unit_tests
     {
         private ICrudOnMessages crudOnMessages;
         private Message message;
+        private int productId;
         
         [SetUp]
         public void Initialize()
@@ -17,13 +19,14 @@ namespace DonkeySell.Tests.Unit_tests
             TestInitialiser.Initialise();
             crudOnMessages = TestInitialiser.ninjectKernel.kernel.Get<ICrudOnMessages>();
             message = TestInitialiser.CreateMessage();
+            productId = TestInitialiser.context.Products.ToList()[0].Id;
         }
 
         [Test]
         public void ShouldGetMessages()
         {
             var dbMessage = crudOnMessages.AddOrUpdate(message).Result;
-            var messages = crudOnMessages.GetMessages(2).Result;
+            var messages = crudOnMessages.GetMessages(productId).Result;
             Assert.IsNotNull(messages);
             crudOnMessages.DeleteMessage(dbMessage.Id).Wait();
         }

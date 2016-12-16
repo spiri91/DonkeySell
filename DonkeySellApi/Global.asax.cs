@@ -43,6 +43,7 @@ namespace DonkeySellApi
                 cfg.CreateMap<DonkeySellUser, ViewUser>().ForMember(x => x.Password, y => y.Ignore()).ReverseMap();
                 cfg.CreateMap<Message, ViewMessage>().ReverseMap();
                 cfg.CreateMap<UsersFavoriteProducts, ViewUsersFavoriteProducts>().ReverseMap();
+                cfg.CreateMap<Alert, ViewAlert>().ReverseMap();
             });
             Mapper.AssertConfigurationIsValid();
         }

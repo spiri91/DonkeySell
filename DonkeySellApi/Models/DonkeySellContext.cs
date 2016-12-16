@@ -33,6 +33,8 @@ namespace DonkeySellApi.Models
 
         public DbSet<Improvement> Improvements { get; set; }
 
+        public DbSet<Alert> Alerts { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             Database.SetInitializer<DonkeySellContext>(new CreateDatabaseIfNotExists<DonkeySellContext>());

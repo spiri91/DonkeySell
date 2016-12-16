@@ -28,6 +28,7 @@ namespace DonkeySellApi.Workers
         Task<string> GetEmailOfUser(string username);
         Task ChangePassword(string username, string oldPassword, string newPassword);
         Task<List<string>> GetUsersLike(string username);
+        Task<string> GetUsernameById(string userId);
     }
 
     public class CrudOnUsers : ICrudOnUsers, IDisposable
@@ -213,6 +214,16 @@ namespace DonkeySellApi.Workers
                     .ToList();
 
             return users;
+        }
+
+        public async Task<string> GetUsernameById(string userId)
+        {
+            if(! context.Users.Any(x => x.UserId == userId))
+                throw new ObjectNotFoundException();
+
+            var username = context.Users.Single(x => x.UserId == userId).UserName;
+
+            return username;
         }
 
         public void Dispose()

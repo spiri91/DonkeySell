@@ -79,6 +79,7 @@ namespace DonkeySellApi.App_Start
             kernel.Bind<IThrowExceptionToUser>().To<ThrowExceptionToUser>();
             kernel.Bind<IChatHelpers>().To<ChatHelpers.ChatHelpers>();
             kernel.Bind<ICrudOnImprovements>().To<CrudOnImprovements>();
+            kernel.Bind<ICrudOnAlerts>().To<CrudOnAlerts>();
         }        
     }
 }

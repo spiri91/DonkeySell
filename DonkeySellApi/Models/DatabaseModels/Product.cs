@@ -45,5 +45,7 @@ namespace DonkeySellApi.Models.DatabaseModels
         public bool Free { get; set; }
 
         public DateTime DatePublished { get; set; }
+
+        public string MeetingPoint { get; set; }
     }
 }

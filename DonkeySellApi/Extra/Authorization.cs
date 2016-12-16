@@ -1,4 +1,5 @@
-﻿using System.Data.Entity.Core;
+﻿using System;
+using System.Data.Entity.Core;
 using System.Linq;
 using System.Threading.Tasks;
 using DonkeySellApi.Models;
@@ -16,9 +17,11 @@ namespace DonkeySellApi.Extra
         Task<bool> UserOwnsThisProduct(string getUserName, string username, int id);
 
         Task<bool> UserCanDeleteProduct(string getUserName, int id);
+
+        Task<bool> UserOwnsThisAlert(int id, string userId);
     }
 
-    public class Authorization : IAuthorization
+    public class Authorization : IAuthorization, IDisposable
     {
         private DonkeySellContext context;
 
@@ -86,6 +89,21 @@ namespace DonkeySellApi.Extra
             var productUsername = context.Products.Single(x => x.Id == id).UserName;
 
             return username == productUsername;
+        }
+
+        public async Task<bool> UserOwnsThisAlert(int id, string userId)
+        {
+            if(! context.Alerts.Any(x => x.Id == id))
+                throw new ObjectNotFoundException();
+
+            var alert = context.Alerts.Single(x => x.Id == id);
+
+            return alert.UserId == userId;
+        }
+
+        public void Dispose()
+        {
+            context.Dispose();
         }
     }
 }

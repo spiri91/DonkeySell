@@ -63,4 +63,4 @@ app.config(['$routeProvider', '$mdThemingProvider', 'toastrConfig', '$mdAriaProv
     $mdAriaProvider.disableWarnings();
 }]);
 
-app.constant('apiRootAddress', "http://spiri91-001-site1.ftempurl.com/api/"); //"http://localhost:57792/api/" ,  "http://spiri91-001-site1.ftempurl.com/api/"
+app.constant('apiRootAddress', "http://localhost:57792/api/"); //"http://localhost:57792/api/" ,  "http://spiri91-001-site1.ftempurl.com/api/"

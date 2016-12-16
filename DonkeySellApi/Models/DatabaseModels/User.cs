@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using DonkeySellApi.Models.Shared;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace DonkeySellApi.Models.DatabaseModels
@@ -24,5 +25,7 @@ namespace DonkeySellApi.Models.DatabaseModels
         public virtual ICollection<Message> Messages { get; set; }
 
         public string ConfirmationGuid { get; set; }
+
+        public virtual ICollection<Alert> Alerts { get; set; }
     }
 }

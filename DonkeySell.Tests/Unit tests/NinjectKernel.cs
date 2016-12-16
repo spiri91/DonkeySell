@@ -20,6 +20,7 @@ namespace DonkeySell.Tests.Unit_tests
             kernel.Bind<IMailSender>().To<MailSender>();
             kernel.Bind<IMyPasswordGenerator>().To<MyPasswordGenerator>();
             kernel.Bind<ICrudOnFriends>().To<CrudOnFriends>();
+            kernel.Bind<ICrudOnAlerts>().To<CrudOnAlerts>();
         }
     }
 }

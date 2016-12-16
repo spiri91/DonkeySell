@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using AutoMapper;
 using DonkeySellApi.Models;
 using DonkeySellApi.Models.DatabaseModels;
@@ -10,6 +11,7 @@ namespace DonkeySell.Tests.Unit_tests
     public static class TestInitialiser
     {
         public static NinjectKernel ninjectKernel = new NinjectKernel();
+        public static DonkeySellContext context = new DonkeySellContext();
 
         public static void Initialise()
         {
@@ -21,6 +23,7 @@ namespace DonkeySell.Tests.Unit_tests
                 cfg.CreateMap<Category, ViewCategory>().ReverseMap();
                 cfg.CreateMap<City, ViewCity>().ReverseMap();
                 cfg.CreateMap<UsersFavoriteProducts, ViewUsersFavoriteProducts>().ReverseMap();
+                cfg.CreateMap<Alert, ViewAlert>().ReverseMap();
             });
 
             Mapper.AssertConfigurationIsValid();
@@ -41,12 +44,14 @@ namespace DonkeySell.Tests.Unit_tests
 
         public static Product CreateProduct()
         {
+            var cityId = context.Cities.Where(x => x.Name == "Bacau").ToList()[0].Id;
+            var categoryId = context.Categories.Where(x => x.Name == "Other").ToList()[0].Id;
             var viewProduct = new ViewProduct()
             {
-                CityId = 2,
+                CityId = cityId,
                 Description = "nothing interesting here just a description for this",
                 UserName = "spiri1",
-                CategoryId = 4,
+                CategoryId = categoryId,
                 Title = "One plus 2",
                 Price = 1500,
                 TradesAccepted = true
@@ -59,10 +64,11 @@ namespace DonkeySell.Tests.Unit_tests
 
         public static Message CreateMessage()
         {
+            var productId = context.Products.ToList()[0].Id;
             ViewMessage viewMessage = new ViewMessage()
             {
                 DateCreated = DateTime.Now,
-                ProductId = 2,
+                ProductId = productId,
                 Value = "another comment here",
                 UserName = "spiri1"
             };

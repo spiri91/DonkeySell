@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
 using DonkeySellApi.Models.DatabaseModels;
+using DonkeySellApi.Models.Shared;
 using DonkeySellApi.Models.ViewModels;
 
 namespace DonkeySellApi.Workers
@@ -53,6 +54,11 @@ namespace DonkeySellApi.Workers
             bool messageHasValue = !string.IsNullOrWhiteSpace(message.Value);
             
             return messageHasValue;
+        }
+
+        public static bool IsValid(this Alert alert)
+        {
+            return alert.ProductName.Length > 0;
         }
     }
 }
