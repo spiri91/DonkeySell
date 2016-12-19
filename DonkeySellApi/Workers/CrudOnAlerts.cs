@@ -67,7 +67,7 @@ namespace DonkeySellApi.Workers
         public async Task<List<string>> GetUsersWithAlertProduct(string productName)
         {
             var userThatWhatProduct =
-                context.Alerts.Where(x => x.ProductName.ToLower().Contains(productName.ToLower()))
+                context.Alerts.Where(x => productName.ToLower().Contains(x.ProductName.ToLower()))
                     .Select(x => x.User.Email).ToList();
 
             return userThatWhatProduct;

@@ -1,0 +1,63 @@
+﻿<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12 col-sm-11 col-sm-offset-1">
+            <h3 class="subtitle centered-xs">Alerts</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1 alert alert-success fade in" ng-if="!isEdit">
+            <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <p class="indent">
+                <strong>How 'Alerts' work</strong>
+            </p>
+            <p class="indent">
+                For example,
+                you are interested in a new phone and you haven't found anything that suits you, then input your desire in the box bellow,
+                let's say 'One plus'. When ever a new product with the title containing 'one plus' is added, you will recieve an email notification about it. <i class="fa fa-smile"></i>
+            </p>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-xs-12 col-sm-4 col-sm-offset-1 centered-xs">
+            <h4 class="h4"><strong>Add new alert</strong></h4>
+        </div>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <div class="row">
+            <div class="col-xs-9 col-xs-offset-0 col-sm-6 col-sm-offset-1 centered">
+                <md-input-container class="md-block big-input" flex-gt-sm name="title">
+                    <md-tooltip>Should be between 4 and 20 characters!</md-tooltip>
+                    <label>Product name</label>
+                    <input type="text" ng-model="productName" ng-minlength="4" ng-maxlength="20" required/>
+                </md-input-container>
+            </div>
+            <div class="col-xs-2 centered">
+                <md-button class="md-fab md-primary" ng-disabled="productName.length < 4" ng-click="addNewCustomAlert()"><i class="fa fa-plus"></i><md-tooltip>Add alert</md-tooltip></md-button>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="row" ng-if="customAlerts.length > 0">
+        <div class="col-xs-12 col-sm-4 col-sm-offset-1 centered-xs">
+            <h4 class="h4"><strong>Your custom alerts</strong></h4>
+        </div>
+        <br/>
+        <br/>
+        <div class="row fixed-line-height-big big-input" ng-repeat="alert in customAlerts">
+            <div class="col-xs-6 col-xs-offset-1 centered">
+                <strong>{{alert.productName}}</strong>
+            </div>
+            <div class="col-xs-2 centered">
+                <md-button class="md-fab md-mini" ng-click="deleteCustomAlert(alert.id)"><i class="fa fa-remove"></i><md-tooltip>Remove alert</md-tooltip></md-button>
+            </div>
+            <br/>
+            <div class="col-xs-10 col-xs-offset-1">
+                <hr ng-if="!$last" />
+            </div>
+        </div>
+    </div>
+    <br/>
+</div>

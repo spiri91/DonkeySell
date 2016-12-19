@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Helpers;
 using System.Web.Http;
@@ -23,8 +24,11 @@ namespace DonkeySellApi.Controllers
         private IMyQueryBuilder myQueryBuilder;
         private ICrudOnFavorites crudOnFavorites;
         private IThrowExceptionToUser throwExceptionToUser;
+        private IMailSender mailSender;
+        private ICrudOnAlerts crudOnAlerts;
 
-        public ProductsController(ILogger logger, ICrudOnProducts crudOnProducts, IAuthorization authorization, IMyQueryBuilder myQueryBuilder, ICrudOnFavorites crudOnFavorites, IThrowExceptionToUser throwExceptionToUser)
+        public ProductsController(ILogger logger, ICrudOnProducts crudOnProducts, IAuthorization authorization, IMyQueryBuilder myQueryBuilder, ICrudOnFavorites crudOnFavorites,
+            IThrowExceptionToUser throwExceptionToUser, IMailSender mailSender, ICrudOnAlerts crudOnAlerts)
         {
             this.logger = logger;
             this.crudOnProducts = crudOnProducts;
@@ -32,6 +36,8 @@ namespace DonkeySellApi.Controllers
             this.myQueryBuilder = myQueryBuilder;
             this.crudOnFavorites = crudOnFavorites;
             this.throwExceptionToUser = throwExceptionToUser;
+            this.crudOnAlerts = crudOnAlerts;
+            this.mailSender = mailSender;
         }
 
         [Route("")]
@@ -112,12 +118,21 @@ namespace DonkeySellApi.Controllers
                 var returnedProduct = await crudOnProducts.AddOrUpdate(product);
                 var returnedViewProduct = Mapper.Map<ViewProduct>(returnedProduct);
 
+                SendAlertsForProduct(returnedViewProduct.Title, returnedViewProduct.Id);
+
                 return Ok(returnedViewProduct);
             }
             catch (Exception ex)
             {
                 return throwExceptionToUser.Throw(ex);
             }
+        }
+
+        private void SendAlertsForProduct(string title, int id)
+        {
+            Thread sentEmailThread =
+                    new Thread(() => { new ProductEmailNotifications(crudOnAlerts, mailSender).SendEmailForProduct(title, id); });
+            sentEmailThread.Start();
         }
 
         [Authorize]

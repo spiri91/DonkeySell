@@ -91,14 +91,14 @@ namespace DonkeySellApi.Extra
             return username == productUsername;
         }
 
-        public async Task<bool> UserOwnsThisAlert(int id, string userId)
+        public async Task<bool> UserOwnsThisAlert(int id, string username)
         {
             if(! context.Alerts.Any(x => x.Id == id))
                 throw new ObjectNotFoundException();
 
             var alert = context.Alerts.Single(x => x.Id == id);
 
-            return alert.UserId == userId;
+            return alert.User.UserName == username;
         }
 
         public void Dispose()

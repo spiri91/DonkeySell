@@ -47,6 +47,11 @@ app.config(['$routeProvider', '$mdThemingProvider', 'toastrConfig', '$mdAriaProv
             templateUrl: 'Site/advanceSearch/advanceSearch.html',
             controller: 'advanceSearchController'
         })
+          .when('/customAlerts',
+        {
+            templateUrl: 'Site/customAlerts/customAlerts.html',
+            controller: 'customAlertsController'
+        })
          .when('/about',
         {
             templateUrl: 'Site/about/about.html'
@@ -63,4 +68,4 @@ app.config(['$routeProvider', '$mdThemingProvider', 'toastrConfig', '$mdAriaProv
     $mdAriaProvider.disableWarnings();
 }]);
 
-app.constant('apiRootAddress', "http://localhost:57792/api/"); //"http://localhost:57792/api/" ,  "http://spiri91-001-site1.ftempurl.com/api/"
+app.constant('apiRootAddress', "http://spiri91-001-site1.ftempurl.com/api/"); //"http://localhost:57792/api/" ,  "http://spiri91-001-site1.ftempurl.com/api/"

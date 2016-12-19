@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
@@ -17,12 +18,14 @@ namespace DonkeySellApi.Controllers
         private ICrudOnAlerts crudOnAlerts;
         private IAuthorization authorization;
         private IThrowExceptionToUser throwExceptionToUser;
+        private ICrudOnUsers crudOnUsers;
 
-        public AlertsController(ICrudOnAlerts crudOnAlerts, IAuthorization authorization, IThrowExceptionToUser throwExceptionToUser)
+        public AlertsController(ICrudOnAlerts crudOnAlerts, IAuthorization authorization, IThrowExceptionToUser throwExceptionToUser, ICrudOnUsers crudOnUsers)
         {
             this.crudOnAlerts = crudOnAlerts;
             this.authorization = authorization;
             this.throwExceptionToUser = throwExceptionToUser;
+            this.crudOnUsers = crudOnUsers;
         }
 
         [HttpGet]
@@ -35,8 +38,9 @@ namespace DonkeySellApi.Controllers
             try
             {
                 var alerts = await crudOnAlerts.GetAlerts(username);
+                var viewAlerts = Mapper.Map<IEnumerable<ViewAlert>>(alerts);
 
-                return Ok(alerts);
+                return Ok(viewAlerts);
             }
             catch (Exception ex)
             {
@@ -50,18 +54,20 @@ namespace DonkeySellApi.Controllers
         {
             try
             {
-                if (! await authorization.UserIsHimself(User.Identity.GetUserId(), viewAlert.UserId))
+                var username = await crudOnUsers.GetUsernameById(viewAlert.UserId);
+
+                if (!await authorization.UserIsHimself(User.Identity.GetUserName(), username))
                     return Unauthorized();
 
                 var alert = Mapper.Map<Alert>(viewAlert);
                 var newAlert = await crudOnAlerts.AddAlert(alert);
-                return Ok(newAlert);
+                var newViewAlert = Mapper.Map<ViewAlert>(newAlert);
+                return Ok(newViewAlert);
             }
             catch (Exception ex)
             {
                 return throwExceptionToUser.Throw(ex);
             }
-           
         }
 
         [HttpDelete]
@@ -70,7 +76,7 @@ namespace DonkeySellApi.Controllers
         {
             try
             {
-                if (! await authorization.UserOwnsThisAlert(id, User.Identity.GetUserId()))
+                if (!await authorization.UserOwnsThisAlert(id, User.Identity.GetUserName()))
                     return Unauthorized();
 
                 var deletedAlertId = await crudOnAlerts.DeleteAlert(id);

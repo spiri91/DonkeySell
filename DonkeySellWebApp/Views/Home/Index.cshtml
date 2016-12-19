@@ -29,7 +29,8 @@
     <link href="~/Content/angular-material.layouts.ie_fixes.min.css" rel="stylesheet" />
     <link href="~/Content/angular-toggle-switch-bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/angular-toggle-switch.min.css" rel="stylesheet" />
-    <link href="~/Content/myCss/_myCss.min.css" rel="stylesheet" />
+    <link href="~/Content/myCss/_myCss.min.css" rel="stylesheet"/>
+    <link href="~/Content/myCss/site2.css" rel="stylesheet" />
 
     <!--scripts-->
     <script src="~/Scripts/jquery-3.0.0.min.js"></script>
@@ -52,7 +53,6 @@
     <script src="~/Scripts/angular-material/angular-material.min.js"></script>
     <script src="~/Scripts/respond.min.js"></script>
     <script src="~/Scripts/angular-toastr.tpls.min.js"></script>
-    <link href="~/Content/myCss/site2.css" rel="stylesheet" />
     
     <script src="~/Site/mainEffects.min.js"></script>
 
@@ -84,6 +84,8 @@
     <script src="~/Site/shared/directives/enterPress/enterPressDirective.min.js"></script>
     <script src="~/Site/shared/directives/loadingDirective/loadingDirective.min.js"></script>
     <script src="~/Site/popup/popupController.min.js"></script>
+    <script src="~/Site/customAlerts/customAlertsController.min.js"></script>
+
     @*<script src="~/Site/donkeySellModule.js"></script>
         <script src="~/Site/mainController.js"></script>
             <script src="~/Site/home/homeController.js"></script>
@@ -182,7 +184,7 @@
                     <md-button class="md-raised fixed-actionbtn-width" ng-click="postNewProduct()" ng-show="user.userName">
                         <i class="fa fa-plus"></i>&nbsp;&nbsp;<span>Add product</span>
                     </md-button>
-                    <md-button class="md-raised fixed-actionbtn-width alerts-btn" ng-disabled="true" ng-click="" ng-show="user.userName">
+                    <md-button class="md-raised fixed-actionbtn-width alerts-btn" ng-href="#/customAlerts" ng-show="user.userName">
                         <md-tooltip>Work in progress</md-tooltip>
                         <i class="fa fa-star"></i>&nbsp;&nbsp;<span>Alerts</span>
                     </md-button>

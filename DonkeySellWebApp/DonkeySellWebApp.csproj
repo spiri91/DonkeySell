@@ -404,6 +404,11 @@
     <Content Include="Site\choseCity\choseCityController.min.js">
       <DependentUpon>choseCityController.js</DependentUpon>
     </Content>
+    <Content Include="Site\customAlerts\customAlerts.html" />
+    <Content Include="Site\customAlerts\customAlertsController.js" />
+    <Content Include="Site\customAlerts\customAlertsController.min.js">
+      <DependentUpon>customAlertsController.js</DependentUpon>
+    </Content>
     <Content Include="Site\donkeySellModule.js" />
     <Content Include="Site\donkeySellModule.min.js">
       <DependentUpon>donkeySellModule.js</DependentUpon>
@@ -477,6 +482,7 @@
     <Content Include="Site\shared\directives\productsDirective\productsDirective.min.js">
       <DependentUpon>productsDirective.js</DependentUpon>
     </Content>
+    <Content Include="Site\shared\models\customAlert.js" />
     <Content Include="Site\shared\models\category.js" />
     <Content Include="Site\shared\models\city.js" />
     <Content Include="Site\shared\models\friend.js" />
@@ -489,6 +495,7 @@
     <Content Include="Site\shared\models\sortDirection.js" />
     <Content Include="Site\shared\models\sortOptions.js" />
     <Content Include="Site\shared\models\usersFavoriteProducts.js" />
+    <Content Include="Site\shared\services\customAlertsService.js" />
     <Content Include="Site\shared\services\favoritesService.js" />
     <Content Include="Site\shared\services\friendsService.js" />
     <Content Include="Site\shared\services\improvmentsService.js" />

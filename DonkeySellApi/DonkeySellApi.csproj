@@ -295,6 +295,7 @@
     <Compile Include="Extra\MailSender.cs" />
     <Compile Include="Extra\MyPasswordGenerator.cs" />
     <Compile Include="Extra\MyQueryBuilder.cs" />
+    <Compile Include="Extra\ProductEmailNotifications.cs" />
     <Compile Include="Extra\ThrowExceptionToUser.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

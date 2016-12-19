@@ -6,3 +6,7 @@
     background-color: #D32F2F !important;
     color: white !important;
 }
+
+.fixed-line-height-big {
+    line-height: 2em;
+}

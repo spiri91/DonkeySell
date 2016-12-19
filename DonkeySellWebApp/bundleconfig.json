@@ -1,56 +1,5 @@
 [
   {
-    "outputFileName": "Site/shared/models/models.min.js",
-    "inputFiles": [
-      "Site/shared/models/usersFavoriteProducts.js",
-      "Site/shared/models/category.js",
-      "Site/shared/models/city.js",
-      "Site/shared/models/friend.js",
-      "Site/shared/models/image.js",
-      "Site/shared/models/improvement.js",
-      "Site/shared/models/message.js",
-      "Site/shared/models/product.js",
-      "Site/shared/models/productsAndCount.js",
-      "Site/shared/models/queryBuilderPart.js",
-      "Site/shared/models/resetPassword.js",
-      "Site/shared/models/sortDirection.js",
-      "Site/shared/models/sortOptions.js",
-      "Site/shared/models/user.js"
-    ]
-  },
-  {
-    "outputFileName": "Site/shared/services/_services.js",
-    "inputFiles": [
-      "Site/shared/services/favoritesService.js",
-      "Site/shared/services/friendsService.js",
-      "Site/shared/services/improvmentsService.js",
-      "Site/shared/services/messagesService.js",
-      "Site/shared/services/othersService.js",
-      "Site/shared/services/productsService.js",
-      "Site/shared/services/productNavigationService.js",
-      "Site/shared/services/queryBuilderService.js",
-      "Site/shared/services/sortOptionsService.js",
-      "Site/shared/services/storageService.js",
-      "Site/shared/services/usersService.js"
-    ]
-  },
-  {
-    "outputFileName": "Site/shared/services/_services.min.js",
-    "inputFiles": [
-      "Site/shared/services/favoritesService.js",
-      "Site/shared/services/friendsService.js",
-      "Site/shared/services/improvmentsService.js",
-      "Site/shared/services/messagesService.js",
-      "Site/shared/services/othersService.js",
-      "Site/shared/services/productsService.js",
-      "Site/shared/services/productNavigationService.js",
-      "Site/shared/services/queryBuilderService.js",
-      "Site/shared/services/sortOptionsService.js",
-      "Site/shared/services/storageService.js",
-      "Site/shared/services/usersService.js"
-    ]
-  },
-  {
     "outputFileName": "Site/shared/viewStates/_viewStates.min.js",
     "inputFiles": [
       "Site/shared/viewStates/advanceSearchStateService.js",
@@ -241,6 +190,49 @@
     "outputFileName": "Site/popup/popupController.min.js",
     "inputFiles": [
       "Site/popup/popupController.js"
+    ]
+  },
+  {
+    "outputFileName": "Site/shared/models/_models.min.js",
+    "inputFiles": [
+      "Site/shared/models/category.js",
+      "Site/shared/models/city.js",
+      "Site/shared/models/customAlert.js",
+      "Site/shared/models/friend.js",
+      "Site/shared/models/image.js",
+      "Site/shared/models/improvement.js",
+      "Site/shared/models/message.js",
+      "Site/shared/models/product.js",
+      "Site/shared/models/productsAndCount.js",
+      "Site/shared/models/queryBuilderPart.js",
+      "Site/shared/models/resetPassword.js",
+      "Site/shared/models/sortDirection.js",
+      "Site/shared/models/sortOptions.js",
+      "Site/shared/models/user.js",
+      "Site/shared/models/usersFavoriteProducts.js"
+    ]
+  },
+  {
+    "outputFileName": "Site/shared/services/_services.min.js",
+    "inputFiles": [
+      "Site/shared/services/customAlertsService.js",
+      "Site/shared/services/favoritesService.js",
+      "Site/shared/services/friendsService.js",
+      "Site/shared/services/improvmentsService.js",
+      "Site/shared/services/messagesService.js",
+      "Site/shared/services/othersService.js",
+      "Site/shared/services/productNavigationService.js",
+      "Site/shared/services/productsService.js",
+      "Site/shared/services/queryBuilderService.js",
+      "Site/shared/services/sortOptionsService.js",
+      "Site/shared/services/storageService.js",
+      "Site/shared/services/usersService.js"
+    ]
+  },
+  {
+    "outputFileName": "Site/customAlerts/customAlertsController.min.js",
+    "inputFiles": [
+      "Site/customAlerts/customAlertsController.js"
     ]
   }
 ]

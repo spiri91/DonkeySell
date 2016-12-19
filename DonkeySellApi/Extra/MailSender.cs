@@ -15,6 +15,7 @@ namespace DonkeySellApi.Extra
         Task SendNewPasswordMail(string newPassword, string email);
 
         Task SendEmailConfirmationMessage(string email, string guid, string username);
+        Task SentProductAlert(int productId, string emailAddress, string productTitle);
     }
 
     public class MailSender : IMailSender
@@ -28,12 +29,29 @@ namespace DonkeySellApi.Extra
 
         public async Task SendEmailConfirmationMessage(string email, string guid, string username)
         {
-            string body = ComposeMailBody(guid, username);
+            string body = ComposeMailBodyForEmailConfirmation(guid, username);
             string subject = "Mail Confirmation";
             SendMail(body, email, subject);
         }
 
-        private string ComposeMailBody(string guid, string username)
+        public async Task SentProductAlert(int productId, string emailAddress, string productTitle)
+        {
+            var subject = "New " + productTitle + " posted!";
+            var body = ComposeMailBodyForProductAlert(productId, productTitle);
+
+            SendMail(body, emailAddress, subject);
+        }
+
+        private string ComposeMailBodyForProductAlert(int productId, string productTitle)
+        {
+            var productAddress = ConfigurationManager.AppSettings.Get("productWebAddress") + productId;
+            var message = @"Hi, a new " + productTitle + " has just been posted! \n\r You can find it at: " + productAddress +
+                          "\n\r Hope you like it!";
+
+            return message;
+        }
+
+        private string ComposeMailBodyForEmailConfirmation(string guid, string username)
         {
             StringBuilder str = new StringBuilder();
             str.Append("Hi " + username + "\r\n");
