@@ -1,5 +1,5 @@
 ﻿<div class="container-fluid no-padding-xs">
-    <br class="visible-xs"/>
+    <br class="visible-xs" />
     <div>
         <md-content class="add-border-radius">
             <md-tabs md-dynamic-height md-border-bottom>
@@ -21,7 +21,7 @@
                                 </md-button>
                             </div>
                         </md-toolbar>
-                        <br/>
+                        <br />
                         <div class="row allign-center-xs">
                             <div class="col-xs-12 col-sm-6">
                                 <md-card-header>
@@ -29,12 +29,14 @@
                                         <i class="fa fa-users fa-2x"></i>&nbsp;
                                     </md-card-avatar>
                                     <md-card-header-text>
-                                        <a class="md-title" ng-href="#/user/{{product.userName}}">By:&nbsp;<strong>{{product.userName}}</strong></a><br/><br/>
-                                        <span class="md-title">Price:&nbsp;<strong>{{product.price | currency : "lei " : 0}}</strong></span><br/><br/>
-                                        <span class="md-subhead">Category: &nbsp;<strong>{{product.category.name}}</strong></span><br/><br/>
-                                        <span class="md-subhead">City: &nbsp;<strong>{{product.city.name}}</strong></span><br/><br/>
+                                        <a class="md-title" ng-href="#/user/{{product.userName}}">By:&nbsp;<strong>{{product.userName}}</strong></a><br /><br />
+                                        <span class="md-title">Price:&nbsp;<strong>{{product.price | currency : "lei " : 0}}</strong></span><br /><br />
+                                        <span class="md-subhead">Category: &nbsp;<strong>{{product.category.name}}</strong></span><br /><br />
+                                        <span class="md-subhead">City: &nbsp;<strong>{{product.city.name}}</strong></span><br /><br />
+                                        <span class="md-subhead" ng-if="!product.meetingPoint"><i>No meeting point selected</i></span>
+                                        <md-button class="md-raised" ng-click="showMeetingPoint()" ng-if="product.meetingPoint">Show meeting point</md-button><br/>
                                     </md-card-header-text>
-                                </md-card-header><br/>
+                                </md-card-header><br />
                                 <div class="row">
                                     <div class="col-xs-4 col-sm-4" ng-if="product.tradesAccepted">
                                         <span><i class="fa fa-circle"></i>&nbsp;Trades accepted</span>
@@ -46,11 +48,11 @@
                                         <span><i class="fa fa-circle"></i>&nbsp;For rent</span>
                                     </div>
                                 </div>
-                                <br/>
+                                <br />
                                 <div class="row" ng-if="product.images">
                                     <div class="col-xs-4 col-sm-4 centered" ng-repeat="image in product.images">
                                         <md-tooltip>Click to enlarge</md-tooltip>
-                                        <img ng-src="{{image.value}}" class="img img-responsive img-thumbnail fixed-size-image" ng-mouseover="setSelected($index)" ng-click="openImage($index)"/>
+                                        <img ng-src="{{image.value}}" class="img img-responsive img-thumbnail fixed-size-image" ng-mouseover="setSelected($index)" ng-click="openImage($index)" />
                                     </div>
                                 </div>
                             </div>
@@ -84,8 +86,8 @@
                                         </md-list-item>
                                     </md-list>
                                 </md-content>
-                                <br/>
-                                <br/>
+                                <br />
+                                <br />
                                 <div class="row">
                                     <div class="col-sm-9 col-sm-offset-1">
                                         <md-input-container class="md-block">
@@ -108,28 +110,28 @@
                     <md-content class="md-padding">
                         <div class="row contact-page">
                             <div class="col-xs-10 col-xs-offset-1 col-sm-5 col-sm-offset-1" ng-if="productOwner.facebook">
-                                <br/>
+                                <br />
                                 <i class="fa fa-facebook fa-2x"></i>&nbsp;
                                 <span class="contact-info">{{productOwner.facebook}}</span>
-                                <hr/>
+                                <hr />
                             </div>
                             <div class="col-xs-10 col-xs-offset-1 col-sm-5 col-sm-offset-1" ng-if="productOwner.email">
-                                <br/>
+                                <br />
                                 <i class="fa fa-envelope fa-2x"></i>&nbsp;
                                 <span class="contact-info"> {{productOwner.email}} </span>
-                                <hr/>
+                                <hr />
                             </div>
                             <div class="col-xs-10 col-xs-offset-1 col-sm-5 col-sm-offset-1" ng-if="productOwner.twitter">
-                                <br/>
+                                <br />
                                 <i class="fa fa-twitter fa-2x"></i>&nbsp;
                                 <span class="contact-info"> {{productOwner.twitter}} </span>
-                                <hr/>
+                                <hr />
                             </div>
                             <div class="col-xs-10 col-xs-offset-1 col-sm-5 col-sm-offset-1" ng-if="productOwner.phone">
-                                <br/>
+                                <br />
                                 <i class="fa fa-phone fa-2x"></i>&nbsp;
                                 <span class="contact-info"> {{productOwner.phone}} </span>
-                                <hr/>
+                                <hr />
                             </div>
                         </div>
                     </md-content>

@@ -11,6 +11,7 @@ function productController($scope, messagesService, productsService, usersServic
     $scope.selectedImage = "";
     $scope.endOfListToRight = false;
     $scope.endOfListToLeft = false;
+    $scope.mapReady = false;
 
     var originatorEv;
 
@@ -118,15 +119,15 @@ function productController($scope, messagesService, productsService, usersServic
 
     $scope.getProductAndProductOwner = function () {
         productsService.getProduct($scope.id)
-            .then(function (product) {
-                if (product.data) {
-                    $scope.product = product.data;
-                    $scope.selectedImage = $scope.product.images[0] ? $scope.product.images[0].value : "";
-                }
-            }, function (error) { $scope.doSomethingWithError(error); })
-            .then(function () {
-                $scope.getProductOwner();
-            });
+             .then(function (product) {
+                 if (product.data) {
+                     $scope.product = product.data;
+                     $scope.selectedImage = $scope.product.images[0] ? $scope.product.images[0].value : "";
+                 }
+             }, function (error) { $scope.doSomethingWithError(error); })
+             .then(function () {
+                 $scope.getProductOwner();
+             });
     }
 
     $scope.getMessages = function () {
@@ -211,6 +212,16 @@ function productController($scope, messagesService, productsService, usersServic
 
     $scope.doSomethingWithError = function (error) {
         console.log(error);
+    }
+
+    $scope.showMeetingPoint = function() {
+        if ($scope.product.meetingPoint) {
+            let coordinates = $scope.product.meetingPoint.split(';');
+            let lat = coordinates[0];
+            let lng = coordinates[1];
+            let url = "http://www.google.com/maps/place/" + lat + "," + lng;
+            window.open(url);
+        }
     }
 
     $scope.init();

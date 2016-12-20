@@ -86,6 +86,7 @@ namespace DonkeySellApi.Workers
             poco.Free = poco.Free;
             poco.Description = product.Description;
             poco.Images = product.Images;
+            poco.MeetingPoint = product.MeetingPoint;
             await context.SaveChangesAsync();
 
             return poco;

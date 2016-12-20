@@ -269,6 +269,10 @@
     <Content Include="Scripts\angular-aria\angular-aria.min.js" />
     <Content Include="Scripts\angular-cookies.js" />
     <Content Include="Scripts\angular-cookies.min.js" />
+    <Content Include="Scripts\angular-google-maps-street-view.js" />
+    <Content Include="Scripts\angular-google-maps-street-view.min.js" />
+    <Content Include="Scripts\angular-google-maps.js" />
+    <Content Include="Scripts\angular-google-maps.min.js" />
     <Content Include="Scripts\angular-material\angular-material-mocks.js" />
     <Content Include="Scripts\angular-material\angular-material.js" />
     <Content Include="Scripts\angular-material\angular-material.min.js" />
@@ -335,6 +339,7 @@
     <None Include="Properties\PublishProfiles\ftp.pubxml" />
     <None Include="Properties\PublishProfiles\ftpserver.pubxml" />
     <Content Include="Scripts\angular-messages.min.js.map" />
+    <Content Include="Scripts\anguar-simple-logger.min.js" />
     <None Include="Scripts\jquery-3.0.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.0.0.js" />
     <Content Include="Scripts\jquery-3.0.0.min.js" />
@@ -369,11 +374,14 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\lodash.js" />
+    <Content Include="Scripts\lodash.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\ng-flow-standalone.js" />
     <Content Include="Scripts\ng-flow-standalone.min.js" />
     <Content Include="Scripts\ng-flow\ng-flow.js" />
     <Content Include="Scripts\ng-flow\ng-flow.min.js" />
+    <Content Include="Scripts\ng-simple-google-maps.min.js" />
     <Content Include="Scripts\ngStorage.js" />
     <Content Include="Scripts\ngStorage.min.js" />
     <Content Include="Scripts\odataresources.js" />
@@ -547,6 +555,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\ngPopup.min.js" />
+    <Content Include="Scripts\ng-maps.min.js" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,6 +1,6 @@
-﻿app.controller('updateCreateProductController', ['$scope', 'productsService', '$location', 'toastr', 'usersService', '$routeParams', '$mdDialog', updateCreateProductController]);
+﻿app.controller('updateCreateProductController', ['$scope', 'productsService', '$location', 'toastr', 'usersService', '$routeParams', '$mdDialog', 'uiGmapGoogleMapApi', updateCreateProductController]);
 
-function updateCreateProductController($scope, productsService, $location, toastr, usersService, $routeParams, $mdDialog) {
+function updateCreateProductController($scope, productsService, $location, toastr, usersService, $routeParams, $mdDialog, uiGmapGoogleMapApi) {
     $scope.description = '';
     $scope.city = '';
     $scope.product = {};
@@ -9,6 +9,10 @@ function updateCreateProductController($scope, productsService, $location, toast
     $scope.selectedImage = "";
     $scope.user = $scope.$parent.user;
     $scope.errors = [];
+    $scope.mapReady = false;
+
+    $scope.marker = {};
+    $scope.map = {};
 
     $scope.userName = $scope.$parent.username;
     $scope.productId = $routeParams.productId;
@@ -21,7 +25,7 @@ function updateCreateProductController($scope, productsService, $location, toast
                 .then(function () {
                     toastr.success('Product successfully edited!');
                     $location.url('/home');
-                }, function(error) {
+                }, function (error) {
                     toastr.error('An error occured!');
                     $scope.doSomethingWithError(error);
                 });
@@ -36,13 +40,21 @@ function updateCreateProductController($scope, productsService, $location, toast
             $scope.product.userMail = $scope.user.email;
             $scope.product.userId = $scope.user.userId;
             $scope.product.images = [];
+            $scope.setCoordinates();
         } else {
-            productsService.getProduct($scope.productId).then(function(product) {
+            productsService.getProduct($scope.productId).then(function (product) {
                 if (product.data) {
                     $scope.product = product.data;
-                    $scope.selectedImage = $scope.product.images[0].value;
+                    $scope.selectedImage = $scope.product.images.length > 0 ? $scope.product.images[0].value : '';
+                    if ($scope.product.meetingPoint) {
+                        let coordinates = $scope.product.meetingPoint.split(';');
+                        $scope.latitude = coordinates[0];
+                        $scope.longitude = coordinates[1];
+                        $scope.setCoordinatesForMarkerAndMap();
+                    } else
+                        $scope.setCoordinates();
                 }
-            }, function(error) {
+            }, function (error) {
                 toastr.error("An error occured");
                 $scope.doSomethingWithError(error);
             });
@@ -55,10 +67,10 @@ function updateCreateProductController($scope, productsService, $location, toast
         $scope.categories = $scope.$parent.categories;
         $scope.cities = $scope.$parent.cities;
     };
-  
+
     $scope.addImageToProduct = function (image) {
         let newImage = new Image(null, image);
-        $scope.$apply(function() {
+        $scope.$apply(function () {
             $scope.product.images.push(newImage);
         });
 
@@ -76,7 +88,7 @@ function updateCreateProductController($scope, productsService, $location, toast
         );
     }
 
-    $scope.removeImage = function(image) {
+    $scope.removeImage = function (image) {
         let index = $scope.product.images.indexOf(image);
         $scope.product.images.splice(index, 1);
 
@@ -101,9 +113,9 @@ function updateCreateProductController($scope, productsService, $location, toast
         }
 
         angular.forEach(files,
-            function(flowFile) {
+            function (flowFile) {
                 var fileReader = new FileReader();
-                fileReader.onload = function(event) {
+                fileReader.onload = function (event) {
                     var uri = event.target.result;
                     $scope.addImageToProduct(uri);
                 };
@@ -115,8 +127,48 @@ function updateCreateProductController($scope, productsService, $location, toast
         $scope.selectedImage = image.value;
     }
 
-    $scope.doSomethingWithError = function(error) {
+    $scope.doSomethingWithError = function (error) {
         console.log(error);
+    }
+
+    $scope.setCoordinates = function () {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                $scope.latitude = position.coords.latitude;
+                $scope.longitude = position.coords.longitude;
+                $scope.setCoordinatesForMarkerAndMap();
+            });
+        }
+    }
+
+    $scope.setCoordinatesForMarkerAndMap = function () {
+        uiGmapGoogleMapApi.then(function () {
+            $scope.marker = {
+                id: 0,
+                options: { draggable: true },
+                coords: {
+                    latitude: $scope.latitude,
+                    longitude: $scope.longitude
+                },
+                events: {
+                    dragend: function (marker) {
+                        let lat = marker.getPosition().lat();
+                        let lon = marker.getPosition().lng();
+                        $scope.product.meetingPoint = lat + ";" + lon;
+                    }
+                }
+            };
+
+            $scope.map = {
+                center: {
+                    latitude: $scope.latitude,
+                    longitude: $scope.longitude
+                },
+                zoom: 14
+            };
+
+            $scope.mapReady = true;
+        });
     }
 
     $scope.init();

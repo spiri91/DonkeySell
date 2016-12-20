@@ -10,3 +10,5 @@
 .fixed-line-height-big {
     line-height: 2em;
 }
+
+.angular-google-map-container { height: 400px;border-radius: 10px; }

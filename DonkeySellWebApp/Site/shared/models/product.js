@@ -1,4 +1,4 @@
-﻿function Product(id, userName, description, categoryId, category, cityId, city, userMail, images, rental, free, tradesAccepted, price, title, datePublished) {
+﻿function Product(id, userName, description, categoryId, category, cityId, city, userMail, images, rental, free, tradesAccepted, price, title, datePublished, meetingPoint) {
     this.id = id;
     this.userName = userName;
     this.description = description;
@@ -14,4 +14,5 @@
     this.datePublished = datePublished;
     this.rental = rental;
     this.free = free;
+    this.meetingPoint = meetingPoint;
 }
