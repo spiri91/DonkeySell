@@ -32,3 +32,8 @@
 .small-margin-bottom {
     margin-bottom: 15px;
 }
+
+.no-borders-radious-top {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}

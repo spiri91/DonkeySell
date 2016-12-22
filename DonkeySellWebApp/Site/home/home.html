@@ -14,7 +14,7 @@
             <form>
                 <div class="row add-height">
                     <div class="col-sm-4">
-                        <input type="text" ng-class="productName ? 'nice-border' : ''" class="form-control big-input special-input" placeholder="Search for" ng-model="productName"/>
+                        <input type="text" ng-class="productName ? 'nice-border' : ''" class="form-control big-input special-input" placeholder="Search for" ng-model="productName" ng-maxlength="30"/>
                     </div>
                     <div class="col-sm-4 col-sm-offset-1">
                         <input type="text" ng-class="selectedCity.name ? 'nice-border' : ''" class="form-control big-input special-input" placeholder="City" ng-model="selectedCity.name" ng-click="openCitiesModal()"/>

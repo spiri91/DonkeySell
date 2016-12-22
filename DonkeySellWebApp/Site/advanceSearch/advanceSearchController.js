@@ -200,21 +200,12 @@ function advanceSearchController($scope, productsService, $location, othersServi
         productNavigationService.setValues($scope.query, $scope.skip, $scope.sortBy, $scope.count, productsIds);
     }
 
-    $scope.getProduct = function (id) {
-        $scope.setProductNavigation();
-        $location.url('/product/' + id);
-    }
-
     $scope.doSomethingWithError = function (error) {
         console.log(error);
     }
 
     $scope.showProduct = function (id) {
-        $scope.setState();
-        $location.url('/product/' + id);
-    };
-
-    $scope.showProduct = function (id) {
+        $scope.setProductNavigation();
         $scope.setState();
         $location.url('/product/' + id);
     };

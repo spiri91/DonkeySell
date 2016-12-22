@@ -166,7 +166,6 @@
                         <i class="fa fa-plus"></i>&nbsp;&nbsp;<span>Add product</span>
                     </md-button>
                     <md-button class="md-raised fixed-actionbtn-width alerts-btn" ng-href="#/customAlerts" ng-show="user.userName">
-                        <md-tooltip>Work in progress</md-tooltip>
                         <i class="fa fa-star"></i>&nbsp;&nbsp;<span>Alerts</span>
                     </md-button>
                 </md-fab-actions>
@@ -186,11 +185,11 @@
                             <a ng-click="closeWindow()"><md-tooltip>Close</md-tooltip><i class="fa fa-close"></i>&nbsp;</a>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row no-borders-radious-top">
                         <div class="col-xs-12 col-sm-12">
                             <div class="input-group">
-                                <input type="text" class="form-control" ng-model="suggestion" placeholder="New suggestion" on-key-enter="sendSuggestion()" />
-                                <a class="input-group-addon send-improvement-button" ng-disabled="suggestion.length==0" ng-click="sendSuggestion()"><md-tooltip>Send</md-tooltip><i class="fa fa-send-o" ng-click=""></i></a>
+                                <input type="text" class="form-control no-borders-radious-top" ng-model="suggestion" placeholder="New suggestion" on-key-enter="sendSuggestion()" />
+                                <a class="input-group-addon send-improvement-button no-borders-radious-top" ng-disabled="suggestion.length==0" ng-click="sendSuggestion()"><md-tooltip>Send</md-tooltip><i class="fa fa-send-o" ng-click=""></i></a>
                             </div>
                         </div>
                     </div>
