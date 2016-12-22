@@ -59,7 +59,7 @@ function mainController($scope, $uibModal, usersService, $location, toastr,
               if (result.data)
                   $scope.user = result.data;
           }, function (error) {
-              $scope.showErrorMessage("Please logIn again!");
+              $scope.showErrorMessage("Please login again!");
               $scope.doSomethingWithError(error);
           });
     }

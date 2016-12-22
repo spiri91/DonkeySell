@@ -17,7 +17,7 @@ function loginController($scope, $uibModalInstance, usersService, toastr, storag
         user.password = $scope.password;
         usersService.logIn(user)
             .then(function () {
-                toastr.success("Login Successful!");
+                toastr.success("Login successful!");
                 $scope.rememberCredentialsOption();
                 storageService.set(usernameCacheName, $scope.username);
                 $uibModalInstance.close($scope.username);
