@@ -1,53 +1,55 @@
 ﻿<div class="container-fluid">
-    <br/>
-    <br/>
-    <div class="row centered" ng-if="showEditButtons">
-        <div class="col-xs-6 col-sm-4">
-            <a class="btn btn-green fixed-width" ng-href="#/edit/{{user.userName}}">Edit user&nbsp;&nbsp;<i class="fa fa-edit"></i></a><br /><br />
-        </div>
-        <div class="col-xs-6 col-sm-4">
-            <a class="btn btn-warning fixed-width" ng-click="changePassword()">Change password&nbsp;&nbsp;<i class="fa fa-key"></i></a><br /><br />
-        </div>
-        <div class="col-xs-12 col-sm-4">
-            <a class="btn btn-danger fixed-width" ng-click="deleteUser()">Delete user&nbsp;&nbsp;<i class="fa fa-close"></i></a><br /><br />
-        </div>
-    </div>
     <br />
-    <div class="row">
-        <div class="col-xs-12 col-sm-3">
-            <h2>
-                <strong>{{user.userName}}</strong>
-            </h2>
-            <hr/>
-            <h5>{{user.address}}</h5>
-            <hr/>
-            <span>&nbsp;{{products.length}}&nbsp;products</span><br/>
+    <div ng-if="!loading">
+        <div class="row centered" ng-if="showEditButtons">
+            <div class="col-xs-6 col-sm-4">
+                <a class="btn btn-green fixed-width" ng-href="#/edit/{{user.userName}}">Edit user&nbsp;&nbsp;<i class="fa fa-edit"></i></a><br/><br/>
+            </div>
+            <div class="col-xs-6 col-sm-4">
+                <a class="btn btn-warning fixed-width" ng-click="changePassword()">Change password&nbsp;&nbsp;<i class="fa fa-key"></i></a><br/><br/>
+            </div>
+            <div class="col-xs-12 col-sm-4">
+                <a class="btn btn-danger fixed-width" ng-click="deleteUser()">Delete user&nbsp;&nbsp;<i class="fa fa-close"></i></a><br/><br/>
+            </div>
         </div>
-        <div class="col-xs-12 col-sm-7 col-sm-offset-2 centered">
-            <img ng-src="{{user.avatar}}" class="img img-circle medium-image" />
+        <br/>
+        <div class="row">
+            <div class="col-xs-12 col-sm-3">
+                <h2>
+                    <strong>{{user.userName}}</strong>
+                </h2>
+                <hr/>
+                <h5>{{user.address}}</h5>
+                <hr/>
+                <span>&nbsp;{{products.length}}&nbsp;products</span><br/>
+            </div>
+            <div class="col-xs-12 col-sm-7 col-sm-offset-2 centered">
+                <img ng-src="{{user.avatar}}" class="img img-circle medium-image"/>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 cursor-hand user-product" ng-repeat="product in products" ng-click="getProduct(product.id)">
+                <md-card md-theme="{{'dark-blue'}}" md-theme-watch>
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">{{product.title}}</span>
+                            <span class="md-subhead">{{product.price | currency : "lei " : 0}}</span>
+                        </md-card-title-text>
+                        <md-card-title-media>
+                            <div class="md-media-sm card-media">
+                                <img ng-src="{{product.images[0].value}}" alt="no image :("/>
+                            </div>
+                        </md-card-title-media>
+                    </md-card-title>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button class="md-icon-button black" ng-if="showEditButtons" ng-click="editProduct(product.id, $event)"><i class="fa fa-edit"></i><md-tooltip>Edit product</md-tooltip></md-button>
+                        <md-button class="md-icon-button black" ng-if="showEditButtons" ng-click="deleteProduct(product.id, $event)"><i class="fa fa-remove"></i><md-tooltip>Delete product</md-tooltip></md-button>
+                        <md-button class="md-icon-button black" ng-click="addToFavorites(product, $event)"><i class="fa fa-heart"></i><md-tooltip>Add product to favorites</md-tooltip></md-button>
+                    </md-card-actions>
+                </md-card>
+            </div>
         </div>
     </div>
-    <br />
-    <div class="row">
-        <div class="col-xs-12 col-sm-4 cursor-hand user-product" ng-repeat="product in products" ng-click="getProduct(product.id)">
-            <md-card md-theme="{{'dark-blue'}}" md-theme-watch>
-                <md-card-title>
-                    <md-card-title-text>
-                        <span class="md-headline">{{product.title}}</span>
-                        <span class="md-subhead">{{product.price | currency : "lei " : 0}}</span>
-                    </md-card-title-text>
-                    <md-card-title-media>
-                        <div class="md-media-sm card-media">
-                            <img ng-src="{{product.images[0].value}}" alt="no image :(" />
-                        </div>
-                    </md-card-title-media>
-                </md-card-title>
-                <md-card-actions layout="row" layout-align="end center">
-                    <md-button class="md-icon-button black" ng-if="showEditButtons" ng-click="editProduct(product.id, $event)"><i class="fa fa-edit"></i><md-tooltip>Edit product</md-tooltip></md-button>
-                    <md-button class="md-icon-button black" ng-if="showEditButtons" ng-click="deleteProduct(product.id, $event)"><i class="fa fa-remove"></i><md-tooltip>Delete product</md-tooltip></md-button>
-                    <md-button class="md-icon-button black" ng-click="addToFavorites(product, $event)"><i class="fa fa-heart"></i><md-tooltip>Add product to favorites</md-tooltip></md-button>
-                </md-card-actions>
-            </md-card>
-        </div>
-    </div>
+    <div ng-if="loading" loading-specific></div>
 </div>

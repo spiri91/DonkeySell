@@ -29,7 +29,7 @@
     <link href="~/Content/angular-material.layouts.ie_fixes.min.css" rel="stylesheet" />
     <link href="~/Content/angular-toggle-switch-bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/angular-toggle-switch.min.css" rel="stylesheet" />
-    <link href="~/Content/myCss/_myCss.min.css" rel="stylesheet"/>
+    <link href="~/Content/myCss/_myCss.min.css" rel="stylesheet" />
     <link href="~/Content/myCss/site2.css" rel="stylesheet" />
 
     <!--scripts-->
@@ -80,13 +80,13 @@
     <script src="~/Site/changePassword/changePasswordController.min.js"></script>
     <script src="~/Site/user/userController.min.js"></script>
     <script src="~/Site/advanceSearch/advanceSearchController.min.js"></script>
-    <script src="~/Site/updateCreateProduct/updateCreateProductController.js"></script>
+    <script src="~/Site/updateCreateProduct/updateCreateProductController.min.js"></script>
     <script src="~/Site/editRegister/editRegisterController.min.js"></script>
     <script src="~/Site/gallery/galleryController.min.js"></script>
     <script src="~/Site/shared/directives/productsDirective/productsDirective.min.js"></script>
-    <script src="~/Site/shared/directives/loadingDirective/loadingDirective.min.js"></script>
     <script src="~/Site/shared/directives/enterPress/enterPressDirective.min.js"></script>
     <script src="~/Site/shared/directives/loadingDirective/loadingDirective.min.js"></script>
+    <script src="~/Site/shared/directives/loadingSpecificDirective/loadingSpecificDirective.min.js"></script>
     <script src="~/Site/popup/popupController.min.js"></script>
     <script src="~/Site/customAlerts/customAlertsController.min.js"></script>
 
@@ -138,25 +138,24 @@
         </nav>
         <div class="container-fluid" ng-cloak>
             <div class="row">
-                <div class="col-sm-2" ng-if="user.userName">
-                    <br />
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div ng-include src="'Site/favorites/favoritesProducts.html'"> </div>
-                        </div>
-                    </div>
-                    <hr />
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div ng-include src="'Site/unreadMessages/unreadMessages.html'"></div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2">
+                    <div ng-if="user.userName">
+                        <br />
+                        <div class="row centered">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-12 small-margin-bottom">
+                                <div ng-include src="'Site/favorites/favoritesProducts.html'"> </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-12 small-margin-bottom">
+                                <div ng-include src="'Site/unreadMessages/unreadMessages.html'"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div ng-class="user.userName ? 'col-sm-8' : 'col-sm-8 col-sm-offset-2'">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
                     <div ng-view ng-animate-children></div>
                 </div>
-                <div id="friends" class="col-xs-12 col-sm-2 relative" ng-if="user.userName">
-                    <div class="row">
+                <div id="friends" class="col-xs-12 col-sm-8 col-md-6 col-lg-2 col-sm-offset-2 col-md-offset-3 col-lg-offset-0 col-xs-offset-0">
+                    <div class="row" ng-if="user.userName">
                         <div ng-include src="'Site/chat/chat.html'"></div>
                     </div>
                 </div>

@@ -1,11 +1,11 @@
 ﻿app.controller('mainController',
 [
     '$scope', '$uibModal', 'usersService', '$location', 'toastr', 'favoritesService', 'othersService',
-    'storageService', '$timeout', '$mdSidenav', '$log', '$mdDialog', '$rootScope', mainController
+    'storageService', '$timeout', '$mdSidenav', '$log', '$mdDialog', '$rootScope','$q', mainController
 ]);
 
 function mainController($scope, $uibModal, usersService, $location, toastr,
-    favoritesService, othersService, storageService, $timeout, $mdSidenav, $log, $mdDialog, $rootScope) {
+    favoritesService, othersService, storageService, $timeout, $mdSidenav, $log, $mdDialog, $rootScope, $q) {
     $scope.user = {};
     $scope.username = "";
     $scope.favorites = [];
@@ -107,10 +107,13 @@ function mainController($scope, $uibModal, usersService, $location, toastr,
     $scope.getCitiesAndCategories = function () {
         $scope.getCities();
         $scope.getCategories();
+        $q.all([$scope.getCities(), $scope.getCategories])
+            .then(() => {
+                $rootScope.$broadcast('citiesAndCategoriesLoaded');});
     }
 
     $scope.getCities = function () {
-        othersService.getCities()
+        return othersService.getCities()
           .then(function (result) {
               if (result.data)
                   $scope.cities = result.data;
@@ -120,7 +123,7 @@ function mainController($scope, $uibModal, usersService, $location, toastr,
     }
 
     $scope.getCategories = function () {
-        othersService.getCategories()
+       return othersService.getCategories()
          .then(function (result) {
              if (result.data)
                  $scope.categories = result.data;

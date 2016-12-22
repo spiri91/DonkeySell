@@ -1,7 +1,8 @@
 ﻿app.controller('userController', ['$scope', 'usersService', 'productsService', '$location',
-    '$routeParams', 'toastr', '$mdDialog', 'favoritesService', '$uibModal', '$rootScope', 'userStateService', 'productNavigationService', userController]);
+    '$routeParams', 'toastr', '$mdDialog', 'favoritesService', '$uibModal', '$rootScope', 'userStateService', 'productNavigationService','$q', userController]);
 
-function userController($scope, usersService, productsService, $location, $routeParams, toastr, $mdDialog, favoritesService, $uibModal, $rootScope, userStateService, productNavigationService) {
+function userController($scope, usersService, productsService, $location, $routeParams, toastr, $mdDialog, favoritesService,
+    $uibModal, $rootScope, userStateService, productNavigationService, $q) {
     $scope.username = $routeParams.username;
     $scope.showEditButtons = $scope.$parent.username === $scope.username;
     $scope.user = {};
@@ -11,8 +12,10 @@ function userController($scope, usersService, productsService, $location, $route
         if (userStateService.hasState() === true && (($rootScope.fromUrl.indexOf('/product/') > -1) || ($rootScope.fromUrl.indexOf('/updateCreateProduct/') > -1)) && userStateService.getUsernameFromState() === $scope.username)
             $scope.getLastState();
         else {
+            $scope.loading = true;
             $scope.getUser();
             $scope.getUsersProducts();
+            $q.all([$scope.getUser(), $scope.getUsersProducts()]).then(() => { $scope.loading = false; });
         }
     };
 
@@ -36,7 +39,7 @@ function userController($scope, usersService, productsService, $location, $route
     }
 
     $scope.getUsersProducts = function() {
-        productsService.getProductsOfUser($scope.username)
+       return productsService.getProductsOfUser($scope.username)
            .then(function (products) {
                if (products.data)
                    $scope.products = products.data;
@@ -46,7 +49,7 @@ function userController($scope, usersService, productsService, $location, $route
     }
 
     $scope.getUser = function() {
-        usersService.getUser($scope.username)
+       return usersService.getUser($scope.username)
             .then(function (user) {
                 if (user.data)
                     $scope.user = user.data;

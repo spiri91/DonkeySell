@@ -177,12 +177,6 @@ md-divider {
     margin-bottom: 0;
 }
 
-md-list-item:hover {
-    background-color: grey;
-    border-radius: 10px;
-    transition-duration: 0.5s;
-}
-
 h1 {
     font-size: 2em;
 }

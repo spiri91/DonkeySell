@@ -18,7 +18,7 @@
                             <label>Password</label>
                             <input type="password" ng-model="password" required>
                         </md-input-container>
-                        <md-checkbox md-no-ink class="md-primary" ng-model="rememberCredentials" ng-change="rememberCredentialsOption()">
+                        <md-checkbox md-no-ink class="md-primary" ng-model="rememberCredentials" ng-change="rememberCredentialsOption()" ng-if="password.length>6">
                             Remember me
                         </md-checkbox>
                         <br/>

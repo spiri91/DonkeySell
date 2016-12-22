@@ -62,7 +62,7 @@ app.config(['$routeProvider', '$mdThemingProvider', 'toastrConfig', '$mdAriaProv
     $mdThemingProvider.theme('dark-purple').backgroundPalette('deep-purple').dark();
 
     uiGmapGoogleMapApiProvider.configure({
-        key: 'AIzaSyDw1ic0x3wkaLO_1B79VS28jaoHCdyQ7Qo',
+        key: 'AIzaSyBy87mKqvIg-w94i0gBRc0MS-7fpLJqVhQ',
         v: '3.26',
         libraries: 'weather,geometry,visualization'
     });
@@ -74,4 +74,4 @@ app.config(['$routeProvider', '$mdThemingProvider', 'toastrConfig', '$mdAriaProv
     $mdAriaProvider.disableWarnings();
 }]);
 
-app.constant('apiRootAddress', "http://localhost:57792/api/"); //"http://localhost:57792/api/" ,  "http://spiri91-001-site1.ftempurl.com/api/"
+app.constant('apiRootAddress', "http://spiri91-001-site1.ftempurl.com/api/"); //"http://localhost:57792/api/" ,  "http://spiri91-001-site1.ftempurl.com/api/"

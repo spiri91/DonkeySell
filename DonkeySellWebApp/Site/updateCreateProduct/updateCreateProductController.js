@@ -1,6 +1,7 @@
-﻿app.controller('updateCreateProductController', ['$scope', 'productsService', '$location', 'toastr', 'usersService', '$routeParams', '$mdDialog', 'uiGmapGoogleMapApi', updateCreateProductController]);
+﻿app.controller('updateCreateProductController', ['$scope', 'productsService', '$location', 'toastr', 'usersService', '$routeParams',
+    '$mdDialog', 'uiGmapGoogleMapApi', '$rootScope', updateCreateProductController]);
 
-function updateCreateProductController($scope, productsService, $location, toastr, usersService, $routeParams, $mdDialog, uiGmapGoogleMapApi) {
+function updateCreateProductController($scope, productsService, $location, toastr, usersService, $routeParams, $mdDialog, uiGmapGoogleMapApi, $rootScope) {
     $scope.description = '';
     $scope.city = '';
     $scope.product = {};
@@ -64,8 +65,16 @@ function updateCreateProductController($scope, productsService, $location, toast
     }
 
     $scope.getCategoriesAndCities = function () {
-        $scope.categories = $scope.$parent.categories;
-        $scope.cities = $scope.$parent.cities;
+        if ($scope.$parent.categories.length > 0 && $scope.$parent.cities.length > 0) {
+            $scope.categories = $scope.$parent.categories;
+            $scope.cities = $scope.$parent.cities;
+        } else {
+            $rootScope.$on('citiesAndCategoriesLoaded',
+            () => {
+                $scope.categories = $scope.$parent.categories;
+                $scope.cities = $scope.$parent.cities;
+            });
+        }
     };
 
     $scope.addImageToProduct = function (image) {

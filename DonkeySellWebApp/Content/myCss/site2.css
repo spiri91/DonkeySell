@@ -11,4 +11,24 @@
     line-height: 2em;
 }
 
-.angular-google-map-container { height: 400px;border-radius: 10px; }
+.angular-google-map-container {
+    height: 400px;
+    border-radius: 10px;
+}
+
+.user-product {
+    height: 200px;
+}
+
+.list-item {
+    border-radius: 10px;
+}
+
+.list-item:hover{
+    background-color: #C8C8C8;
+    transition-duration: 0.5s;
+}
+
+.small-margin-bottom {
+    margin-bottom: 15px;
+}
