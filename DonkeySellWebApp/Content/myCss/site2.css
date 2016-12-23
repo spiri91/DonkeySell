@@ -24,10 +24,10 @@
     border-radius: 10px;
 }
 
-.list-item:hover{
-    background-color: #C8C8C8;
-    transition-duration: 0.5s;
-}
+    .list-item:hover {
+        background-color: #C8C8C8;
+        transition-duration: 0.5s;
+    }
 
 .small-margin-bottom {
     margin-bottom: 15px;
@@ -36,4 +36,46 @@
 .no-borders-radious-top {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
+}
+
+.search-btn-home {
+    min-height: 82px;
+    min-width: 90px;
+    border-radius: 50px;
+    border: 0;
+    background-color: #303F9F;
+    color: white;
+    font-size: 1.1em;
+    padding: 10px;
+    transition-duration: 0.5s;
+}
+
+    .search-btn-home span {
+        max-width: 0;
+        -webkit-transition: max-width 1s;
+        transition: max-width 1s;
+        display: inline-block;
+        vertical-align: top;
+        white-space: nowrap;
+        overflow: hidden;
+        font-size: 1.3em;
+    }
+
+    .search-btn-home:hover {
+        background-color: #3F51B5;
+        transition-duration: 0.5s;
+    }
+
+        .search-btn-home:hover span {
+            max-width: 12rem;
+        }
+
+.font-size-large {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.product:hover {
+    background-color: #283593;
+    transition-duration: 0.5s;
 }

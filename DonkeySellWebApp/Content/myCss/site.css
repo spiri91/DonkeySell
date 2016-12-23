@@ -45,6 +45,7 @@ a {
     background-color: #3F51B5;
     padding-left: 0.5em;
     padding-right: 0.5em;
+    transition-duration: 0.5s;
 
 }
 

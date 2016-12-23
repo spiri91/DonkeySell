@@ -19,8 +19,8 @@
                     <div class="col-sm-4 col-sm-offset-1">
                         <input type="text" ng-class="selectedCity.name ? 'nice-border' : ''" class="form-control big-input special-input" placeholder="City" ng-model="selectedCity.name" ng-click="openCitiesModal()"/>
                     </div>
-                    <div class="col-xs-12 col-sm-2 centered">
-                        <md-button class="md-fab md-primary large-btn centered" id="searchBtn" ng-click="searchSpecific()"><i class="fa fa-search fa-2x"></i><md-tooltip>Search</md-tooltip></md-button>
+                    <div class="col-xs-12 col-sm-3 centered">
+                        <button id="searchBtn" class="search-btn-home" ng-click="searchSpecific()"><i class="fa fa-search fa-2x"></i><span>&nbsp;&nbsp;&nbsp;&nbsp;Search</span></button>
                     </div>
                 </div>
             </form>
@@ -29,10 +29,10 @@
     <br class="hidden-xs-up" />
     <div class="row">
         <div class="col-xs-6 col-xs-offset-0 col-md-4 col-md-offset-2 centered">
-            <md-button class="md-raised md-primary fixed-width" ng-click="showAll()">Show all</md-button>
+            <md-button class="md-raised md-primary fixed-width font-size-large" ng-click="showAll()">Show all</md-button>
         </div>
         <div class="col-xs-6 col-xs-offset-0 col-md-4 centered">
-            <md-button class="md-raised md-primary fixed-width" ng-href="#/advanceSearch">Advance search</md-button>
+            <md-button class="md-raised md-primary fixed-width font-size-large" ng-href="#/advanceSearch">Advance search</md-button>
         </div>
     </div>
     <div class="row">
