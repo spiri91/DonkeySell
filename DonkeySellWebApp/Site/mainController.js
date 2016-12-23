@@ -168,7 +168,7 @@ function mainController($scope, $uibModal, usersService, $location, toastr,
         $scope.user = {};
         $scope.username = $scope.token = '';
         $scope.favorites = $scope.unreadMessages = [];
-        $scope.$broadcast('logout');
+        $rootScope.$broadcast('logout');
         toastr.success('You logged out!');
     };
 

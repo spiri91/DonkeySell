@@ -63,7 +63,7 @@ namespace DonkeySellApi
 
             if (context.Request.HttpMethod == "OPTIONS")
             {
-                response.AddHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT");
+                response.AddHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT, TOKEN");
                 response.AddHeader("Access-Control-Allow-Headers", "Content-Type, Accept, Authorization");
                 response.AddHeader("Access-Control-Max-Age", "1728000");
                 response.End();

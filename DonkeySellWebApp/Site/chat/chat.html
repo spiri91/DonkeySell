@@ -1,113 +1,124 @@
 ﻿<div class="container-fluid" ng-controller="chatController">
-    <br />
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="panel-group" id="accordion">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" data-target="#collapse1">
-                                Search for user
-                            </a>
-                        </h4>
+    <br/>
+    <div class="row centered" ng-if="(loading == true) && (connectError == false)">
+        <i>Connecting to server.</i><br/>
+        <i>Please wait...</i>
+    </div>
+    <div class="row centered" ng-if="connectError == true">
+        <i>Failed to connect.. :(</i>
+    </div>
+    <div ng-show="loading == false">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel-group" id="accordion">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" data-target="#collapse1">
+                                    Search for user
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse1" class="panel-collapse collapse in side-panel">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-12 centered">
+                                        <div class="input-group">
+                                            <md-tooltip>Minimun 4 letters!</md-tooltip>
+                                            <input type="text" class="form-control" ng-model="usernameLike" placeholder="Username like..." on-key-enter="searchForUsers()" />
+                                            <a class="input-group-addon"><i class="fa fa-search" ng-click="searchForUsers()"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row fixed-line-height" ng-repeat="user in foundUsers">
+                                    <div class="col-xs-7 col-sm-7">
+                                        <h4>{{user}}</h4>
+                                    </div>
+                                    <div class="col-xs-2 col-sm-2 centered">
+                                        <md-tooltip>Add to friends</md-tooltip>
+                                        <a ng-click="addToFriends(user)"><i class="fa fa-star"></i></a>
+                                    </div>
+                                    <div class="col-xs-2 col-sm-2 centered">
+                                        <md-tooltip>See his products</md-tooltip>
+                                        <a ng-href="#/user/{{user}}"><i class="fa fa-search-plus"></i></a>
+                                    </div>
+                                    <md-divider ng-if="!$last+1"></md-divider>
+                                </div>
+                                <div ng-if="noUsersFound">
+                                    <p>
+                                        <i>No one found</i>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div id="collapse1" class="panel-collapse collapse in side-panel">
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-sm-12 centered">
-                                    <div class="input-group">
-                                        <md-tooltip>Minimun 4 letters!</md-tooltip>
-                                        <input type="text" class="form-control" ng-model="usernameLike" placeholder="Username like..." on-key-enter="searchForUsers()"/>
-                                        <a class="input-group-addon"><i class="fa fa-search" ng-click="searchForUsers()"></i></a>
+                    <div class="panel panel-primary side-panel">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" data-target="#collapse2">
+                                    Online friends&nbsp;&nbsp;<span class="badge badge-right">{{onlineFriends.length}}</span>
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse2" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <div class="row fixed-line-height hover-efect" ng-repeat="user in onlineFriends">
+                                    <div class="col-sm-8 cursor-hand" ng-click="openConversation(user)">
+                                        {{user}}
                                     </div>
                                 </div>
                             </div>
-                            <br />
-                            <div class="row fixed-line-height" ng-repeat="user in foundUsers">
-                                <div class="col-xs-7 col-sm-7">
-                                    <h4>{{user}}</h4>
-                                </div>
-                                <div class="col-xs-2 col-sm-2 centered">
-                                    <md-tooltip>Add to friends</md-tooltip>
-                                    <a ng-click="addToFriends(user)"><i class="fa fa-star"></i></a>
-                                </div>
-                                <div class="col-xs-2 col-sm-2 centered">
-                                    <md-tooltip>See his products</md-tooltip>
-                                    <a ng-href="#/user/{{user}}"><i class="fa fa-search-plus"></i></a>
-                                </div>
-                                <md-divider ng-if="!$last+1"></md-divider>
-                            </div>
-                            <div ng-if="noUsersFound">
-                                <p><i>No one found</i></p>
-                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="panel panel-primary side-panel">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" data-target="#collapse2">
-                                Online friends&nbsp;&nbsp;<span class="badge badge-right">{{onlineFriends.length}}</span>
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapse2" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <div class="row fixed-line-height hover-efect" ng-repeat="user in onlineFriends">
-                                <div class="col-sm-8 cursor-hand" ng-click="openConversation(user)">
-                                    {{user}}
-                                </div>
-                            </div>
+                    <div class="panel panel-primary side-panel">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" data-target="#collapse3">
+                                    All friends&nbsp;&nbsp;<span class="badge badge-right">{{friends.length}}</span>
+                                </a>
+                            </h4>
                         </div>
-                    </div>
-                </div>
-                <div class="panel panel-primary side-panel">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" data-target="#collapse3">
-                                All friends&nbsp;&nbsp;<span class="badge badge-right">{{friends.length}}</span>
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapse3" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <div class="row fixed-line-height hover-efect" ng-repeat="friend in friends">
-                                <div class="col-xs-8 col-sm-8 cursor-hand" ng-click="goToUserProfile(friend)">
-                                    {{friend}}
-                                </div>
-                                <div class="col-xs-1 col-xs-offset-1 col-sm-1 col-sm-offset-1">
-                                    <md-tooltip>Remove him</md-tooltip>
-                                    <a ng-click="removeFriend(friend)"><i class="fa fa-remove"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" data-target="#collapse4">
-                                General chat
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapse4" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-sm-12 centered">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" ng-model="newGeneralMessage" placeholder="New message" on-key-enter="sendGeneralMessage()"/>
-                                        <a class="input-group-addon"><i class="fa fa-send-o" ng-click="sendGeneralMessage()"></i></a>
+                        <div id="collapse3" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <div class="row fixed-line-height hover-efect" ng-repeat="friend in friends">
+                                    <div class="col-xs-8 col-sm-8 cursor-hand" ng-click="goToUserProfile(friend)">
+                                        {{friend}}
+                                    </div>
+                                    <div class="col-xs-1 col-xs-offset-1 col-sm-1 col-sm-offset-1">
+                                        <md-tooltip>Remove him</md-tooltip>
+                                        <a ng-click="removeFriend(friend)"><i class="fa fa-remove"></i></a>
                                     </div>
                                 </div>
                             </div>
-                            <hr />
-                            <div class="row">
-                                <div id="chatDiv" class="side-panel">
-                                    <div class="col-sm-11" ng-repeat="generalMessage in generalMessages">
-                                        <p>
-                                            <strong>{{generalMessage.sender}}:</strong>&nbsp;{{generalMessage.value}}
-                                        </p>
+                        </div>
+                    </div>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" data-target="#collapse4">
+                                    General chat
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse4" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-12 centered">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" ng-model="newGeneralMessage" placeholder="New message" on-key-enter="sendGeneralMessage()" />
+                                            <a class="input-group-addon"><i class="fa fa-send-o" ng-click="sendGeneralMessage()"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div id="chatDiv" class="side-panel">
+                                        <div class="col-sm-11" ng-repeat="generalMessage in generalMessages">
+                                            <p>
+                                                <strong>{{generalMessage.sender}}:</strong>&nbsp;{{generalMessage.value}}
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

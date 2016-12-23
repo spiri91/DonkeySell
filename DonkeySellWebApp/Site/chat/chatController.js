@@ -1,12 +1,14 @@
 ﻿'use strict';
 
-app.controller('chatController', ['$scope', 'storageService', 'othersService', 'friendsService', '$mdDialog', 'toastr', '$location', chatController]);
+app.controller('chatController', ['$scope', 'storageService', 'othersService', 'friendsService', '$mdDialog', 'toastr', '$location', '$rootScope', chatController]);
 
-function chatController($scope, storageService, othersService, friendsService, $mdDialog, toastr, $location) {
+function chatController($scope, storageService, othersService, friendsService, $mdDialog, toastr, $location, $rootScope) {
     $scope.usernameLike = "";
     $scope.foundUsers = [];
     $scope.onlineFriends = [];
     $scope.friends = [];
+    $scope.loading = true;
+    $scope.connectError = false;
 
     $scope.newGeneralMessage = "";
     $scope.generalMessages = [];
@@ -25,8 +27,13 @@ function chatController($scope, storageService, othersService, friendsService, $
             .done(function () {
                 $scope.chatHub.server.findOnlineFriends($scope.$parent.username);
                 $scope.chatHub.server.sendOnlineNotification($scope.$parent.username);
+                $scope.loading = false;
+            }).fail(function () {
+                $scope.$apply(() => {
+                    $scope.connectError = true;
+                });
             });
-    }, 5000);
+    }, 10000);
     $scope.chatHub = $.connection.chatHub;
     // finished initialization
 
@@ -35,7 +42,7 @@ function chatController($scope, storageService, othersService, friendsService, $
         $mdOpenMenu(ev);
     };
 
-    $scope.$on('logout',
+    $rootScope.$on('logout',
         function () {
             $.connection.hub.stop();
         });
