@@ -1,29 +1,31 @@
 ﻿'use strict';
 
 app.controller('editRegisterController',
-['$scope', 'usersService', 'toastr', '$location', 'othersService', '$routeParams', editRegisterController]);
+['$scope', 'usersService', 'toastr', '$location', 'othersService', '$routeParams', '$q', editRegisterController]);
 
-function editRegisterController($scope, usersService, toastr, $location, othersService, $routeParams) {
+function editRegisterController($scope, usersService, toastr, $location, othersService, $routeParams, $q) {
     $scope.user = {};
     $scope.errors = [];
     $scope.confirmPassword = "";
     $scope.isEdit = false;
     $scope.isLoading = false;
+    $scope.checking = false;
 
-    $scope.extraCheck = function() {
+    $scope.extraCheck = function () {
         $scope.checkAddress();
         $scope.checkEmail();
         $scope.checkPassword();
         $scope.checkUsername();
         $scope.checkPasswordValidation();
+        return $q.all([$scope.checkEmail(), $scope.checkUsername()]);
     }
 
     $scope.register = function () {
         $scope.loading = true;
-        $scope.extraCheck();
-        if ($scope.errors.length === 0)
-            usersService.createEditUser($scope.user)
-                .then(function(user) {
+        $scope.extraCheck().then(() => {
+            if ($scope.errors.length === 0)
+                usersService.createEditUser($scope.user)
+                    .then(function (user) {
                         if (user.data) {
                             if (user.data.userName === $scope.user.userName) {
                                 let message = $scope.isEdit ? "Edit successful" : "Register successful";
@@ -33,18 +35,19 @@ function editRegisterController($scope, usersService, toastr, $location, othersS
                             }
                         }
                     },
-                    function(error) {
-                        toastr.error('Plase try again!');
-                        $scope.doSomethingWithError(error);
-                    });
-        else
-            $scope.loading = false;
+                        function (error) {
+                            toastr.error('Plase try again!');
+                            $scope.doSomethingWithError(error);
+                        });
+            else
+                $scope.loading = false;
+        });
     };
 
     $scope.checkAddress = function () {
         let address = $scope.user.address;
-        if (address === undefined || address.length < 10 || address.length > 50) {
-            $scope.addError(new ErrorTypeAndValue("addressLength", "Address should be between 10 and 30 characters!"));
+        if (address === undefined || address.length < 8 || address.length > 50) {
+            $scope.addError(new ErrorTypeAndValue("addressLength", "Address should be between 8 and 30 characters!"));
             return;
         }
 
@@ -52,14 +55,15 @@ function editRegisterController($scope, usersService, toastr, $location, othersS
     }
 
     $scope.checkUsername = function () {
+        $scope.checking = true;
         if ($scope.user.userName === undefined || $scope.user.userName.length < 4) {
             $scope.addError(new ErrorTypeAndValue("usernameFormat", "Username should be between 5 and 15 characters!"));
-            return;
+            return null;
         }
 
         $scope.removeErrorIfExists("usernameFormat");
 
-        othersService.usernameIsTaken($scope.user.userName)
+       return othersService.usernameIsTaken($scope.user.userName)
             .then(function (taken) {
                 let usernameIsTaken = taken.data;
                 if (usernameIsTaken === true)
@@ -69,29 +73,30 @@ function editRegisterController($scope, usersService, toastr, $location, othersS
                 }
             }, function (error) {
                 console.log(error);
-            });
+            }).finally(() => { $scope.checking = false; });
     }
 
     $scope.checkEmail = function () {
+        $scope.checking = false;
         if (!$scope.checkMailIfValidFormat()) {
             $scope.addError(new ErrorTypeAndValue("emailFormatError", "This email is not valid!"));
-            return;
+            return null;
         } else {
             $scope.removeErrorIfExists("emailFormatError");
         }
 
         if (!$scope.isEdit)
-            othersService.emailInUse($scope.user.email)
-                .then(function (inUse) {
-                    let emailIsTaken = inUse.data;
-                    if (emailIsTaken === true)
-                        $scope.addError(new ErrorTypeAndValue("emailError", "This email is allready in use!"));
-                    else {
-                        $scope.removeErrorIfExists("emailError");
-                    }
-                }, function (error) {
-                    $scope.doSomethingWithError(error);
-                });
+            return othersService.emailInUse($scope.user.email)
+                  .then(function (inUse) {
+                      let emailIsTaken = inUse.data;
+                      if (emailIsTaken === true)
+                          $scope.addError(new ErrorTypeAndValue("emailError", "This email is allready in use!"));
+                      else {
+                          $scope.removeErrorIfExists("emailError");
+                      }
+                  }, function (error) {
+                      $scope.doSomethingWithError(error);
+                  }).finally(() => { $scope.checking = false; });
     };
 
     $scope.checkMailIfValidFormat = function () {
