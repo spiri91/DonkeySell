@@ -79,3 +79,8 @@
     background-color: #283593;
     transition-duration: 0.5s;
 }
+
+.user-product md-card:hover{
+    background-color: #283593;
+    transition-duration: 0.5s;
+}

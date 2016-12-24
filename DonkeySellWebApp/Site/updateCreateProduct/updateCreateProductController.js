@@ -17,6 +17,7 @@ function updateCreateProductController($scope, productsService, $location, toast
 
     $scope.userName = $scope.$parent.username;
     $scope.productId = $routeParams.productId;
+    $scope.edit = false;
 
     $scope.saveProduct = function () {
         if ($scope.$parent.token) {
@@ -24,18 +25,20 @@ function updateCreateProductController($scope, productsService, $location, toast
 
             productsService.addProduct($scope.product, token)
                 .then(function () {
-                    toastr.success('Product successfully edited!');
+                    let message = $scope.edit === true ? 'Product successfully edited!' : 'Product saved';
+                    toastr.success(message);
                     $location.url('/home');
                 }, function (error) {
                     toastr.error('An error occured!');
                     $scope.doSomethingWithError(error);
                 });
         } else
-            toastr.error('Please logIn first!');
+            toastr.error('Please login first!');
     };
 
     $scope.init = function () {
         if ($scope.productId === '0') {
+            
             $scope.product = new Product();
             $scope.product.userName = $scope.user.userName;
             $scope.product.userMail = $scope.user.email;
@@ -43,6 +46,7 @@ function updateCreateProductController($scope, productsService, $location, toast
             $scope.product.images = [];
             $scope.setCoordinates();
         } else {
+            $scope.edit = true;
             productsService.getProduct($scope.productId).then(function (product) {
                 if (product.data) {
                     $scope.product = product.data;

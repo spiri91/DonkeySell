@@ -27,16 +27,18 @@
         <br/>
         <br/>
         <div class="row">
-            <div class="col-xs-9 col-xs-offset-0 col-sm-6 col-sm-offset-1 centered">
-                <md-input-container class="md-block big-input" flex-gt-sm name="title">
-                    <md-tooltip>Should be between 4 and 20 characters!</md-tooltip>
-                    <label>Product name</label>
-                    <input type="text" ng-model="productName" ng-minlength="4" ng-maxlength="20" required/>
-                </md-input-container>
-            </div>
-            <div class="col-xs-2 centered">
-                <md-button class="md-fab md-primary" ng-disabled="productName.length < 4" ng-click="addNewCustomAlert()"><i class="fa fa-plus"></i><md-tooltip>Add alert</md-tooltip></md-button>
-            </div>
+            <form name="customAlertForm">
+                <div class="col-xs-9 col-xs-offset-0 col-sm-6 col-sm-offset-1 centered">
+                    <md-input-container class="md-block big-input" flex-gt-sm name="title">
+                        <md-tooltip>Should be between 4 and 20 characters!</md-tooltip>
+                        <label>Product name</label>
+                        <input type="text" ng-model="productName" ng-minlength="4" ng-maxlength="20" required />
+                    </md-input-container>
+                </div>
+                <div class="col-xs-2 centered">
+                    <md-button class="md-fab md-primary" ng-disabled="customAlertForm.$invalid" ng-click="addNewCustomAlert()"><i class="fa fa-plus"></i><md-tooltip>Add alert</md-tooltip></md-button>
+                </div>
+            </form>
         </div>
     </div>
     <hr />
