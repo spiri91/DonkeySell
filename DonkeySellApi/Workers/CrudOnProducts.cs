@@ -81,9 +81,9 @@ namespace DonkeySellApi.Workers
             poco.Category = product.Category;
             poco.Title = product.Title;
             poco.Price = product.Price;
-            poco.TradesAccepted = poco.TradesAccepted;
-            poco.Rental = poco.Rental;
-            poco.Free = poco.Free;
+            poco.TradesAccepted = product.TradesAccepted;
+            poco.Rental = product.Rental;
+            poco.Free = product.Free;
             poco.Description = product.Description;
             poco.Images = product.Images;
             poco.MeetingPoint = product.MeetingPoint;

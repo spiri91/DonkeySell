@@ -1,9 +1,7 @@
 ﻿<div class="container-fluid larger-font-size">
     <div class="row">
-        <div class="col-xs-12 col-sm-11 col-sm-offset-1">
-            <h3 class="subtitle centered-xs">{{isEdit? "Edit profile" : "Create profile"}}</h3>
-        </div>
-        <br/>
+        <h3 class="subtitle centered-xs">{{isEdit? "Edit profile" : "Create profile"}}</h3>
+        <br />
         <div class="col-xs-12 col-sm-8 col-sm-offset-2 alert alert-success fade in" ng-if="!isEdit">
             <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
             <p>Chose your username wisely because it can not be change afterwards! :)</p>
@@ -36,7 +34,7 @@
                     </md-input-container>
                     <md-input-container class="md-block" name="confirmPassword">
                         <md-icon><i class="fa fa-circle fa-2x"></i></md-icon>
-                        <input type="password" class="text-input" ng-model="confirmPassword" placeholder="Confirm password" ng-change="checkPasswordValidation()" required ng-model-options="{ updateOn: 'default blur', debounce: { default: 1000, blur: 0 } }"/>
+                        <input type="password" class="text-input" ng-model="confirmPassword" placeholder="Confirm password" ng-change="checkPasswordValidation()" required ng-model-options="{ updateOn: 'default blur', debounce: { default: 1000, blur: 0 } }" />
                     </md-input-container>
                 </form>
             </div>

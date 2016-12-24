@@ -11,6 +11,7 @@ function updateCreateProductController($scope, productsService, $location, toast
     $scope.user = $scope.$parent.user;
     $scope.errors = [];
     $scope.mapReady = false;
+    $scope.loading = false;
 
     $scope.marker = {};
     $scope.map = {};
@@ -21,12 +22,14 @@ function updateCreateProductController($scope, productsService, $location, toast
 
     $scope.saveProduct = function () {
         if ($scope.$parent.token) {
+            $scope.loading = true; 
             let token = $scope.$parent.token;
 
             productsService.addProduct($scope.product, token)
                 .then(function () {
                     let message = $scope.edit === true ? 'Product successfully edited!' : 'Product saved';
                     toastr.success(message);
+                    $scope.loading = false;
                     $location.url('/home');
                 }, function (error) {
                     toastr.error('An error occured!');
@@ -38,7 +41,6 @@ function updateCreateProductController($scope, productsService, $location, toast
 
     $scope.init = function () {
         if ($scope.productId === '0') {
-            
             $scope.product = new Product();
             $scope.product.userName = $scope.user.userName;
             $scope.product.userMail = $scope.user.email;
@@ -47,6 +49,7 @@ function updateCreateProductController($scope, productsService, $location, toast
             $scope.setCoordinates();
         } else {
             $scope.edit = true;
+            $scope.loading = true;
             productsService.getProduct($scope.productId).then(function (product) {
                 if (product.data) {
                     $scope.product = product.data;
@@ -62,6 +65,8 @@ function updateCreateProductController($scope, productsService, $location, toast
             }, function (error) {
                 toastr.error("An error occured");
                 $scope.doSomethingWithError(error);
+            }).finally(() => {
+                $scope.loading = false;
             });
         }
 

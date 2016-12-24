@@ -21,7 +21,7 @@ function advanceSearchController($scope, productsService, $location, othersServi
     $scope.sortBy = $scope.sortOptions[2];
     $scope.loading = false;
 
-    $scope.itemsPerPage = 5;
+    $scope.itemsPerPage = 6;
     $scope.skip = 0;
     $scope.query = "";
     $scope.currentPage = 0;
