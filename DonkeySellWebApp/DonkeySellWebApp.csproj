@@ -380,6 +380,7 @@
     <Content Include="Scripts\search.svg" />
     <Content Include="Scripts\signalr.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="sitemap.xml" />
     <Content Include="Site\about\about.html" />
     <Content Include="Site\advanceSearch\advanceSearch.html" />
     <Content Include="Site\advanceSearch\advanceSearchController.js" />
