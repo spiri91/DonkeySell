@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.OData;
 using AutoMapper;
 using DonkeySellApi.Extra;
 using DonkeySellApi.Models;
@@ -28,6 +29,7 @@ namespace DonkeySellApi.Controllers
             this.throwExceptionToUser = throwExceptionToUser;
         }
 
+        [EnableQuery]
         [Route("")]
         public async Task<IHttpActionResult> Get(int productId)
         {

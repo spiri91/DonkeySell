@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.OData;
 using AutoMapper;
 using DonkeySellApi.Extra;
 using DonkeySellApi.Models.Shared;
@@ -26,6 +27,7 @@ namespace DonkeySellApi.Controllers
             this.throwExceptionToUser = throwExceptionToUser;
         }
 
+        [EnableQuery]
         [HttpGet]
         [Route("")]
         public async Task<IHttpActionResult> GetFavorites(string username)

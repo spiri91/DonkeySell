@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.OData;
 using AutoMapper;
 using DonkeySellApi.Extra;
 using DonkeySellApi.Models.ViewModels;
@@ -30,6 +31,23 @@ namespace DonkeySellApi.Controllers
             this.mailSender = mailSender;
             this.myPasswordGenerator = myPasswordGenerator;
             this.throwExceptionToUser = throwExceptionToUser;
+        }
+
+        [EnableQuery]
+        [Route("")]
+        [HttpGet]
+        public async Task<IHttpActionResult> Get()
+        {
+            try
+            {
+                var users = await crudOnUsers.GetUsers();
+                var viewUsers = Mapper.Map<IEnumerable<ViewUser>>(users);
+                return Ok(viewUsers);
+            }
+            catch (Exception ex)
+            {
+                return throwExceptionToUser.Throw(ex);
+            }
         }
 
         [Route("")]

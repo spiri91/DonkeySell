@@ -29,6 +29,7 @@ namespace DonkeySellApi.Workers
         Task ChangePassword(string username, string oldPassword, string newPassword);
         Task<List<string>> GetUsersLike(string username);
         Task<string> GetUsernameById(string userId);
+        Task<List<DonkeySellUser>> GetUsers();
     }
 
     public class CrudOnUsers : ICrudOnUsers, IDisposable
@@ -224,6 +225,12 @@ namespace DonkeySellApi.Workers
             var username = context.Users.Single(x => x.UserId == userId).UserName;
 
             return username;
+        }
+
+        public async Task<List<DonkeySellUser>> GetUsers()
+        {
+            var users = context.Users.ToList();
+            return users;
         }
 
         public void Dispose()

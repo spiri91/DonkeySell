@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.OData;
 using AutoMapper;
 using DonkeySellApi.Extra;
 using DonkeySellApi.Models.ViewModels;
@@ -23,6 +24,7 @@ namespace DonkeySellApi.Controllers
             this.crudOnUsers = crudOnUsers;
         }
 
+        [EnableQuery]
         [HttpGet]
         [Route("categories")]
         public async Task<IEnumerable<ViewCategory>> GetCategories()
@@ -33,6 +35,7 @@ namespace DonkeySellApi.Controllers
             return viewCategories;
         }
 
+        [EnableQuery]
         [HttpGet]
         [Route("cities")]
         public async Task<IEnumerable<ViewCity>> GetCities()

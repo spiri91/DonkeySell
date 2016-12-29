@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.OData;
 using DonkeySellApi.Extra;
 
 namespace DonkeySellApi.Controllers
@@ -19,6 +20,7 @@ namespace DonkeySellApi.Controllers
             this.throwExceptionToUser = throwExceptionToUser;
         }
 
+        [EnableQuery]
         [HttpGet]
         [Route("")]
         public async Task<IHttpActionResult> GetFriends(string username)
