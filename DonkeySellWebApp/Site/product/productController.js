@@ -121,6 +121,7 @@ function productController($scope, messagesService, productsService, usersServic
         productsService.getProduct($scope.id)
              .then(function (product) {
                  if (product.data) {
+                     productsService.setProductInSessionStorage(product);
                      $scope.product = product.data;
                      $scope.selectedImage = $scope.product.images[0] ? $scope.product.images[0].value : "";
                  }
@@ -214,7 +215,7 @@ function productController($scope, messagesService, productsService, usersServic
         console.log(error);
     }
 
-    $scope.showMeetingPoint = function() {
+    $scope.showMeetingPoint = function () {
         if ($scope.product.meetingPoint) {
             let coordinates = $scope.product.meetingPoint.split(';');
             let lat = coordinates[0];
