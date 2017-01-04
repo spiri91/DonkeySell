@@ -84,3 +84,11 @@
     background-color: #283593;
     transition-duration: 0.5s;
 }
+
+.navbar {
+    border-radius: 0;
+}
+
+.small-border-radius {
+    border-radius: 5px;
+}

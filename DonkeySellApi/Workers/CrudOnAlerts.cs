@@ -18,6 +18,7 @@ namespace DonkeySellApi.Workers
         Task<int> DeleteAlert(int id);
 
         Task<List<string>> GetUsersWithAlertProduct(string productName);
+        Task DeleteAlertsOfUser(string username);
     }
 
     public class CrudOnAlerts:ICrudOnAlerts, IDisposable
@@ -71,6 +72,15 @@ namespace DonkeySellApi.Workers
                     .Select(x => x.User.Email).ToList();
 
             return userThatWhatProduct;
+        }
+
+        public async Task DeleteAlertsOfUser(string username)
+        {
+            var userId = context.Users.Single(x => x.UserName == username).UserId;
+            var alerts = context.Alerts.Where(x => x.UserId == userId).ToList();
+            context.Alerts.RemoveRange(alerts);
+
+            await context.SaveChangesAsync();
         }
 
         public void Dispose()

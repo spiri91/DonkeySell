@@ -41,8 +41,9 @@ namespace DonkeySellApi.Workers
         private ICrudOnFriends crudOnFriends;
         private ICrudOnProducts crudOnProducts;
         private IMailSender mailSender;
+        private ICrudOnAlerts crudOnAlerts;
 
-        public CrudOnUsers(ICrudOnProducts crudOnProducts, IMailSender mailSender, ICrudOnFriends crudOnFriends)
+        public CrudOnUsers(ICrudOnProducts crudOnProducts, IMailSender mailSender, ICrudOnFriends crudOnFriends, ICrudOnAlerts crudOnAlerts)
         {
             context = new DonkeySellContext();
             userManager = new UserManager<DonkeySellUser>(new UserStore<DonkeySellUser>(context));
@@ -50,6 +51,7 @@ namespace DonkeySellApi.Workers
             this.crudOnProducts = crudOnProducts;
             this.mailSender = mailSender;
             this.crudOnFriends = crudOnFriends;
+            this.crudOnAlerts = crudOnAlerts;
         }
 
         public async Task<DonkeySellUser> CreateOrUpdateUser(ViewUser viewUser)
@@ -122,6 +124,7 @@ namespace DonkeySellApi.Workers
             var user = context.Users.Single(x => x.UserName == username);
             await crudOnProducts.DeleteAllProductsOfUser(username);
             await crudOnFriends.DeleteUserFromListOfFriends(username);
+            await crudOnAlerts.DeleteAlertsOfUser(username);
             await userManager.DeleteAsync(user);
 
             return user.Id;

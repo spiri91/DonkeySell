@@ -66,6 +66,8 @@ namespace DonkeySellApi.Workers
 
             product.DatePublished = DateTime.Now;
             product.UserId = context.Users.Single(x => x.UserName == product.UserName).UserId;
+            context.Cities.Attach(context.Cities.Single(x => x.Id == product.CityId));
+            context.Categories.Attach(context.Categories.Single(x => x.Id == product.CategoryId));
             context.Products.Add(product);
             await context.SaveChangesAsync();
 
@@ -77,8 +79,11 @@ namespace DonkeySellApi.Workers
             var poco = context.Products.Single(x => x.Id == product.Id);
             await ClearProductOfImages(product.Id);
 
-            poco.City = product.City;
-            poco.Category = product.Category;
+            context.Cities.Attach(context.Cities.Single(x => x.Id == product.CityId));
+            context.Categories.Attach(context.Categories.Single(x => x.Id == product.CategoryId));
+
+            poco.CategoryId = product.CategoryId;
+            poco.CityId = product.CityId;
             poco.Title = product.Title;
             poco.Price = product.Price;
             poco.TradesAccepted = product.TradesAccepted;

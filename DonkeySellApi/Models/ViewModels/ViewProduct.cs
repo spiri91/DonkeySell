@@ -20,12 +20,12 @@ namespace DonkeySellApi.Models.ViewModels
         [Required]
         public int CategoryId { get; set; }
 
-        public ViewCategory Category { get; set; }
+        public virtual Category Category { get; set; }
 
         [Required]
         public int CityId { get; set; }
 
-        public ViewCity City { get; set; }
+        public virtual City City { get; set; }
 
         public virtual ICollection<Image> Images { get; set; }
 

@@ -5,6 +5,8 @@ using System.Web.Http;
 using System.Web.Http.OData;
 using AutoMapper;
 using DonkeySellApi.Extra;
+using DonkeySellApi.Models;
+using DonkeySellApi.Models.DatabaseModels;
 using DonkeySellApi.Models.ViewModels;
 using DonkeySellApi.Workers;
 
@@ -27,23 +29,21 @@ namespace DonkeySellApi.Controllers
         [EnableQuery]
         [HttpGet]
         [Route("categories")]
-        public async Task<IEnumerable<ViewCategory>> GetCategories()
+        public async Task<IEnumerable<Category>> GetCategories()
         {
             var categories = await getCitiesAndCategories.GetCategories();
-            var viewCategories = Mapper.Map<IEnumerable<ViewCategory>>(categories);
 
-            return viewCategories;
+            return categories;
         }
 
         [EnableQuery]
         [HttpGet]
         [Route("cities")]
-        public async Task<IEnumerable<ViewCity>> GetCities()
+        public async Task<IEnumerable<City>> GetCities()
         {
             var cities = await getCitiesAndCategories.GetCities();
-            var viewCities = Mapper.Map<IEnumerable<ViewCity>>(cities);
 
-            return viewCities;
+            return cities;
         }
 
         [HttpGet]

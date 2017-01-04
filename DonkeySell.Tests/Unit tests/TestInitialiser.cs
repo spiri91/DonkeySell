@@ -20,8 +20,6 @@ namespace DonkeySell.Tests.Unit_tests
                 cfg.CreateMap<Product, ViewProduct>().ReverseMap();
                 cfg.CreateMap<DonkeySellUser, ViewUser>().ForMember(x => x.Password, y => y.Ignore()).ReverseMap();
                 cfg.CreateMap<Message, ViewMessage>().ReverseMap();
-                cfg.CreateMap<Category, ViewCategory>().ReverseMap();
-                cfg.CreateMap<City, ViewCity>().ReverseMap();
                 cfg.CreateMap<UsersFavoriteProducts, ViewUsersFavoriteProducts>().ReverseMap();
                 cfg.CreateMap<Alert, ViewAlert>().ReverseMap();
             });
@@ -34,7 +32,7 @@ namespace DonkeySell.Tests.Unit_tests
             var user = new ViewUser()
             {
                 Address = "Bujoreni nr 14",
-                Email = "spataru.ionut91@yahoo.com",
+                Email = "spataru.ionut@yahoo.com",
                 UserName = "LittleDonkey",
                 Password = "Super9108"
             };

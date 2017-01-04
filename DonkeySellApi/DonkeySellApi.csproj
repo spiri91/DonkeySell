@@ -346,11 +346,19 @@
     <Compile Include="Migrations\201612160917243_addedAlertsAndMeetingPoints.Designer.cs">
       <DependentUpon>201612160917243_addedAlertsAndMeetingPoints.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701031427238_removedProductsFromCityAndCategories.cs" />
+    <Compile Include="Migrations\201701031427238_removedProductsFromCityAndCategories.Designer.cs">
+      <DependentUpon>201701031427238_removedProductsFromCityAndCategories.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701031515094_removedCitiesAndCategoriesFromProduct.cs" />
+    <Compile Include="Migrations\201701031515094_removedCitiesAndCategoriesFromProduct.Designer.cs">
+      <DependentUpon>201701031515094_removedCitiesAndCategoriesFromProduct.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\DatabaseModels\Category.cs" />
-    <Compile Include="Models\DatabaseModels\City.cs" />
+    <Compile Include="Models\Shared\Category.cs" />
+    <Compile Include="Models\Shared\City.cs" />
     <Compile Include="Models\DatabaseModels\Improvement.cs" />
     <Compile Include="Models\DatabaseModels\Alert.cs" />
     <Compile Include="Models\Shared\Friend.cs" />
@@ -363,8 +371,6 @@
     <Compile Include="Models\DatabaseModels\UsersFavoriteProducts.cs" />
     <Compile Include="Models\ViewModels\ResetPassword.cs" />
     <Compile Include="Models\ViewModels\ViewAlert.cs" />
-    <Compile Include="Models\ViewModels\ViewCategory.cs" />
-    <Compile Include="Models\ViewModels\ViewCity.cs" />
     <Compile Include="Models\ViewModels\ViewUsersFavoriteProducts.cs" />
     <Compile Include="Models\ViewModels\ViewMessage.cs" />
     <Compile Include="Models\ViewModels\ViewProduct.cs" />
@@ -488,6 +494,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612160917243_addedAlertsAndMeetingPoints.resx">
       <DependentUpon>201612160917243_addedAlertsAndMeetingPoints.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701031427238_removedProductsFromCityAndCategories.resx">
+      <DependentUpon>201701031427238_removedProductsFromCityAndCategories.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701031515094_removedCitiesAndCategoriesFromProduct.resx">
+      <DependentUpon>201701031515094_removedCitiesAndCategoriesFromProduct.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

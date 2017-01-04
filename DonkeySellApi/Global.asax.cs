@@ -37,8 +37,6 @@ namespace DonkeySellApi
         {
             Mapper.Initialize(cfg =>
             {
-                cfg.CreateMap<City, ViewCity>().ReverseMap();
-                cfg.CreateMap<Category, ViewCategory>().ReverseMap();
                 cfg.CreateMap<Product, ViewProduct>().ReverseMap();
                 cfg.CreateMap<DonkeySellUser, ViewUser>().ForMember(x => x.Password, y => y.Ignore()).ReverseMap();
                 cfg.CreateMap<Message, ViewMessage>().ReverseMap();

@@ -152,7 +152,7 @@ function productController($scope, messagesService, productsService, usersServic
             return;
         }
 
-        if ($scope.$parent.favorites.indexOf($scope.product) >= 0) {
+        if ($scope.$parent.favorites.filter(function (x) { return x.id === $scope.product.id }).length > 0) {
             toastr.error('This product is allready added!');
             return;
         }
