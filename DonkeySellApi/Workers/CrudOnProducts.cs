@@ -138,7 +138,9 @@ namespace DonkeySellApi.Workers
             pocos.ForEach(async p =>
             {
                 await crudOnMessages.DeleteAllMessagesForProduct(p.Id);
+                await DeleteImagesOfProduct(p.Images.ToList());
                 await DeleteProductFromFavorites(p.Id);
+
                 context.Products.Remove(p);
             });
 

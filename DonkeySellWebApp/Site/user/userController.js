@@ -66,8 +66,8 @@ function userController($scope, usersService, productsService, $location, $route
 
         $mdDialog.show(confirm)
             .then(function() {
-                usersService.deleteUser($scope.username, usersService.getToken())
-                    .then(function () {
+                usersService.deleteUser($scope.username, $scope.$parent.token)
+                    .then(function() {
                         $scope.$parent.logout();
                         $location.url('/home');
                         toastr.success('User deleted!');

@@ -7,6 +7,7 @@ function changePasswordController($scope, $uibModalInstance, usersService, $rout
     $scope.confirmPassword = "";
     $scope.showError = false;
     $scope.showPasswordConfirmationError = false;
+    $scope.loading = false;
 
     $scope.checkPassword = function () {
         let passwordIsValidRegExp = new RegExp(/^([a-zA-Z0-9_-]){8,16}$/);
@@ -14,23 +15,27 @@ function changePasswordController($scope, $uibModalInstance, usersService, $rout
         $scope.showError = passwordIsValid === null ? true : false;
     }
 
-    $scope.changePassword = function() {
+    $scope.changePassword = function () {
+        $scope.loading = true;
         let resetPasswordModel = new ResetPassword($scope.oldPassword, $scope.newPassword);
         usersService.changePassword($scope.username, resetPasswordModel)
             .then(function () {
                 toastr.success('Password was changed!');
                 $scope.cancel();
-            }, function() {
+            }, function () {
                 toastr.error("Change password failed!");
+            })
+        .finally(function () {
+                $scope.loading = false;
             });
 
     };
 
-    $scope.checkPasswordConfirmation = function() {
+    $scope.checkPasswordConfirmation = function () {
         $scope.showPasswordConfirmationError = $scope.newPassword === $scope.confirmPassword ? false : true;
     }
 
-    $scope.cancel = function() {
+    $scope.cancel = function () {
         $uibModalInstance.close();
     }
 };

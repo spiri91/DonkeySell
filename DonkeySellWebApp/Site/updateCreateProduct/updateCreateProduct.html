@@ -38,27 +38,21 @@
                         <div class="col-sm-6">
                             <md-input-container class="md-block" flex-gt-sm name="category">
                                 <label>Category</label>
-                                <md-select ng-model="product.categoryId" required>
+                                <md-select ng-model="product.categoryId" ng-required>
                                     <md-option ng-repeat="category in categories" value="{{category.id}}">
                                         {{category.name}}
                                     </md-option>
                                 </md-select>
-                                <div ng-messages="newProductForm.category.$error">
-                                    <div ng-message="required">Category required.</div>
-                                </div>
                             </md-input-container>
                         </div>
                         <div class="col-sm-6">
                             <md-input-container class="md-block" flex-gt-sm name="city">
                                 <label>City</label>
-                                <md-select ng-model="product.cityId" required>
+                                <md-select ng-model="product.cityId" ng-required>
                                     <md-option ng-repeat="city in cities" value="{{city.id}}">
                                         {{city.name}}
                                     </md-option>
                                 </md-select>
-                                <div ng-messages="newProductForm.city.$error">
-                                    <div ng-message="required">City required.</div>
-                                </div>
                             </md-input-container>
                         </div>
                     </div>

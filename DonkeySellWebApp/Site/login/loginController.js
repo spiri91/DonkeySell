@@ -6,6 +6,7 @@ function loginController($scope, $uibModalInstance, usersService, toastr, storag
     $scope.rememberCredentials = false;
     $scope.mailSent = false;
     $scope.isLoading = false;
+    $scope.error = false;
 
     var passwordCacheName = "password";
     var usernameCacheName = "username";
@@ -56,15 +57,20 @@ function loginController($scope, $uibModalInstance, usersService, toastr, storag
     };
 
     $scope.resetPassword = function () {
-        if ($scope.username)
+        if ($scope.username) {
+            $scope.isLoading = true;
             usersService.resetPassword($scope.username)
                 .then(function () {
                     $scope.mailSent = true;
+                    $scope.error = false;
                 },
                     function (error) {
                         console.log(error);
                         toastr.error('Reset password failed! :(');
-                    });
+                    }).finally(function () { $scope.isLoading = false; });
+        } else {
+            $scope.error = true;
+        }
     };
 
     $scope.register = function () {

@@ -12,12 +12,18 @@ function editRegisterController($scope, usersService, toastr, $location, othersS
     $scope.checking = false;
 
     $scope.extraCheck = function () {
+        let promisses = [];
+
+        if ($scope.isEdit === false) {
+            promisses.push($scope.checkEmail());
+            promisses.push($scope.checkUsername());
+        }
+
         $scope.checkAddress();
-        $scope.checkEmail();
         $scope.checkPassword();
-        $scope.checkUsername();
         $scope.checkPasswordValidation();
-        return $q.all([$scope.checkEmail(), $scope.checkUsername()]);
+
+        return $q.all(promisses);
     }
 
     $scope.register = function () {

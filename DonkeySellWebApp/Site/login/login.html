@@ -46,6 +46,11 @@
                 <p>Check your mail for the new password.&nbsp;<i class="fa fa-smile-o"></i>
                 </p>
             </div>
+            <div ng-show="error" class="alert alert-warning">
+                <p>
+                    Username not present or incorect<i class="fa fa-smile-o"></i>
+                </p>
+            </div>
             <br/>
         </div>
         <div ng-show="isLoading" class="row">

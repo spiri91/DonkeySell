@@ -9,7 +9,7 @@ function advanceSearchController($scope, productsService, $location, othersServi
     $scope.categories = [];
     $scope.selectedCategoryId = {};
     $scope.selectedCityId = {};
-    $scope.minPrice = 100;
+    $scope.minPrice = 0;
     $scope.maxPrice = 500;
     $scope.minDate = new Date();
     $scope.maxDate = new Date();
