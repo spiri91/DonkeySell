@@ -33,7 +33,7 @@ function chatController($scope, storageService, othersService, friendsService, $
                     $scope.connectError = true;
                 });
             });
-    }, 10000);
+    }, 5000);
     $scope.chatHub = $.connection.chatHub;
     // finished initialization
 
@@ -64,7 +64,7 @@ function chatController($scope, storageService, othersService, friendsService, $
     };
 
     $scope.addToFriends = function (user) {
-        if (user !== $scope.$parent.username && ($.inArray(user, $scope.friends) === -1)) {
+        if (user !== $scope.$parent.username && ($scope.friends.filter((x) => x.userId === user.userId)).length === 0) {
             let token = storageService.get('token');
             friendsService.postFriend($scope.$parent.username, user, token)
                 .then(function () {

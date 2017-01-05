@@ -1,5 +1,5 @@
 ﻿app.controller('userController', ['$scope', 'usersService', 'productsService', '$location',
-    '$routeParams', 'toastr', '$mdDialog', 'favoritesService', '$uibModal', '$rootScope', 'userStateService', 'productNavigationService','$q', userController]);
+    '$routeParams', 'toastr', '$mdDialog', 'favoritesService', '$uibModal', '$rootScope', 'userStateService', 'productNavigationService', '$q', userController]);
 
 function userController($scope, usersService, productsService, $location, $routeParams, toastr, $mdDialog, favoritesService,
     $uibModal, $rootScope, userStateService, productNavigationService, $q) {
@@ -19,7 +19,7 @@ function userController($scope, usersService, productsService, $location, $route
         }
     };
 
-    $scope.getLastState = function() {
+    $scope.getLastState = function () {
         let state = userStateService.get();
 
         $scope.username = state.username;
@@ -28,7 +28,7 @@ function userController($scope, usersService, productsService, $location, $route
         $scope.products = state.products;
     };
 
-    $scope.setState = function() {
+    $scope.setState = function () {
         let state = {};
         state.username = $scope.username;
         state.showEditButtons = $scope.showEditButtons;
@@ -38,24 +38,24 @@ function userController($scope, usersService, productsService, $location, $route
         userStateService.set(state);
     }
 
-    $scope.getUsersProducts = function() {
-       return productsService.getProductsOfUser($scope.username)
-           .then(function (products) {
-               if (products.data)
-                   $scope.products = products.data;
-           }, function (error) {
-               $scope.doSomethingWithError(error);
-           });
-    }
-
-    $scope.getUser = function() {
-       return usersService.getUser($scope.username)
-            .then(function (user) {
-                if (user.data)
-                    $scope.user = user.data;
+    $scope.getUsersProducts = function () {
+        return productsService.getProductsOfUser($scope.username)
+            .then(function (products) {
+                if (products.data)
+                    $scope.products = products.data;
             }, function (error) {
                 $scope.doSomethingWithError(error);
             });
+    }
+
+    $scope.getUser = function () {
+        return usersService.getUser($scope.username)
+             .then(function (user) {
+                 if (user.data)
+                     $scope.user = user.data;
+             }, function (error) {
+                 $scope.doSomethingWithError(error);
+             });
     };
 
     $scope.deleteUser = function () {
@@ -65,13 +65,13 @@ function userController($scope, usersService, productsService, $location, $route
          .cancel('No!');
 
         $mdDialog.show(confirm)
-            .then(function() {
+            .then(function () {
                 usersService.deleteUser($scope.username, $scope.$parent.token)
-                    .then(function() {
+                    .then(function () {
                         $scope.$parent.logout();
                         $location.url('/home');
                         toastr.success('User deleted!');
-                    }, function(error) {
+                    }, function (error) {
                         $scope.doSomethingWithError(error);
                     });
             });
@@ -85,14 +85,14 @@ function userController($scope, usersService, productsService, $location, $route
           .cancel('No!');
 
         $mdDialog.show(confirm)
-            .then(function() {
+            .then(function () {
                 productsService.deleteProduct(id, usersService.getToken())
                     .then(function () {
                         let product = $scope.products.filter(function (x) { return x.id === id; })[0];
                         let index = $scope.products.indexOf(product);
                         $scope.products.splice(index, 1);
                         toastr.success('Product deleted!');
-                    }, function(error) {
+                    }, function (error) {
                         $scope.doSomethingWithError(error);
                     });
             });
@@ -115,20 +115,22 @@ function userController($scope, usersService, productsService, $location, $route
             toastr.error('Please login first!');
             return;
         }
-        
+
         if ($scope.productAllreadyInFav(product.id)) {
             toastr.error('This product is allready added!');
             return;
         }
 
         favoritesService.postProductToFavorites($scope.$parent.user.userName, $scope.$parent.token, product.id)
-            .then(function () {
-                $scope.$parent.favorites.push(product);
-                toastr.success('Product added to Favorites!');
-            }, $scope.doSomethingWithError(error));
+                   .then(function () {
+                       $scope.$parent.favorites.push(product);
+                       toastr.success('Product added to Favorites!');
+                   }, function (error) {
+                       console.log(error);
+                   });
     };
 
-    $scope.productAllreadyInFav = function(id) {
+    $scope.productAllreadyInFav = function (id) {
         let prod = $scope.$parent.favorites.filter(function (x) { return x.id === id });
         if (prod.length > 0)
             return true;
@@ -136,28 +138,28 @@ function userController($scope, usersService, productsService, $location, $route
         return false;
     }
 
-    $scope.changePassword = function() {
+    $scope.changePassword = function () {
         var modalInstance = $uibModal.open({
-                animation:true,
-                templateUrl: 'Site/changePassword/changePassword.html',
-                controller: 'changePasswordController',
-                resolve: {
-                    username: function (){return $scope.username}
-                }
-            });
+            animation: true,
+            templateUrl: 'Site/changePassword/changePassword.html',
+            controller: 'changePasswordController',
+            resolve: {
+                username: function () { return $scope.username }
+            }
+        });
 
-            modalInstance.result.then(function () {
-                $scope.init();
-            });
+        modalInstance.result.then(function () {
+            $scope.init();
+        });
     };
 
-    $scope.editProduct = function(productId, $event) {
+    $scope.editProduct = function (productId, $event) {
         $event.stopPropagation();
         $scope.setState();
         $location.url('/updateCreateProduct/' + productId);
     };
 
-    $scope.doSomethingWithError = function(error) {
+    $scope.doSomethingWithError = function (error) {
         console.log(error);
     }
 
