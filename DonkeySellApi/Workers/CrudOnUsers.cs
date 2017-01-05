@@ -43,9 +43,9 @@ namespace DonkeySellApi.Workers
         private IMailSender mailSender;
         private ICrudOnAlerts crudOnAlerts;
 
-        public CrudOnUsers(ICrudOnProducts crudOnProducts, IMailSender mailSender, ICrudOnFriends crudOnFriends, ICrudOnAlerts crudOnAlerts)
+        public CrudOnUsers(ICrudOnProducts crudOnProducts, IMailSender mailSender, ICrudOnFriends crudOnFriends, ICrudOnAlerts crudOnAlerts, DonkeySellContext context)
         {
-            context = new DonkeySellContext();
+            this.context = context;
             userManager = new UserManager<DonkeySellUser>(new UserStore<DonkeySellUser>(context));
             roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
             this.crudOnProducts = crudOnProducts;

@@ -26,9 +26,9 @@ namespace DonkeySellApi.Workers
     {
         private DonkeySellContext context;
 
-        public CrudOnFriends()
+        public CrudOnFriends(DonkeySellContext context)
         {
-            context = new DonkeySellContext();
+            this.context = context;
         }
 
         public async Task<List<string>> GetFriendsOfUser(string username)
@@ -70,7 +70,7 @@ namespace DonkeySellApi.Workers
 
         public async Task DeleteUserFromListOfFriends(string username)
         {
-            if(!context.Users.Any(x => x.UserName == username))
+            if (!context.Users.Any(x => x.UserName == username))
                 throw new ObjectNotFoundException();
 
             var listOfFriends = context.Friends.Where(x => x.Username == username || x.FriendUser == username).ToList();
@@ -80,7 +80,7 @@ namespace DonkeySellApi.Workers
 
         public async Task<List<string>> GetUsersOfFriend(string friend)
         {
-            if(!context.Users.Any(x => x.UserName == friend))
+            if (!context.Users.Any(x => x.UserName == friend))
                 throw new ObjectNotFoundException();
 
             var listOfUsers = context.Friends.Where(x => x.FriendUser == friend).Select(x => x.Username).ToList();

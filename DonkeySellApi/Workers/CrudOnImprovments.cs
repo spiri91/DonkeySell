@@ -18,9 +18,9 @@ namespace DonkeySellApi.Workers
     {
         private DonkeySellContext context;
 
-        public CrudOnImprovements()
+        public CrudOnImprovements(DonkeySellContext context)
         {
-            context = new DonkeySellContext();
+            this.context = context;
         }
 
         public async Task AddImprovement(Improvement improvement)

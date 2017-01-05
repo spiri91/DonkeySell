@@ -17,9 +17,9 @@ namespace DonkeySellApi.Workers
     {
         private DonkeySellContext context;
 
-        public GetCitiesAndCategories()
+        public GetCitiesAndCategories(DonkeySellContext context)
         {
-            this.context = new DonkeySellContext();
+            this.context = context;
         }
 
         public async Task<List<Category>> GetCategories()

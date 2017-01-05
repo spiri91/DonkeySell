@@ -18,6 +18,7 @@ namespace DonkeySellApi.Workers
         Task<int> DeleteAlert(int id);
 
         Task<List<string>> GetUsersWithAlertProduct(string productName);
+
         Task DeleteAlertsOfUser(string username);
     }
 
@@ -25,9 +26,9 @@ namespace DonkeySellApi.Workers
     {
         private DonkeySellContext context;
 
-        public CrudOnAlerts()
+        public CrudOnAlerts(DonkeySellContext context)
         {
-            context = new DonkeySellContext();
+            this.context = context;
         }
 
         public async Task<List<Alert>> GetAlerts(string username)

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity;
 using System.Data.Entity.Core;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Helpers;
+using DonkeySellApi.Extra;
 using DonkeySellApi.Models;
 using DonkeySellApi.Models.DatabaseModels;
 using DonkeySellApi.Models.Wrapers;
@@ -26,9 +28,10 @@ namespace DonkeySellApi.Workers
     {
         private DonkeySellContext context;
         private ICrudOnMessages crudOnMessages;
-        public CrudOnProducts(ICrudOnMessages crudOnMessages)
+
+        public CrudOnProducts(ICrudOnMessages crudOnMessages, DonkeySellContext context)
         {
-            context = new DonkeySellContext();
+            this.context = context;
             this.crudOnMessages = crudOnMessages;
         }
 

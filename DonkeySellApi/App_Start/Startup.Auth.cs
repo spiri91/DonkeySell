@@ -51,7 +51,7 @@ namespace DonkeySellApi
             app.UseOAuthBearerTokens(OAuthOptions);
 
             GlobalHost.DependencyResolver.Register(typeof(ChatHub),
-            () => new ChatHub(new ChatHelpers.ChatHelpers(new CrudOnFriends())));
+            () => new ChatHub(new ChatHelpers.ChatHelpers(new CrudOnFriends(new DonkeySellContext()))));
 
             app.Map("/signalr", map =>
             {

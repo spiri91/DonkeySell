@@ -25,9 +25,9 @@ namespace DonkeySellApi.Extra
     {
         private DonkeySellContext context;
 
-        public Authorization()
+        public Authorization(DonkeySellContext context)
         {
-            context = new DonkeySellContext();
+            this.context = context;
         }
 
         public async Task<bool> UserIsHimself(string currentUserName, string username)

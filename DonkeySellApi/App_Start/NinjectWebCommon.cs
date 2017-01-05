@@ -1,5 +1,8 @@
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using DonkeySellApi.ChatHelpers;
 using DonkeySellApi.Extra;
+using DonkeySellApi.Models;
 using DonkeySellApi.Workers;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(DonkeySellApi.App_Start.NinjectWebCommon), "Start")]
@@ -80,6 +83,7 @@ namespace DonkeySellApi.App_Start
             kernel.Bind<IChatHelpers>().To<ChatHelpers.ChatHelpers>();
             kernel.Bind<ICrudOnImprovements>().To<CrudOnImprovements>();
             kernel.Bind<ICrudOnAlerts>().To<CrudOnAlerts>();
+            kernel.Bind<DonkeySellContext>().To<DonkeySellContext>().InRequestScope();
         }        
     }
 }

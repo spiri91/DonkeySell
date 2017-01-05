@@ -28,9 +28,9 @@ namespace DonkeySellApi.Workers
     {
         private DonkeySellContext context;
 
-        public CrudOnMessages()
+        public CrudOnMessages(DonkeySellContext context)
         {
-            context = new DonkeySellContext();
+            this.context = context;
         }
 
         public async Task<List<Message>> GetMessages(int productId)

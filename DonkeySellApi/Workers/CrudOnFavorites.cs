@@ -27,9 +27,9 @@ namespace DonkeySellApi.Workers
         private DonkeySellContext context;
         private ICrudOnProducts crudOnProducts;
 
-        public CrudOnFavorites(ICrudOnProducts crudOnProducts)
+        public CrudOnFavorites(ICrudOnProducts crudOnProducts, DonkeySellContext context)
         {
-            context = new DonkeySellContext();
+            this.context = context;
             this.crudOnProducts = crudOnProducts;
         }
 

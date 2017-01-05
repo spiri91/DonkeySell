@@ -1,4 +1,5 @@
 ﻿using DonkeySellApi.Extra;
+using DonkeySellApi.Models;
 using DonkeySellApi.Workers;
 using Ninject;
 
@@ -21,6 +22,7 @@ namespace DonkeySell.Tests.Unit_tests
             kernel.Bind<IMyPasswordGenerator>().To<MyPasswordGenerator>();
             kernel.Bind<ICrudOnFriends>().To<CrudOnFriends>();
             kernel.Bind<ICrudOnAlerts>().To<CrudOnAlerts>();
+            kernel.Bind<DonkeySellContext>().To<DonkeySellContext>();
         }
     }
 }
